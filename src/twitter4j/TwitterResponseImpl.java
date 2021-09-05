@@ -16,37 +16,37 @@
 
 package twitter4j;
 
-
 /**
- * Super interface of Twitter Response data interfaces which indicates that rate limit status is available.
+ * Super interface of Twitter Response data interfaces which indicates that rate
+ * limit status is available.
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @see twitter4j.DirectMessage
  * @see twitter4j.Status
  * @see twitter4j.User
  */
-/*package*/ abstract class TwitterResponseImpl implements TwitterResponse, java.io.Serializable {
+/* package */ abstract class TwitterResponseImpl implements TwitterResponse, java.io.Serializable {
 
-    private static final long serialVersionUID = 7422171124869859808L;
-    private transient RateLimitStatus rateLimitStatus = null;
-    private final transient int accessLevel;
+	private static final long serialVersionUID = 7422171124869859808L;
+	private transient RateLimitStatus rateLimitStatus = null;
+	private final transient int accessLevel;
 
-    public TwitterResponseImpl() {
-        accessLevel = NONE;
-    }
+	public TwitterResponseImpl() {
+		accessLevel = NONE;
+	}
 
-    public TwitterResponseImpl(HttpResponse res) {
-        this.rateLimitStatus = RateLimitStatusJSONImpl.createFromResponseHeader(res);
-        accessLevel = ParseUtil.toAccessLevel(res);
-    }
+	public TwitterResponseImpl(HttpResponse res) {
+		this.rateLimitStatus = RateLimitStatusJSONImpl.createFromResponseHeader(res);
+		accessLevel = ParseUtil.toAccessLevel(res);
+	}
 
-    @Override
-    public RateLimitStatus getRateLimitStatus() {
-        return rateLimitStatus;
-    }
+	@Override
+	public RateLimitStatus getRateLimitStatus() {
+		return rateLimitStatus;
+	}
 
-    @Override
-    public int getAccessLevel() {
-        return accessLevel;
-    }
+	@Override
+	public int getAccessLevel() {
+		return accessLevel;
+	}
 }

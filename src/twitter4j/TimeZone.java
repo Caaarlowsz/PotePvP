@@ -20,9 +20,9 @@ package twitter4j;
  * @author Alessandro Bahgat - ale.bahgat at gmail.com
  */
 public interface TimeZone extends java.io.Serializable {
-    String getName();
+	String getName();
 
-    String tzinfoName();
+	String tzinfoName();
 
-    int utcOffset();
+	int utcOffset();
 }

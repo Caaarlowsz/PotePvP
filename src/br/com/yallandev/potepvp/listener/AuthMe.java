@@ -38,7 +38,8 @@ public class AuthMe implements Listener {
 			}
 		}
 
-		PlayerCheckEvent checkEvent = new PlayerCheckEvent(event.getPlayer(), BukkitMain.getStorage().getState(event.getPlayer().getName()));
+		PlayerCheckEvent checkEvent = new PlayerCheckEvent(event.getPlayer(),
+				BukkitMain.getStorage().getState(event.getPlayer().getName()));
 		BukkitMain.getPlugin().getServer().getPluginManager().callEvent(checkEvent);
 	}
 
@@ -70,7 +71,7 @@ public class AuthMe implements Listener {
 			} else {
 				getLoginMap().put(event.getPlayer(), LoginType.REGISTER);
 			}
-			
+
 			BukkitMain.getStorage().addNeedLogin(event.getPlayer().getName());
 		} else if (event.isPremium()) {
 			if (!BukkitMain.getSqlManager().hasOnDatabase(event.getPlayer().getName())) {
@@ -84,7 +85,7 @@ public class AuthMe implements Listener {
 	@EventHandler
 	private void onPlayerLogin2(PlayerLoginEvent event) {
 		if (event.getPlayer().getName().length() > 16) {
-			event.disallow(Result.KICK_OTHER, "§c§lBURN MC\n§cSeu nome é muito grande!");
+			event.disallow(Result.KICK_OTHER, "ï¿½cï¿½lBURN MC\nï¿½cSeu nome ï¿½ muito grande!");
 		}
 	}
 
@@ -143,30 +144,31 @@ public class AuthMe implements Listener {
 			event.setCancelled(true);
 		}
 	}
-	
+
 	@EventHandler
 	public void onRealMove(RealMoveEvent event) {
 		if (!BukkitMain.getStorage().needLogin(event.getPlayer().getName()))
 			return;
-		
+
 		Player p = event.getPlayer();
 		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
-		
+
 		if (player == null)
 			return;
-		
-		player.sendTimerMessage("§fUse /login (Senha) para se logar!");
-		player.sendTimerMessage("§fUse /register (Senha) (Senha) para se registrar!");
+
+		player.sendTimerMessage("ï¿½fUse /login (Senha) para se logar!");
+		player.sendTimerMessage("ï¿½fUse /register (Senha) (Senha) para se registrar!");
 	}
-	
+
 	@EventHandler
 	private void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
 		if (BukkitMain.getStorage().needLogin(event.getPlayer().getName())) {
-			if (event.getMessage().toLowerCase().startsWith("/register") || event.getMessage().toLowerCase().startsWith("/login")) {
+			if (event.getMessage().toLowerCase().startsWith("/register")
+					|| event.getMessage().toLowerCase().startsWith("/login")) {
 				event.setCancelled(false);
 			} else {
 				event.setCancelled(true);
-				event.getPlayer().sendMessage("Você só pode usar comandos após se logar!");
+				event.getPlayer().sendMessage("Vocï¿½ sï¿½ pode usar comandos apï¿½s se logar!");
 			}
 		}
 	}

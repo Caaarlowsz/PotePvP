@@ -23,17 +23,17 @@ import java.util.Map;
  * @since Twitter4J 2.2.3
  */
 public interface TwitterAPIConfiguration extends TwitterResponse, Serializable {
-    int getPhotoSizeLimit();
+	int getPhotoSizeLimit();
 
-    int getShortURLLength();
+	int getShortURLLength();
 
-    int getShortURLLengthHttps();
+	int getShortURLLengthHttps();
 
-    int getCharactersReservedPerMedia();
+	int getCharactersReservedPerMedia();
 
-    Map<Integer, MediaEntity.Size> getPhotoSizes();
+	Map<Integer, MediaEntity.Size> getPhotoSizes();
 
-    String[] getNonUsernamePaths();
+	String[] getNonUsernamePaths();
 
-    int getMaxMediaPerUpload();
+	int getMaxMediaPerUpload();
 }

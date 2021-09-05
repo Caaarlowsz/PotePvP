@@ -15,11 +15,11 @@
  */
 package twitter4j.util.function;
 
-
 /**
  * Functional interface for handling TwitterExceptions
+ * 
  * @since Twitter4J 4.0.4
  */
 public interface Consumer<T> {
-    void accept(T t);
+	void accept(T t);
 }

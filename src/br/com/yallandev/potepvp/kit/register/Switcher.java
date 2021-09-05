@@ -18,28 +18,30 @@ import br.com.yallandev.potepvp.utils.ItemManager;
 public class Switcher extends Kit {
 
 	public Switcher() {
-		super("Switcher", Material.SNOW_BALL, 18000, Arrays.asList(new ItemManager(Material.SNOW_BALL, "§aSwitcher").build()), Arrays.asList("§fUse seu avatar para", "§fpara controlar todos os", "§felementos ar, terra, agua e fogo."));
+		super("Switcher", Material.SNOW_BALL, 18000,
+				Arrays.asList(new ItemManager(Material.SNOW_BALL, "ï¿½aSwitcher").build()), Arrays.asList(
+						"ï¿½fUse seu avatar para", "ï¿½fpara controlar todos os", "ï¿½felementos ar, terra, agua e fogo."));
 	}
 
 	@EventHandler
 	public void onLaunch(ProjectileLaunchEvent e) {
 		if (!(e.getEntity() instanceof Snowball))
 			return;
-		
+
 		if (!hasKit((Player) e.getEntity().getShooter()))
 			return;
-		
+
 		if (e.getEntity().getShooter() instanceof Player) {
 			Player p = (Player) e.getEntity().getShooter();
-			
+
 			e.setCancelled(true);
-			
+
 			if (isCooldown(p)) {
 				p.getInventory().addItem(new ItemStack(Material.SNOW_BALL));
 				cooldownMessage(p);
 				return;
 			}
-			
+
 			e.getEntity().setMetadata("switch", new FixedMetadataValue(main, p));
 			e.getEntity().setVelocity(e.getEntity().getVelocity().multiply(1.5D));
 			setCooldown(p, System.currentTimeMillis() + 3000l);

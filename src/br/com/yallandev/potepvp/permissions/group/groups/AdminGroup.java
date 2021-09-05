@@ -8,7 +8,7 @@ public class AdminGroup extends GroupInterface {
 	@Override
 	public List<String> getPermissions() {
 		List<String> permissions = new ArrayList<>();
-		for (String str : new String[] { "*"}) {
+		for (String str : new String[] { "*" }) {
 			permissions.add("minecraft.command." + str);
 			permissions.add("bukkit.command." + str);
 			permissions.add("bukkit.cmd." + str);

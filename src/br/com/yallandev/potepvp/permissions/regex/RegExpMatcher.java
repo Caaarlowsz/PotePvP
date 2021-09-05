@@ -8,7 +8,7 @@ import br.com.yallandev.potepvp.permissions.regex.loaders.LoaderNetUtil;
 import br.com.yallandev.potepvp.permissions.regex.loaders.LoaderNormal;
 
 public class RegExpMatcher implements PermissionMatcher {
-	
+
 	public static final String RAW_REGEX_CHAR = "$";
 	protected static Pattern rangeExpression = Pattern.compile("(\\d+)-(\\d+)");
 	private Object patternCache;

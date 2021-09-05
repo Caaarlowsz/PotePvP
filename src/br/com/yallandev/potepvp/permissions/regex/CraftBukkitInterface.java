@@ -3,7 +3,7 @@ package br.com.yallandev.potepvp.permissions.regex;
 import org.bukkit.Bukkit;
 
 public class CraftBukkitInterface {
-	
+
 	private static final String VERSION;
 
 	static {

@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -29,17 +28,18 @@ public class SimpleKit {
 			Skit skit = this.skit.get(skitName.toLowerCase());
 
 			skit.applySkit(target);
-			target.sendMessage(Configuration.PREFIX.getMessage() + "O skit §a\"" + skitName + "\"§f foi aplicado em você.");
+			target.sendMessage(
+					Configuration.PREFIX.getMessage() + "O skit ï¿½a\"" + skitName + "\"ï¿½f foi aplicado em vocï¿½.");
 
-			player.sendMessage(Configuration.PREFIX.getMessage() + "Você aplicou o kit §a\"" + skitName + "\"§f no jogador §a"
-					+ target.getName() + "§f.");
-			BukkitMain.broadcast("O skit §a\"" + skitName + "\"§f foi aplicado pelo §a" + player.getName()
-					+ "§f somente no jogador §a" + target.getName() + "§f.", Group.YOUTUBERPLUS);
+			player.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ aplicou o kit ï¿½a\"" + skitName
+					+ "\"ï¿½f no jogador ï¿½a" + target.getName() + "ï¿½f.");
+			BukkitMain.broadcast("O skit ï¿½a\"" + skitName + "\"ï¿½f foi aplicado pelo ï¿½a" + player.getName()
+					+ "ï¿½f somente no jogador ï¿½a" + target.getName() + "ï¿½f.", Group.YOUTUBERPLUS);
 		} else {
-			player.sendMessage(Configuration.PREFIX.getMessage() + "O skit §a\"" + skitName + "\"§f não existe!");
+			player.sendMessage(Configuration.PREFIX.getMessage() + "O skit ï¿½a\"" + skitName + "\"ï¿½f nï¿½o existe!");
 		}
 	}
-	
+
 	public void applyInWarp(Player player, Warp warp, String skitName) {
 		if (skit.containsKey(skitName.toLowerCase())) {
 			Skit skit = this.skit.get(skitName.toLowerCase());
@@ -47,25 +47,27 @@ public class SimpleKit {
 			int playersCount = 0;
 
 			for (Player players : Util.getOnlinePlayers()) {
-				if (!BukkitMain.getInstance().getPlayerManager().getWarp(players.getUniqueId()).getWarpName().equalsIgnoreCase(warp.getWarpName()))
+				if (!BukkitMain.getInstance().getPlayerManager().getWarp(players.getUniqueId()).getWarpName()
+						.equalsIgnoreCase(warp.getWarpName()))
 					continue;
-				
+
 				if (BukkitMain.getInstance().getVanishMode().isAdmin(players.getUniqueId())) {
-					players.sendMessage(Configuration.PREFIX.getMessage() + "O skit §a\"" + skitName
-							+ "\"§f não foi aplicado em você, por que você está no modo §4§lADMIN§f.");
+					players.sendMessage(Configuration.PREFIX.getMessage() + "O skit ï¿½a\"" + skitName
+							+ "\"ï¿½f nï¿½o foi aplicado em vocï¿½, por que vocï¿½ estï¿½ no modo ï¿½4ï¿½lADMINï¿½f.");
 					continue;
 				}
 				playersCount++;
 				skit.applySkit(players);
-				players.sendMessage(Configuration.PREFIX.getMessage() + "O skit §a\"" + skitName + "\"§f foi aplicado em você.");
+				players.sendMessage(
+						Configuration.PREFIX.getMessage() + "O skit ï¿½a\"" + skitName + "\"ï¿½f foi aplicado em vocï¿½.");
 			}
 
-			player.sendMessage(Configuration.PREFIX.getMessage() + "Você aplicou o kit §a\"" + skitName + "\"§f em §a"
-					+ playersCount + " jogadores§f.");
-			BukkitMain.broadcast("O skit §a\"" + skitName + "\"§f foi aplicado pelo §a" + player.getName()
-					+ "§f para todos os jogadores.", Group.YOUTUBERPLUS);
+			player.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ aplicou o kit ï¿½a\"" + skitName + "\"ï¿½f em ï¿½a"
+					+ playersCount + " jogadoresï¿½f.");
+			BukkitMain.broadcast("O skit ï¿½a\"" + skitName + "\"ï¿½f foi aplicado pelo ï¿½a" + player.getName()
+					+ "ï¿½f para todos os jogadores.", Group.YOUTUBERPLUS);
 		} else {
-			player.sendMessage(Configuration.PREFIX.getMessage() + "O skit §a\"" + skitName + "\"§f não existe!");
+			player.sendMessage(Configuration.PREFIX.getMessage() + "O skit ï¿½a\"" + skitName + "\"ï¿½f nï¿½o existe!");
 		}
 	}
 
@@ -77,27 +79,28 @@ public class SimpleKit {
 
 			for (Player players : Util.getOnlinePlayers()) {
 				if (BukkitMain.getInstance().getVanishMode().isAdmin(players.getUniqueId())) {
-					players.sendMessage(Configuration.PREFIX.getMessage() + "O skit §a\"" + skitName
-							+ "\"§f não foi aplicado em você, por que você está no modo §4§lADMIN§f.");
+					players.sendMessage(Configuration.PREFIX.getMessage() + "O skit ï¿½a\"" + skitName
+							+ "\"ï¿½f nï¿½o foi aplicado em vocï¿½, por que vocï¿½ estï¿½ no modo ï¿½4ï¿½lADMINï¿½f.");
 					continue;
 				}
 				playersCount++;
 				skit.applySkit(players);
-				players.sendMessage(Configuration.PREFIX.getMessage() + "O skit §a\"" + skitName + "\"§f foi aplicado em você.");
+				players.sendMessage(
+						Configuration.PREFIX.getMessage() + "O skit ï¿½a\"" + skitName + "\"ï¿½f foi aplicado em vocï¿½.");
 			}
 
-			player.sendMessage(Configuration.PREFIX.getMessage() + "Você aplicou o kit §a\"" + skitName + "\"§f em §a"
-					+ playersCount + " jogadores§f.");
-			BukkitMain.broadcast("O skit §a\"" + skitName + "\"§f foi aplicado pelo §a" + player.getName()
-					+ "§f para todos os jogadores.", Group.YOUTUBERPLUS);
+			player.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ aplicou o kit ï¿½a\"" + skitName + "\"ï¿½f em ï¿½a"
+					+ playersCount + " jogadoresï¿½f.");
+			BukkitMain.broadcast("O skit ï¿½a\"" + skitName + "\"ï¿½f foi aplicado pelo ï¿½a" + player.getName()
+					+ "ï¿½f para todos os jogadores.", Group.YOUTUBERPLUS);
 		} else {
-			player.sendMessage(Configuration.PREFIX.getMessage() + "O skit §a\"" + skitName + "\"§f não existe!");
+			player.sendMessage(Configuration.PREFIX.getMessage() + "O skit ï¿½a\"" + skitName + "\"ï¿½f nï¿½o existe!");
 		}
 	}
 
 	public void applySkit(Player player, int raio, String skitName) {
 		if (raio > 2000) {
-			player.sendMessage(Configuration.PREFIX.getMessage() + "O raio não pode ser maior que §a2000§f.");
+			player.sendMessage(Configuration.PREFIX.getMessage() + "O raio nï¿½o pode ser maior que ï¿½a2000ï¿½f.");
 		}
 
 		if (skit.containsKey(skitName.toLowerCase())) {
@@ -109,42 +112,47 @@ public class SimpleKit {
 				if (entities instanceof Player) {
 					Player players = (Player) entities;
 					if (BukkitMain.getInstance().getVanishMode().isAdmin(players.getUniqueId())) {
-						players.sendMessage(Configuration.PREFIX.getMessage() + "O skit §a\"" + skitName
-								+ "\"§f não foi aplicado em você, por que você está no modo §4§lADMIN§f.");
+						players.sendMessage(Configuration.PREFIX.getMessage() + "O skit ï¿½a\"" + skitName
+								+ "\"ï¿½f nï¿½o foi aplicado em vocï¿½, por que vocï¿½ estï¿½ no modo ï¿½4ï¿½lADMINï¿½f.");
 						continue;
 					}
 					playersCount++;
 					skit.applySkit(players);
-					players.sendMessage(Configuration.PREFIX.getMessage() + "O skit §a\"" + skitName + "\"§f foi aplicado em você.");
+					players.sendMessage(Configuration.PREFIX.getMessage() + "O skit ï¿½a\"" + skitName
+							+ "\"ï¿½f foi aplicado em vocï¿½.");
 				}
 			}
 
-			player.sendMessage(Configuration.PREFIX.getMessage() + "Você aplicou o kit §a\"" + skitName + "\"§f em §a"+ playersCount + " jogadores§f.");
-			BukkitMain.broadcast("O skit §a\"" + skitName + "\"§f foi aplicado pelo §a" + player.getName() + "§f em um raio de " + raio + " §a(" + playersCount + " jogadores)§f.", Group.YOUTUBERPLUS);
+			player.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ aplicou o kit ï¿½a\"" + skitName + "\"ï¿½f em ï¿½a"
+					+ playersCount + " jogadoresï¿½f.");
+			BukkitMain.broadcast("O skit ï¿½a\"" + skitName + "\"ï¿½f foi aplicado pelo ï¿½a" + player.getName()
+					+ "ï¿½f em um raio de " + raio + " ï¿½a(" + playersCount + " jogadores)ï¿½f.", Group.YOUTUBERPLUS);
 
 			if (BukkitMain.getInstance().getVanishMode().isAdmin(player.getUniqueId())) {
-				player.sendMessage(Configuration.PREFIX.getMessage() + "O skit §a\"" + skitName + "\"§f não foi aplicado em você, por que você está no modo §4§lADMIN§f.");
+				player.sendMessage(Configuration.PREFIX.getMessage() + "O skit ï¿½a\"" + skitName
+						+ "\"ï¿½f nï¿½o foi aplicado em vocï¿½, por que vocï¿½ estï¿½ no modo ï¿½4ï¿½lADMINï¿½f.");
 				return;
 			}
 
 			playersCount++;
 			skit.applySkit(player);
 		} else {
-			player.sendMessage(Configuration.PREFIX.getMessage() + "O skit §a\"" + skitName + "\"§f não existe!");
+			player.sendMessage(Configuration.PREFIX.getMessage() + "O skit ï¿½a\"" + skitName + "\"ï¿½f nï¿½o existe!");
 		}
 	}
 
 	public void createSkit(Player player, String skitName) {
 		if (skit.containsKey(skitName.toLowerCase())) {
-			player.sendMessage(Configuration.PREFIX.getMessage() + "O skit §a\"" + skitName + "\"§f já existe!");
-			player.sendMessage(
-					Configuration.PREFIX.getMessage() + "Use §a/skit update " + skitName + " §fpara atualizar esse skit!");
+			player.sendMessage(Configuration.PREFIX.getMessage() + "O skit ï¿½a\"" + skitName + "\"ï¿½f jï¿½ existe!");
+			player.sendMessage(Configuration.PREFIX.getMessage() + "Use ï¿½a/skit update " + skitName
+					+ " ï¿½fpara atualizar esse skit!");
 		} else {
 			Skit skit = new Skit(player.getInventory().getContents(), player.getInventory().getArmorContents(),
 					player.getActivePotionEffects());
 
 			this.skit.put(skitName.toLowerCase(), skit);
-			player.sendMessage(Configuration.PREFIX.getMessage() + "O skit §a\"" + skitName + "\"§f foi criado com sucesso!");
+			player.sendMessage(
+					Configuration.PREFIX.getMessage() + "O skit ï¿½a\"" + skitName + "\"ï¿½f foi criado com sucesso!");
 		}
 	}
 
@@ -153,36 +161,37 @@ public class SimpleKit {
 				player.getActivePotionEffects());
 
 		this.skit.put(skitName.toLowerCase(), skit);
-		player.sendMessage(Configuration.PREFIX.getMessage() + "O skit §a\"" + skitName + "\"§f foi atualizado com sucesso!");
+		player.sendMessage(
+				Configuration.PREFIX.getMessage() + "O skit ï¿½a\"" + skitName + "\"ï¿½f foi atualizado com sucesso!");
 	}
 
 	public Set<String> values() {
 		return skit.keySet();
 	}
-	
+
 	public class Skit {
-		
+
 		private ItemStack[] items;
 		private ItemStack[] armors;
 		private Collection<PotionEffect> potions;
-		
+
 		public Skit(ItemStack[] items, ItemStack[] armors, Collection<PotionEffect> potions) {
 			this.items = items;
 			this.armors = armors;
 			this.potions = potions;
 		}
-		
+
 		public void applySkit(Player player) {
 			for (PotionEffect pot : player.getActivePotionEffects()) {
 				player.removePotionEffect(pot.getType());
 			}
-			
+
 			player.getInventory().clear();
 			player.getInventory().setArmorContents(new ItemStack[4]);
-			
+
 			player.getInventory().setArmorContents(armors);
 			player.getInventory().setContents(items);
-			
+
 			player.addPotionEffects(potions);
 		}
 	}

@@ -16,7 +16,6 @@
 
 package twitter4j;
 
-
 /**
  * A data interface representing Trend.
  *
@@ -24,10 +23,10 @@ package twitter4j;
  * @since Twitter4J 2.0.2
  */
 public interface Trend extends java.io.Serializable {
-    String getName();
+	String getName();
 
-    String getURL();
+	String getURL();
 
-    String getQuery();
+	String getQuery();
 
 }

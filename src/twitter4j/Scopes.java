@@ -27,10 +27,10 @@ import java.io.Serializable;
 public interface Scopes extends Serializable {
 
 	/**
-     * Returns the place_ids that identify the scope of the status.
-     *
-     * @return the place_ids that identify the scope of the status.
-     */
+	 * Returns the place_ids that identify the scope of the status.
+	 *
+	 * @return the place_ids that identify the scope of the status.
+	 */
 	String[] getPlaceIds();
-	
+
 }

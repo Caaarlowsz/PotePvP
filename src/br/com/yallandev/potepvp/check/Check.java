@@ -33,12 +33,10 @@ public class Check {
 	}
 
 	public enum CheckAPI {
-		
-		MOJANG_API("https://api.mojang.com/users/profiles/minecraft/"),
-		MC_UUID("https://api.mcuuid.com/v1/uuid/"),
+
+		MOJANG_API("https://api.mojang.com/users/profiles/minecraft/"), MC_UUID("https://api.mcuuid.com/v1/uuid/"),
 		MINECRAFT_API("https://minecraft-api.com/api/uuid/uuid.php?pseudo="),
-		MINETOOLS("https://api.minetools.eu/uuid/"),
-		MCAPI_CA("https://mcapi.ca/rawskin/");
+		MINETOOLS("https://api.minetools.eu/uuid/"), MCAPI_CA("https://mcapi.ca/rawskin/");
 
 		private final String link;
 
@@ -49,7 +47,7 @@ public class Check {
 		public String getLink() {
 			return this.link;
 		}
-		
+
 	}
 
 	static {

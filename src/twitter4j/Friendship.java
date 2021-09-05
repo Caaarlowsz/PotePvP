@@ -21,13 +21,13 @@ package twitter4j;
  * @since Twitter4J 2.1.9
  */
 public interface Friendship extends java.io.Serializable {
-    long getId();
+	long getId();
 
-    String getName();
+	String getName();
 
-    String getScreenName();
+	String getScreenName();
 
-    boolean isFollowing();
+	boolean isFollowing();
 
-    boolean isFollowedBy();
+	boolean isFollowedBy();
 }

@@ -9,7 +9,7 @@ import br.com.yallandev.potepvp.event.PlayerCancellableEvent;
 import br.com.yallandev.potepvp.manager.WarpManager.Warp;
 
 public class PlayerRespawnWarpEvent extends PlayerCancellableEvent {
-	
+
 	private Warp warp;
 	private Location respawnLocation;
 
@@ -18,19 +18,19 @@ public class PlayerRespawnWarpEvent extends PlayerCancellableEvent {
 		this.warp = warp;
 		this.respawnLocation = warp.getWarpLocation();
 	}
-	
+
 	public Location getRespawnLocation() {
 		return respawnLocation;
 	}
-	
+
 	public void setRespawnLocation(Location respawnLocation) {
 		this.respawnLocation = respawnLocation;
 	}
-	
+
 	public Warp getWarp() {
 		return warp;
 	}
-	
+
 	public Account getAccount() {
 		return BukkitMain.getAccountCommon().getAccount(this.player.getUniqueId());
 	}

@@ -1,6 +1,7 @@
 package br.com.yallandev.potepvp.event.account;
 
 import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -8,7 +9,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 public class RealMoveEvent extends Event {
-	
+
 	public static HandlerList handlers = new HandlerList();
 	private UUID playerUUID;
 	private Location from;

@@ -10,7 +10,7 @@ public class PlayerChangeTagEvent extends PlayerCancellableEvent {
 	private Tag oldTag;
 	private Tag newTag;
 	private boolean isForced;
-	
+
 	public PlayerChangeTagEvent(Player p, Tag oldTag, Tag newTag, boolean isForced) {
 		super(p);
 		this.oldTag = oldTag;
@@ -25,7 +25,7 @@ public class PlayerChangeTagEvent extends PlayerCancellableEvent {
 	public Tag getOldTag() {
 		return oldTag;
 	}
-	
+
 	public boolean isForced() {
 		return isForced;
 	}

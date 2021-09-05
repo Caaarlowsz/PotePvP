@@ -24,33 +24,33 @@ import java.util.List;
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
 public interface QueryResult extends TwitterResponse, java.io.Serializable {
-    long getSinceId();
+	long getSinceId();
 
-    long getMaxId();
+	long getMaxId();
 
-    String getRefreshURL();
+	String getRefreshURL();
 
-    int getCount();
+	int getCount();
 
-    double getCompletedIn();
+	double getCompletedIn();
 
-    String getQuery();
+	String getQuery();
 
-    List<Status> getTweets();
+	List<Status> getTweets();
 
-    /**
-     * Returns a Query instance to fetch next page or null if there is no next page.
-     *
-     * @return Query instance to fetch next page
-     * @since Twitter4J 3.0.0
-     */
-    Query nextQuery();
+	/**
+	 * Returns a Query instance to fetch next page or null if there is no next page.
+	 *
+	 * @return Query instance to fetch next page
+	 * @since Twitter4J 3.0.0
+	 */
+	Query nextQuery();
 
-    /**
-     * test if there is next page
-     *
-     * @return if there is next page
-     * @since Twitter4J 3.0.0
-     */
-    boolean hasNext();
+	/**
+	 * test if there is next page
+	 *
+	 * @return if there is next page
+	 * @since Twitter4J 3.0.0
+	 */
+	boolean hasNext();
 }

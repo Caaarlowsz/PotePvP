@@ -9,7 +9,8 @@ import br.com.yallandev.potepvp.kit.Kit;
 public class Surprise extends Kit {
 
 	public Surprise() {
-		super("Surprise", Material.CAKE, 18000, false, Arrays.asList("Selecione um kit aleatorio", "de todos os kits do servidor!"));
+		super("Surprise", Material.CAKE, 18000, false,
+				Arrays.asList("Selecione um kit aleatorio", "de todos os kits do servidor!"));
 	}
 
 }

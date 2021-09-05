@@ -49,7 +49,9 @@ public class LoginReceiver extends TinyProtocol {
 		}
 		try {
 			Class<?> loginClass = Class.forName("br.com.yallandev.potepvp.version.rewrite.v1_7_R4");
-			loginClass.getConstructors()[0].newInstance(Util.networkList(channel.remoteAddress(), this.version.getServerConnection(), this.version.getNetworkManager()), this.profileField.get(packet).getName());
+			loginClass.getConstructors()[0].newInstance(Util.networkList(channel.remoteAddress(),
+					this.version.getServerConnection(), this.version.getNetworkManager()),
+					this.profileField.get(packet).getName());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return true;

@@ -10,68 +10,71 @@ import br.com.yallandev.potepvp.manager.CommandClass;
 import br.com.yallandev.potepvp.permissions.group.Group;
 
 public class PermissionCommand extends CommandClass {
-	
+
 	@Command(name = "givekit", aliases = { "darkit" }, groupToUse = Group.ADMIN)
 	public void onGivekit(CommandArgs cmdArgs) {
 		String[] a = cmdArgs.getArgs();
 		CommandSender sender = cmdArgs.getSender();
-		
+
 		if (a.length != 2) {
-			send(sender, "Use §a/givekit [Jogador] [Kit]§f para dar um kit para algum jogador!");
+			send(sender, "Use ï¿½a/givekit [Jogador] [Kit]ï¿½f para dar um kit para algum jogador!");
 			return;
 		}
-		
+
 		Kit kit = main.getKitManager().getKit(a[1]);
-		
+
 		if (kit == null) {
-			send(sender, "O kit §a\"" + a[1] + "\"§f não existe!");
+			send(sender, "O kit ï¿½a\"" + a[1] + "\"ï¿½f nï¿½o existe!");
 			return;
 		}
-		
+
 		Account player = getAccountCommon().getAccount(getAccountCommon().getUUID(a[0]));
-		
+
 		if (player == null) {
 			player = getAccountCommon().loadAccount(getAccountCommon().getUUID(a[0]), false);
-			
+
 			if (player == null) {
-				send(sender, "O jogador §c\"" + a[0] + "\" §fnão existe!");
+				send(sender, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fnï¿½o existe!");
 				return;
 			}
 		}
-		
+
 		player.addPermission("kit." + kit.getKitName());
-		player.sendMessage("Você ganhou o kit §a\"" + kit.getKitName() + "\"§f.");
-		send(sender, "Você deu o kit §a" + kit.getKitName() + "§f para §a" + player.getUserName() + "§f.");
-		broadcast("O jogador §a" + sender.getName() + "§f deu o kit §a" + kit.getKitName() + "§f para o §a" + player.getUserName() + "§f.", Group.MOD);
+		player.sendMessage("Vocï¿½ ganhou o kit ï¿½a\"" + kit.getKitName() + "\"ï¿½f.");
+		send(sender, "Vocï¿½ deu o kit ï¿½a" + kit.getKitName() + "ï¿½f para ï¿½a" + player.getUserName() + "ï¿½f.");
+		broadcast("O jogador ï¿½a" + sender.getName() + "ï¿½f deu o kit ï¿½a" + kit.getKitName() + "ï¿½f para o ï¿½a"
+				+ player.getUserName() + "ï¿½f.", Group.MOD);
 	}
-	
+
 	@Command(name = "givepermission", aliases = { "darpermission" }, groupToUse = Group.ADMIN)
 	public void onGivepermission(CommandArgs cmdArgs) {
 		String[] a = cmdArgs.getArgs();
 		CommandSender sender = cmdArgs.getSender();
-		
+
 		if (a.length != 2) {
-			send(sender, "Use §a/givepermission [Jogador] [Kit]§f para dar um kit para algum jogador!");
+			send(sender, "Use ï¿½a/givepermission [Jogador] [Kit]ï¿½f para dar um kit para algum jogador!");
 			return;
 		}
-		
+
 		String permission = a[1];
-		
+
 		Account player = getAccountCommon().getAccount(getAccountCommon().getUUID(a[0]));
-		
+
 		if (player == null) {
 			player = getAccountCommon().loadAccount(getAccountCommon().getUUID(a[0]), false);
-			
+
 			if (player == null) {
-				send(sender, "O jogador §c\"" + a[0] + "\" §fnão existe!");
+				send(sender, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fnï¿½o existe!");
 				return;
 			}
 		}
-		
+
 		player.addPermission(permission.toLowerCase());
-		player.sendMessage("Você ganhou a permissão §a\"" + permission.toLowerCase() + "\"§f.");
-		send(sender, "Você deu a permissão §a" + permission.toLowerCase() + "§f para §a" + player.getUserName() + "§f.");
-		broadcast("O jogador §a" + sender.getName() + "§f deu a permissão §a" + permission.toLowerCase() + "§f para o §a" + player.getUserName() + "§f.", Group.MOD);
+		player.sendMessage("Vocï¿½ ganhou a permissï¿½o ï¿½a\"" + permission.toLowerCase() + "\"ï¿½f.");
+		send(sender,
+				"Vocï¿½ deu a permissï¿½o ï¿½a" + permission.toLowerCase() + "ï¿½f para ï¿½a" + player.getUserName() + "ï¿½f.");
+		broadcast("O jogador ï¿½a" + sender.getName() + "ï¿½f deu a permissï¿½o ï¿½a" + permission.toLowerCase()
+				+ "ï¿½f para o ï¿½a" + player.getUserName() + "ï¿½f.", Group.MOD);
 	}
 
 }

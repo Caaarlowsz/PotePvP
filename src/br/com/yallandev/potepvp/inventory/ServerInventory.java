@@ -16,62 +16,63 @@ import br.com.yallandev.potepvp.manager.WarpManager.Warp;
 import br.com.yallandev.potepvp.utils.ItemManager;
 
 public class ServerInventory {
-	
+
 	public static void openKit(Account player, int page) {
 		Player p = player.getPlayer();
-		
+
 		Inventory inv = null;
 		boolean dick = false;
-		
-		if (p.getOpenInventory().getTopInventory() != null && p.getOpenInventory().getTopInventory().getTitle().contains("§8Kit Selector")) {
+
+		if (p.getOpenInventory().getTopInventory() != null
+				&& p.getOpenInventory().getTopInventory().getTitle().contains("ï¿½8Kit Selector")) {
 			inv = p.getOpenInventory().getTopInventory();
 			inv.clear();
 		} else {
-			inv = Bukkit.createInventory(null, 54, "§8Kit Selector");
+			inv = Bukkit.createInventory(null, 54, "ï¿½8Kit Selector");
 			dick = true;
 		}
-		
-		ItemManager item = new ItemManager(Material.STAINED_GLASS_PANE, "§f");
-		
+
+		ItemManager item = new ItemManager(Material.STAINED_GLASS_PANE, "ï¿½f");
+
 		for (int x = 0; x < 9; x++)
 			inv.setItem(x, item.build());
-		
-		item = new ItemManager(Material.STAINED_GLASS_PANE, "§a§nPagina anterior!");
+
+		item = new ItemManager(Material.STAINED_GLASS_PANE, "ï¿½aï¿½nPagina anterior!");
 		item.setDurability(5);
-		
+
 		if (page == 1) {
-			item.setNome("§c§nPagina anterior!");
+			item.setNome("ï¿½cï¿½nPagina anterior!");
 			item.setDurability(14);
 		}
-		
+
 		inv.setItem(0, item.build());
-		
-		item = new ItemManager(Material.STAINED_GLASS_PANE, "§eVocê está na pagina " + page + ".");
+
+		item = new ItemManager(Material.STAINED_GLASS_PANE, "ï¿½eVocï¿½ estï¿½ na pagina " + page + ".");
 
 		inv.setItem(4, item.build());
-		
-		item = new ItemManager(Material.STAINED_GLASS_PANE, "§a§nPagina posterior!");
+
+		item = new ItemManager(Material.STAINED_GLASS_PANE, "ï¿½aï¿½nPagina posterior!");
 		item.setDurability(5);
-		
+
 		if (page == 3) {
-			item.setNome("§c§nPagina posterior!");
+			item.setNome("ï¿½cï¿½nPagina posterior!");
 			item.setDurability(14);
 		}
-		
+
 		inv.setItem(8, item.build());
-		
+
 		List<Kit> kits = new ArrayList<>();
 		kits.add(BukkitMain.getInstance().getKitManager().getKit("PvP"));
-		
+
 		for (Kit kit : BukkitMain.getInstance().getKitManager().getKits()) {
 			if (kit.getKitName().equalsIgnoreCase("PvP"))
 				continue;
-			
+
 			if (kit.canUse(player)) {
 				kits.add(kit);
 			}
 		}
-		
+
 		if (page == 1) {
 			for (int l = 0; l < 45; l++) {
 				if (isNull(kits, l)) {
@@ -89,124 +90,128 @@ public class ServerInventory {
 				}
 			}
 		}
-		
-		if (inv.getItem(inv.getSize() -1) == null) {
-			item = new ItemManager(Material.STAINED_GLASS_PANE, "§a§nPagina posterior!");
-			item.setNome("§c§nPagina posterior!");
+
+		if (inv.getItem(inv.getSize() - 1) == null) {
+			item = new ItemManager(Material.STAINED_GLASS_PANE, "ï¿½aï¿½nPagina posterior!");
+			item.setNome("ï¿½cï¿½nPagina posterior!");
 			item.setDurability(14);
 			inv.setItem(8, item.build());
 		}
-		
+
 		for (int x = 0; x < inv.getSize(); x++) {
 			if (inv.getItem(x) == null) {
 				item = new ItemManager(Material.STAINED_GLASS_PANE, "");
 				inv.setItem(x, item.build());
 			}
 		}
-		
+
 		if (dick)
 			p.openInventory(inv);
 	}
-	
+
 	public static void openShop(Account player) {
 		Player p = player.getPlayer();
-		
+
 		Inventory inv = null;
 		boolean dick = false;
-		
-		if (p.getOpenInventory().getTopInventory() != null && p.getOpenInventory().getTopInventory().getTitle().contains("§8Loja de kits!")) {
+
+		if (p.getOpenInventory().getTopInventory() != null
+				&& p.getOpenInventory().getTopInventory().getTitle().contains("ï¿½8Loja de kits!")) {
 			inv = p.getOpenInventory().getTopInventory();
 			inv.clear();
 		} else {
-			inv = Bukkit.createInventory(null, InventoryType.HOPPER, "§8Loja de kits!");
+			inv = Bukkit.createInventory(null, InventoryType.HOPPER, "ï¿½8Loja de kits!");
 			dick = true;
 		}
-		
-		ItemManager item = new ItemManager(Material.EXP_BOTTLE, "§aLoja in-game!");
-		
+
+		ItemManager item = new ItemManager(Material.EXP_BOTTLE, "ï¿½aLoja in-game!");
+
 		item.addLore("");
 		item.addLore("Compre kits usando");
-		item.addLore("o dinheiro que você");
+		item.addLore("o dinheiro que vocï¿½");
 		item.addLore("conseguiu jogando no");
 		item.addLore("servidor!");
-		
+
 		inv.setItem(1, item.build());
-		
-		item = new ItemManager(Material.EMERALD, "§aLoja out-game!");
-		
+
+		item = new ItemManager(Material.EMERALD, "ï¿½aLoja out-game!");
+
 		item.addLore("");
 		item.addLore("Compre kits usando");
-		item.addLore("o dinheiro que você");
+		item.addLore("o dinheiro que vocï¿½");
 		item.addLore("conseguiu jogando no");
 		item.addLore("servidor!");
-		
+
 		inv.setItem(3, item.build());
-		
+
 		if (dick)
 			p.openInventory(inv);
-	
+
 	}
-	
+
 	public static void openShopOfKits(Account player, int page) {
 		Player p = player.getPlayer();
-		
+
 		Inventory inv = null;
 		boolean dick = false;
-		
-		if (p.getOpenInventory().getTopInventory() != null && p.getOpenInventory().getTopInventory().getTitle().contains("§8Kits Store!")) {
+
+		if (p.getOpenInventory().getTopInventory() != null
+				&& p.getOpenInventory().getTopInventory().getTitle().contains("ï¿½8Kits Store!")) {
 			inv = p.getOpenInventory().getTopInventory();
 			inv.clear();
 		} else {
-			inv = Bukkit.createInventory(null, 54, "§8Kits Store!");
+			inv = Bukkit.createInventory(null, 54, "ï¿½8Kits Store!");
 			dick = true;
 		}
-		
-		ItemManager item = new ItemManager(Material.STAINED_GLASS_PANE, "§f");
-		
+
+		ItemManager item = new ItemManager(Material.STAINED_GLASS_PANE, "ï¿½f");
+
 		for (int x = 0; x < 9; x++)
 			inv.setItem(x, item.build());
-		
-		item = new ItemManager(Material.STAINED_GLASS_PANE, "§a§nPagina anterior!");
+
+		item = new ItemManager(Material.STAINED_GLASS_PANE, "ï¿½aï¿½nPagina anterior!");
 		item.setDurability(5);
-		
+
 		if (page == 1) {
-			item.setNome("§c§nPagina anterior!");
+			item.setNome("ï¿½cï¿½nPagina anterior!");
 			item.setDurability(14);
 		}
-		
+
 		inv.setItem(0, item.build());
-		
-		item = new ItemManager(Material.STAINED_GLASS_PANE, "§eVocê está na pagina " + page + ".");
+
+		item = new ItemManager(Material.STAINED_GLASS_PANE, "ï¿½eVocï¿½ estï¿½ na pagina " + page + ".");
 
 		inv.setItem(4, item.build());
-		
-		item = new ItemManager(Material.STAINED_GLASS_PANE, "§a§nPagina posterior!");
+
+		item = new ItemManager(Material.STAINED_GLASS_PANE, "ï¿½aï¿½nPagina posterior!");
 		item.setDurability(5);
-		
+
 		if (page == 3) {
-			item.setNome("§c§nPagina posterior!");
+			item.setNome("ï¿½cï¿½nPagina posterior!");
 			item.setDurability(14);
 		}
-		
+
 		inv.setItem(8, item.build());
-		
+
 		List<Kit> kits = new ArrayList<>();
-		
+
 		for (Kit kit : BukkitMain.getInstance().getKitManager().getKits()) {
 			if (kit.getKitName().equalsIgnoreCase("PvP"))
 				continue;
-			
+
 			if (!kit.canUse(player)) {
 				kits.add(kit);
 			}
 		}
-		
+
 		if (page == 1) {
 			for (int l = 0; l < 45; l++) {
 				if (isNull(kits, l)) {
 					break;
 				} else {
-					inv.addItem(new ItemManager(kits.get(l).getKitIcon().getType(), "§a" + kits.get(l).getKitName()).setLore(kits.get(l).getKitIcon().getItemMeta().getLore()).addLore("§o").addLore("Compre por §a" + kits.get(l).getPrice()).build());
+					inv.addItem(new ItemManager(kits.get(l).getKitIcon().getType(), "ï¿½a" + kits.get(l).getKitName())
+							.setLore(kits.get(l).getKitIcon().getItemMeta().getLore()).addLore("ï¿½o")
+							.addLore("Compre por ï¿½a" + kits.get(l).getPrice()).build());
 				}
 			}
 		} else if (page == 2) {
@@ -214,105 +219,111 @@ public class ServerInventory {
 				if (isNull(kits, l)) {
 					break;
 				} else {
-					inv.addItem(new ItemManager(kits.get(l).getKitIcon().getType(), "§a" + kits.get(l).getKitName()).setLore(kits.get(l).getKitIcon().getItemMeta().getLore()).addLore("§o").addLore("Compre por §a" + kits.get(l).getPrice()).build());
+					inv.addItem(new ItemManager(kits.get(l).getKitIcon().getType(), "ï¿½a" + kits.get(l).getKitName())
+							.setLore(kits.get(l).getKitIcon().getItemMeta().getLore()).addLore("ï¿½o")
+							.addLore("Compre por ï¿½a" + kits.get(l).getPrice()).build());
 				}
 			}
 		}
-		
-		if (inv.getItem(inv.getSize() -1) == null) {
-			item = new ItemManager(Material.STAINED_GLASS_PANE, "§a§nPagina posterior!");
-			item.setNome("§c§nPagina posterior!");
+
+		if (inv.getItem(inv.getSize() - 1) == null) {
+			item = new ItemManager(Material.STAINED_GLASS_PANE, "ï¿½aï¿½nPagina posterior!");
+			item.setNome("ï¿½cï¿½nPagina posterior!");
 			item.setDurability(14);
 			inv.setItem(8, item.build());
 		}
-		
+
 		for (int x = 0; x < inv.getSize(); x++) {
 			if (inv.getItem(x) == null) {
 				item = new ItemManager(Material.STAINED_GLASS_PANE, "");
 				inv.setItem(x, item.build());
 			}
 		}
-		
+
 		if (dick)
 			p.openInventory(inv);
 	}
-	
+
 	public static int getPlayerInWarp(Warp warp) {
 		int x = 0;
-		
+
 		for (Player players : Bukkit.getOnlinePlayers()) {
-			if (BukkitMain.getInstance().getPlayerManager().getWarp(players.getUniqueId()).getWarpName().equalsIgnoreCase(warp.getWarpName()))
+			if (BukkitMain.getInstance().getPlayerManager().getWarp(players.getUniqueId()).getWarpName()
+					.equalsIgnoreCase(warp.getWarpName()))
 				x++;
 		}
-		
+
 		return x;
 	}
-	
+
 	public static void openWarp(Account player, int page) {
 		Player p = player.getPlayer();
-		
+
 		Inventory inv = null;
 		boolean dick = false;
-		
-		if (p.getOpenInventory().getTopInventory() != null && p.getOpenInventory().getTopInventory().getTitle().contains("§8Warp Selector")) {
+
+		if (p.getOpenInventory().getTopInventory() != null
+				&& p.getOpenInventory().getTopInventory().getTitle().contains("ï¿½8Warp Selector")) {
 			inv = p.getOpenInventory().getTopInventory();
 			inv.clear();
 		} else {
-			inv = Bukkit.createInventory(null, 36, "§8Warp Selector");
+			inv = Bukkit.createInventory(null, 36, "ï¿½8Warp Selector");
 			dick = true;
 		}
-		
+
 		ItemManager item = null;
-		
+
 		int a = 11;
-		
+
 		for (Warp warps : BukkitMain.getInstance().getWarpManager().getWarps()) {
 			if (warps.getWarpName().equalsIgnoreCase("Spawn"))
 				continue;
-			
+
 			if (warps.getWarpName().equalsIgnoreCase("Arena"))
 				continue;
-			
+
 			if (warps.getWarpName().equalsIgnoreCase("Sumo"))
 				continue;
-			
-			item = new ItemManager(warps.getWarpIcon(), "§a" + warps.getWarpName());
-			
+
+			item = new ItemManager(warps.getWarpIcon(), "ï¿½a" + warps.getWarpName());
+
 			item.addLore("");
-			item.addLore("§fJogadores na warp: §a" + getPlayerInWarp(warps));
-			
+			item.addLore("ï¿½fJogadores na warp: ï¿½a" + getPlayerInWarp(warps));
+
 			inv.setItem(a, item.build());
 			a++;
 		}
-		
-		item = new ItemManager(Material.CAKE, "§aRei da Mesa");
+
+		item = new ItemManager(Material.CAKE, "ï¿½aRei da Mesa");
 		inv.setItem(21, item.build());
-		
-		item = new ItemManager(Material.BEDROCK, "§aArena");
-		
+
+		item = new ItemManager(Material.BEDROCK, "ï¿½aArena");
+
 		item.addLore("");
-		item.addLore("§fJogadores na warp: §a" + getPlayerInWarp(BukkitMain.getInstance().getWarpManager().getWarp("Arena")));
-		
+		item.addLore("ï¿½fJogadores na warp: ï¿½a"
+				+ getPlayerInWarp(BukkitMain.getInstance().getWarpManager().getWarp("Arena")));
+
 		inv.setItem(23, item.build());
-		
-		item = new ItemManager(Material.BRICK, "§aSumo");
-		
+
+		item = new ItemManager(Material.BRICK, "ï¿½aSumo");
+
 		item.addLore("");
-		item.addLore("§fJogadores na warp: §a" + getPlayerInWarp(BukkitMain.getInstance().getWarpManager().getWarp("Sumo")));
-		
+		item.addLore(
+				"ï¿½fJogadores na warp: ï¿½a" + getPlayerInWarp(BukkitMain.getInstance().getWarpManager().getWarp("Sumo")));
+
 		inv.setItem(22, item.build());
-		
+
 		for (int x = 0; x < inv.getSize(); x++) {
 			if (inv.getItem(x) == null) {
 				item = new ItemManager(Material.STAINED_GLASS_PANE, "");
 				inv.setItem(x, item.build());
 			}
 		}
-		
+
 		if (dick)
 			p.openInventory(inv);
 	}
-	
+
 	public static boolean isNull(List<?> kits, int l) {
 		try {
 			kits.get(l);

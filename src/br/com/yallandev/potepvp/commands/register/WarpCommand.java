@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -20,71 +19,71 @@ import br.com.yallandev.potepvp.listener.PlayerListener;
 import br.com.yallandev.potepvp.manager.CommandClass;
 import br.com.yallandev.potepvp.manager.WarpManager.Warp;
 import br.com.yallandev.potepvp.manager.WarpManager.Warp1v1;
-import br.com.yallandev.potepvp.manager.WarpManager.WarpLocation;
 import br.com.yallandev.potepvp.manager.WarpManager.WarpSumo;
 import br.com.yallandev.potepvp.permissions.group.Group;
 import br.com.yallandev.potepvp.scoreboard.Scoreboarding;
 import br.com.yallandev.potepvp.utils.DateUtils;
 
 public class WarpCommand extends CommandClass {
-	
+
 	public static List<UUID> teleport = new ArrayList<>();
-	
+
 	@Command(name = "setprotection", onlyPlayers = true, groupToUse = Group.BUILDER)
 	public void onSetprotection(CommandArgs cmdArgs) {
 		CommandSender s = cmdArgs.getSender();
 		String[] a = cmdArgs.getArgs();
-		
+
 		if (a.length < 2) {
-			send(s, "Use §a/setprotection [Warp] [Proteção]§f para setar a proteção de uma warp!");
+			send(s, "Use ï¿½a/setprotection [Warp] [Proteï¿½ï¿½o]ï¿½f para setar a proteï¿½ï¿½o de uma warp!");
 			return;
 		}
-		
+
 		if (!isNumeric(a[1])) {
-			send(s, "Use numero como proteção!");
+			send(s, "Use numero como proteï¿½ï¿½o!");
 			return;
 		}
-		
+
 		Warp warp = main.getWarpManager().getWarp(a[0]);
 		Integer protection = Integer.valueOf(a[1]);
-		
+
 		warp.setProtection(protection);
-		
-		main.getWarpManager().getConfig().set("warps." + warp.getWarpName().toLowerCase() + ".Protection", warp.getProtection());
+
+		main.getWarpManager().getConfig().set("warps." + warp.getWarpName().toLowerCase() + ".Protection",
+				warp.getProtection());
 		main.getWarpManager().saveConfig();
-		
-		send(s, "Você setou a proteção da warp §a\"" + warp.getWarpName() + "\"§f como §a" + protection + "§f.");
+
+		send(s, "Vocï¿½ setou a proteï¿½ï¿½o da warp ï¿½a\"" + warp.getWarpName() + "\"ï¿½f como ï¿½a" + protection + "ï¿½f.");
 	}
-	
+
 	@Command(name = "setarena", onlyPlayers = true, groupToUse = Group.BUILDER)
 	public void onSetarena(CommandArgs cmdArgs) {
 		CommandSender s = cmdArgs.getSender();
 		String[] a = cmdArgs.getArgs();
-		
+
 		if (!(hasServerGroup(s, Group.GERENTE) || isServerGroup(s, Group.BUILDER))) {
 			s.sendMessage(Configuration.SEMPERM.getMessage());
 			return;
 		}
-		
+
 		if (a.length == 0) {
-			send(s, "Use §a/setarena [Numero]§f para setar um arena!");
+			send(s, "Use ï¿½a/setarena [Numero]ï¿½f para setar um arena!");
 			return;
 		}
-		
+
 		if (!isNumeric(a[0])) {
 			send(s, "Use um numero valido!");
 			return;
 		}
-		
+
 		Integer arena = Integer.valueOf(a[0]);
-		
+
 		if (arena > 10 || arena < 0) {
 			send(s, "Use um numero valido de 1 a 10!");
 			return;
 		}
-		
+
 		Location warpLocation = cmdArgs.getPlayer().getLocation();
-		
+
 		main.getWarpManager().getConfig().set("arenas.A" + arena + ".World", warpLocation.getWorld().getName());
 		main.getWarpManager().getConfig().set("arenas.A" + arena + ".X", warpLocation.getX());
 		main.getWarpManager().getConfig().set("arenas.A" + arena + ".Y", warpLocation.getY());
@@ -92,77 +91,81 @@ public class WarpCommand extends CommandClass {
 		main.getWarpManager().getConfig().set("arenas.A" + arena + ".Yaw", warpLocation.getYaw());
 		main.getWarpManager().getConfig().set("arenas.A" + arena + ".Pitch", warpLocation.getPitch());
 		main.getWarpManager().saveConfig();
-		
-		send(s, "Você setou a arena §a" + arena + "§f.");
-		
+
+		send(s, "Vocï¿½ setou a arena ï¿½a" + arena + "ï¿½f.");
+
 		main.getKitManager().getArenas().clear();
 		main.getKitManager().loadArenas();
 	}
-	
+
 	@Command(name = "warp", onlyPlayers = true)
 	public void onWarp(CommandArgs cmdArgs) {
 		String[] a = cmdArgs.getArgs();
 		Player p = (Player) cmdArgs.getSender();
-		
+
 		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
-		
+
 		if (player == null)
 			return;
-		
+
 		if (teleport.contains(player.getUuid())) {
-			player.sendMessage("Você já está em um teleport!");
+			player.sendMessage("Vocï¿½ jï¿½ estï¿½ em um teleport!");
 			return;
 		}
-		
+
 		if (a.length == 0) {
-			player.sendMessage("Use §a/warp [Nome da warp]§f para se teletransportar para uma warp.");
+			player.sendMessage("Use ï¿½a/warp [Nome da warp]ï¿½f para se teletransportar para uma warp.");
 			return;
 		}
-		
+
 		Warp warp = main.getWarpManager().getWarp(a[0]);
-		
+
 		if (warp == null) {
-			player.sendMessage("A warp §a\"" + a[0] + "\"§f não existe!");
+			player.sendMessage("A warp ï¿½a\"" + a[0] + "\"ï¿½f nï¿½o existe!");
 			return;
 		}
-		
+
 		if (warp.getWarpName().equalsIgnoreCase("Spawn"))
-			if (main.getPlayerManager().getWarp(player.getUuid()).getWarpName().equalsIgnoreCase("Spawn") && main.getKitManager().hasAbility(player.getUuid(), "Nenhum")) {
-				player.sendMessage("Você já está no spawn!");
+			if (main.getPlayerManager().getWarp(player.getUuid()).getWarpName().equalsIgnoreCase("Spawn")
+					&& main.getKitManager().hasAbility(player.getUuid(), "Nenhum")) {
+				player.sendMessage("Vocï¿½ jï¿½ estï¿½ no spawn!");
 				return;
 			}
-		
+
 		if (main.getPlayerManager().isCombateLog(player.getUuid())) {
-			player.sendMessage("Você está em combate, espere mais §a" + DateUtils.getTime(main.getPlayerManager().getCombatLog(player.getUuid())) + " §fpara poder teletransportar-se.");
+			player.sendMessage("Vocï¿½ estï¿½ em combate, espere mais ï¿½a"
+					+ DateUtils.getTime(main.getPlayerManager().getCombatLog(player.getUuid()))
+					+ " ï¿½fpara poder teletransportar-se.");
 			return;
 		}
-		
-		player.sendMessage("Você será teletransportado em §a3 segundos§f para a warp §a" + warp.getWarpName() + "§f.");
+
+		player.sendMessage("Vocï¿½ serï¿½ teletransportado em ï¿½a3 segundosï¿½f para a warp ï¿½a" + warp.getWarpName() + "ï¿½f.");
 		teleport.add(player.getUuid());
-		
+
 		new BukkitRunnable() {
-			
+
 			@Override
 			public void run() {
-					if (teleport.contains(player.getUuid())) {
-						p.closeInventory();
-					}
+				if (teleport.contains(player.getUuid())) {
+					p.closeInventory();
 				}
-		}.runTaskLater(main, 20*3);
-		
+			}
+		}.runTaskLater(main, 20 * 3);
+
 		new BukkitRunnable() {
-			
+
 			@Override
 			public void run() {
 				if (teleport.contains(player.getUuid())) {
 					teleport.remove(player.getUuid());
 					p.closeInventory();
-					player.sendMessage("Você foi teletransportado para §a" + warp.getWarpName() + "§f.");
-					
+					player.sendMessage("Vocï¿½ foi teletransportado para ï¿½a" + warp.getWarpName() + "ï¿½f.");
+
 					if (warp.getWarpName().equalsIgnoreCase("Spawn")) {
-						PlayerJoinWarpEvent event = new PlayerJoinWarpEvent(p, main.getPlayerManager().getWarp(player.getUuid()), warp, false);
+						PlayerJoinWarpEvent event = new PlayerJoinWarpEvent(p,
+								main.getPlayerManager().getWarp(player.getUuid()), warp, false);
 						main.getServer().getPluginManager().callEvent(event);
-						
+
 						if (!event.isCancelled()) {
 							p.teleport(main.getWarpManager().getWarp("Spawn").getWarpLocation());
 							main.getPlayerManager().setWarp(player.getUuid(), warp);
@@ -171,9 +174,10 @@ public class WarpCommand extends CommandClass {
 							PlayerListener.setItem(player);
 						}
 					} else {
-						PlayerJoinWarpEvent event = new PlayerJoinWarpEvent(p, main.getPlayerManager().getWarp(player.getUuid()), warp, false);
+						PlayerJoinWarpEvent event = new PlayerJoinWarpEvent(p,
+								main.getPlayerManager().getWarp(player.getUuid()), warp, false);
 						main.getServer().getPluginManager().callEvent(event);
-						
+
 						if (!event.isCancelled()) {
 							p.teleport(warp.getWarpLocation());
 							main.getPlayerManager().setWarp(player.getUuid(), warp);
@@ -184,55 +188,55 @@ public class WarpCommand extends CommandClass {
 					}
 				}
 			}
-		}.runTaskLater(main, 20*3);
+		}.runTaskLater(main, 20 * 3);
 	}
-	
+
 	@Command(name = "spawn", onlyPlayers = true)
 	public void onSpawn(CommandArgs cmdArgs) {
 		cmdArgs.getPlayer().performCommand("warp spawn");
 	}
-	
+
 	@Command(name = "1v1", onlyPlayers = true)
 	public void on1v1(CommandArgs cmdArgs) {
 		cmdArgs.getPlayer().performCommand("warp 1v1");
 	}
-	
+
 	@Command(name = "setposition", aliases = { "setpos" }, onlyPlayers = true, groupToUse = Group.BUILDER)
 	public void onSetposition(CommandArgs cmdArgs) {
 		String[] a = cmdArgs.getArgs();
 		Player p = cmdArgs.getPlayer();
-		
+
 		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
-		
+
 		if (player == null)
 			return;
-		
+
 		if (!(player.isGroup(Group.BUILDER) || player.hasServerGroup(Group.MODPLUS))) {
 			p.sendMessage(Configuration.SEMPERM.getMessage());
 			return;
 		}
-		
+
 		if (a.length == 0) {
-			send(p, "Use §a/setposition [1/2]§f para setar a posição da 1v1!");
+			send(p, "Use ï¿½a/setposition [1/2]ï¿½f para setar a posiï¿½ï¿½o da 1v1!");
 			return;
 		}
-		
+
 		if (!isNumeric(a[0])) {
-			send(p, "Use 1 ou 2 como posição!");
+			send(p, "Use 1 ou 2 como posiï¿½ï¿½o!");
 			return;
 		}
-		
+
 		Warp1v1 warp = (Warp1v1) main.getWarpManager().getWarp("1v1");
-		
+
 		Integer position = Integer.valueOf(a[0]);
-		
+
 		Location warpLocation = p.getLocation();
-		
+
 		if (position == 1)
 			warp.setFirstLocation(warpLocation);
 		else
 			warp.setSecondLocation(warpLocation);
-			
+
 		main.getWarpManager().getConfig().set("1v1.Posicao" + position + ".World", warpLocation.getWorld().getName());
 		main.getWarpManager().getConfig().set("1v1.Posicao" + position + ".X", warpLocation.getX());
 		main.getWarpManager().getConfig().set("1v1.Posicao" + position + ".Y", warpLocation.getY());
@@ -240,46 +244,46 @@ public class WarpCommand extends CommandClass {
 		main.getWarpManager().getConfig().set("1v1.Posicao" + position + ".Yaw", warpLocation.getYaw());
 		main.getWarpManager().getConfig().set("1v1.Posicao" + position + ".Pitch", warpLocation.getPitch());
 		main.getWarpManager().saveConfig();
-		
-		send(p, "Você setou a posição §a" + position + "§f da 1v1.");
+
+		send(p, "Vocï¿½ setou a posiï¿½ï¿½o ï¿½a" + position + "ï¿½f da 1v1.");
 	}
-	
+
 	@Command(name = "setsumo", onlyPlayers = true, groupToUse = Group.BUILDER)
 	public void setSumo(CommandArgs cmdArgs) {
 		String[] a = cmdArgs.getArgs();
 		Player p = cmdArgs.getPlayer();
-		
+
 		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
-		
+
 		if (player == null)
 			return;
-		
+
 		if (!(player.isGroup(Group.BUILDER) || player.hasServerGroup(Group.MODPLUS))) {
 			p.sendMessage(Configuration.SEMPERM.getMessage());
 			return;
 		}
-		
+
 		if (a.length == 0) {
-			send(p, "Use §a/setsumo [1/2]§f para setar a posição da 1v1!");
+			send(p, "Use ï¿½a/setsumo [1/2]ï¿½f para setar a posiï¿½ï¿½o da 1v1!");
 			return;
 		}
-		
+
 		if (!isNumeric(a[0])) {
-			send(p, "Use 1 ou 2 como posição!");
+			send(p, "Use 1 ou 2 como posiï¿½ï¿½o!");
 			return;
 		}
-		
+
 		WarpSumo warp = (WarpSumo) main.getWarpManager().getWarp("Sumo");
-		
+
 		Integer position = Integer.valueOf(a[0]);
-		
+
 		Location warpLocation = p.getLocation();
-		
+
 		if (position == 1)
 			warp.setFirstLocation(warpLocation);
 		else
 			warp.setSecondLocation(warpLocation);
-			
+
 		main.getWarpManager().getConfig().set("Sumo.Posicao" + position + ".World", warpLocation.getWorld().getName());
 		main.getWarpManager().getConfig().set("Sumo.Posicao" + position + ".X", warpLocation.getX());
 		main.getWarpManager().getConfig().set("Sumo.Posicao" + position + ".Y", warpLocation.getY());
@@ -287,58 +291,60 @@ public class WarpCommand extends CommandClass {
 		main.getWarpManager().getConfig().set("Sumo.Posicao" + position + ".Yaw", warpLocation.getYaw());
 		main.getWarpManager().getConfig().set("Sumo.Posicao" + position + ".Pitch", warpLocation.getPitch());
 		main.getWarpManager().saveConfig();
-		
-		send(p, "Você setou a posição §a" + position + "§f da Sumo.");
+
+		send(p, "Vocï¿½ setou a posiï¿½ï¿½o ï¿½a" + position + "ï¿½f da Sumo.");
 	}
-	
+
 	@Command(name = "setwarp", onlyPlayers = true, groupToUse = Group.BUILDER)
 	public void onSetWarp(CommandArgs cmdArgs) {
 		String[] a = cmdArgs.getArgs();
 		Player p = cmdArgs.getPlayer();
-		
+
 		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
-		
+
 		if (player == null)
 			return;
-		
+
 		if (!(player.isGroup(Group.BUILDER) || player.hasServerGroup(Group.MODPLUS))) {
 			p.sendMessage(Configuration.SEMPERM.getMessage());
 			return;
 		}
-		
+
 		if (a.length == 0) {
-			send(p, "Use §a/setwarp [Warp]§f para setar uma warp!");
+			send(p, "Use ï¿½a/setwarp [Warp]ï¿½f para setar uma warp!");
 			return;
 		}
-		
+
 		if (a[0].equalsIgnoreCase("ss") || a[0].equalsIgnoreCase("screenshare")) {
 			Warp warp = main.getWarpManager().getScreenshare();
-			
+
 			Location warpLocation = p.getLocation();
-			
+
 			warp.setWarpLocation(warpLocation);
-			
+
 			main.getWarpManager().getConfig().set("ss.World", warpLocation.getWorld().getName());
 			main.getWarpManager().getConfig().set("ss.X", warpLocation.getX());
 			main.getWarpManager().getConfig().set("ss.Y", warpLocation.getY());
 			main.getWarpManager().getConfig().set("ss.Z", warpLocation.getZ());
 			main.getWarpManager().saveConfig();
-			
-			player.sendMessage("Você alterou a localização da warp §a" + warp.getWarpName() + "§f para §aX:" + warp.getWarpLocation().getX() + "§f, §a" + warp.getWarpLocation().getY() + "§f, §a" + warp.getWarpLocation().getZ() + "§f.");
+
+			player.sendMessage("Vocï¿½ alterou a localizaï¿½ï¿½o da warp ï¿½a" + warp.getWarpName() + "ï¿½f para ï¿½aX:"
+					+ warp.getWarpLocation().getX() + "ï¿½f, ï¿½a" + warp.getWarpLocation().getY() + "ï¿½f, ï¿½a"
+					+ warp.getWarpLocation().getZ() + "ï¿½f.");
 			return;
 		}
-		
+
 		Warp warp = main.getWarpManager().getWarp(a[0]);
-		
+
 		if (warp == null) {
-			player.sendMessage("A warp §a\"" + a[0] + "\"§f não existe!");
+			player.sendMessage("A warp ï¿½a\"" + a[0] + "\"ï¿½f nï¿½o existe!");
 			return;
 		}
-		
+
 		Location warpLocation = p.getLocation();
-		
+
 		warp.setWarpLocation(warpLocation);
-		
+
 		if (warp.getWarpName().equalsIgnoreCase("1v1")) {
 			main.getWarpManager().getConfig().set("1v1.Spawn.World", warpLocation.getWorld().getName());
 			main.getWarpManager().getConfig().set("1v1.Spawn.X", warpLocation.getX());
@@ -356,16 +362,24 @@ public class WarpCommand extends CommandClass {
 			main.getWarpManager().getConfig().set("Sumo.Spawn.Pitch", warpLocation.getPitch());
 			main.getWarpManager().saveConfig();
 		} else {
-			main.getWarpManager().getConfig().set("warps." + warp.getWarpName().toLowerCase() + ".World", warpLocation.getWorld().getName());
-			main.getWarpManager().getConfig().set("warps." + warp.getWarpName().toLowerCase() + ".X", warpLocation.getX());
-			main.getWarpManager().getConfig().set("warps." + warp.getWarpName().toLowerCase() + ".Y", warpLocation.getY());
-			main.getWarpManager().getConfig().set("warps." + warp.getWarpName().toLowerCase() + ".Z", warpLocation.getZ());
-			main.getWarpManager().getConfig().set("warps." + warp.getWarpName().toLowerCase() + ".Yaw", warpLocation.getYaw());
-			main.getWarpManager().getConfig().set("warps." + warp.getWarpName().toLowerCase() + ".Pitch", warpLocation.getPitch());
+			main.getWarpManager().getConfig().set("warps." + warp.getWarpName().toLowerCase() + ".World",
+					warpLocation.getWorld().getName());
+			main.getWarpManager().getConfig().set("warps." + warp.getWarpName().toLowerCase() + ".X",
+					warpLocation.getX());
+			main.getWarpManager().getConfig().set("warps." + warp.getWarpName().toLowerCase() + ".Y",
+					warpLocation.getY());
+			main.getWarpManager().getConfig().set("warps." + warp.getWarpName().toLowerCase() + ".Z",
+					warpLocation.getZ());
+			main.getWarpManager().getConfig().set("warps." + warp.getWarpName().toLowerCase() + ".Yaw",
+					warpLocation.getYaw());
+			main.getWarpManager().getConfig().set("warps." + warp.getWarpName().toLowerCase() + ".Pitch",
+					warpLocation.getPitch());
 			main.getWarpManager().saveConfig();
 		}
-		
-		player.sendMessage("Você alterou a localização da warp §a" + warp.getWarpName() + "§f para §aX:" + warp.getWarpLocation().getX() + "§f, §a" + warp.getWarpLocation().getY() + "§f, §a" + warp.getWarpLocation().getZ() + "§f.");
+
+		player.sendMessage("Vocï¿½ alterou a localizaï¿½ï¿½o da warp ï¿½a" + warp.getWarpName() + "ï¿½f para ï¿½aX:"
+				+ warp.getWarpLocation().getX() + "ï¿½f, ï¿½a" + warp.getWarpLocation().getY() + "ï¿½f, ï¿½a"
+				+ warp.getWarpLocation().getZ() + "ï¿½f.");
 	}
 
 }

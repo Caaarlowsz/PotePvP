@@ -54,6 +54,7 @@ public final class NMSReflection {
 				field.setAccessible(true);
 
 				return new FieldAccessor<T>() {
+					@SuppressWarnings("unchecked")
 					@Override
 					public T get(Object target) {
 						try {
@@ -61,7 +62,7 @@ public final class NMSReflection {
 						} catch (final IllegalAccessException e) {
 							throw new RuntimeException("Reflection field error.", e);
 						} catch (final NullPointerException e) {
-							throw new NullPointerException("Aquele erro lá, ignore!");
+							throw new NullPointerException("Aquele erro lï¿½, ignore!");
 						}
 					}
 

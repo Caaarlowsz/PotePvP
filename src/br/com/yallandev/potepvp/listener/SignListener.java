@@ -35,7 +35,7 @@ public class SignListener implements Listener {
 			e.setLine(3, "§6-=-=====-=-");
 			return;
 		}
-		
+
 		if (e.getLine(0).contains("&")) {
 			e.setLine(0, e.getLine(0).replace("&", "§"));
 		}
@@ -58,10 +58,10 @@ public class SignListener implements Listener {
 
 		Inventory inv = Bukkit.getServer().createInventory(p, 54, "§8PotePvP - Sopas");
 
-		for (int i = 0; i < 54; i++){
+		for (int i = 0; i < 54; i++) {
 			inv.setItem(i, sopas);
 		}
-		
+
 		if ((e.getAction() == Action.RIGHT_CLICK_BLOCK) && (e.getClickedBlock() != null)
 				&& ((e.getClickedBlock().getType() == Material.WALL_SIGN)
 						|| (e.getClickedBlock().getType() == Material.SIGN_POST))) {
@@ -72,16 +72,16 @@ public class SignListener implements Listener {
 			}
 		}
 	}
-	
+
 	@EventHandler
 	public void onPlayerInteractPotion(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
 
-		ItemStack sopas = new ItemStack(Material.getMaterial(373), 1, (short)16421);
+		ItemStack sopas = new ItemStack(Material.getMaterial(373), 1, (short) 16421);
 
 		Inventory inve = Bukkit.getServer().createInventory(p, 54, "§8PotePvP - Potions");
 
-		for (int i = 0; i < 54; i++){
+		for (int i = 0; i < 54; i++) {
 			inve.setItem(i, sopas);
 		}
 		if ((e.getAction() == Action.RIGHT_CLICK_BLOCK) && (e.getClickedBlock() != null)

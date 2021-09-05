@@ -17,7 +17,8 @@ import br.com.yallandev.potepvp.kit.Kit;
 public class Exploder extends Kit {
 
 	public Exploder() {
-		super("Exploder", Material.TNT, 18000, true, Arrays.asList("Use seu exploder para", "lançar uma tnt em", "qualquer lugar do mapa."));
+		super("Exploder", Material.TNT, 18000, true,
+				Arrays.asList("Use seu exploder para", "lançar uma tnt em", "qualquer lugar do mapa."));
 	}
 
 	@EventHandler

@@ -9,59 +9,69 @@ import br.com.yallandev.potepvp.manager.WarpManager.Warp;
 import br.com.yallandev.potepvp.permissions.group.Group;
 
 public class DamageCommand extends CommandClass {
-	
+
 	@Command(name = "damage", groupToUse = Group.MOD)
 	public void onDamage(CommandArgs cmdArgs) {
 		String[] a = cmdArgs.getArgs();
 		CommandSender s = cmdArgs.getSender();
-		
+
 		if (a.length == 0) {
-			send(s, "Use §a/damage [on/off]§f para ativar ou desativar o dano global.");
-			send(s, "Use §a/damage [Warp] [on/off]§f para ativar ou desativar o dano de uma warp.");
+			send(s, "Use ï¿½a/damage [on/off]ï¿½f para ativar ou desativar o dano global.");
+			send(s, "Use ï¿½a/damage [Warp] [on/off]ï¿½f para ativar ou desativar o dano de uma warp.");
 		} else if (a.length == 1) {
 			if (a[0].equalsIgnoreCase("on")) {
 				if (main.getServerManager().isDamageAll()) {
-					send(s, "O dano global já está " + (main.getServerManager().isDamageAll() ? "§a§lATIVADO" : "§4§lDESATIVADO") + "§f.");
+					send(s, "O dano global jï¿½ estï¿½ "
+							+ (main.getServerManager().isDamageAll() ? "ï¿½aï¿½lATIVADO" : "ï¿½4ï¿½lDESATIVADO") + "ï¿½f.");
 					return;
 				}
 				main.getServerManager().setDamageAll(true);
-				send(s, "Você " + (main.getServerManager().isDamageAll() ? "§a§lATIVOU" : "§4§lDESATIVOU") + " §fo pvp global.");
+				send(s, "Vocï¿½ " + (main.getServerManager().isDamageAll() ? "ï¿½aï¿½lATIVOU" : "ï¿½4ï¿½lDESATIVOU")
+						+ " ï¿½fo pvp global.");
 			} else if (a[0].equalsIgnoreCase("off")) {
 				if (!main.getServerManager().isDamageAll()) {
-					send(s, "O dano global já está " + (main.getServerManager().isDamageAll() ? "§a§lATIVADO" : "§4§lDESATIVADO") + "§f.");
+					send(s, "O dano global jï¿½ estï¿½ "
+							+ (main.getServerManager().isDamageAll() ? "ï¿½aï¿½lATIVADO" : "ï¿½4ï¿½lDESATIVADO") + "ï¿½f.");
 					return;
 				}
 				main.getServerManager().setDamageAll(false);
-				send(s, "Você " + (main.getServerManager().isDamageAll() ? "§a§lATIVOU" : "§4§lDESATIVOU") + " §fo pvp global.");
+				send(s, "Vocï¿½ " + (main.getServerManager().isDamageAll() ? "ï¿½aï¿½lATIVOU" : "ï¿½4ï¿½lDESATIVOU")
+						+ " ï¿½fo pvp global.");
 			} else {
-				send(s, "Use §a/damage [on/off]§f para ativar ou desativar o dano global.");
-				send(s, "Use §a/damage [Warp] [on/off]§f para ativar ou desativar o dano de uma warp.");
+				send(s, "Use ï¿½a/damage [on/off]ï¿½f para ativar ou desativar o dano global.");
+				send(s, "Use ï¿½a/damage [Warp] [on/off]ï¿½f para ativar ou desativar o dano de uma warp.");
 			}
 		} else {
 			Warp warp = main.getWarpManager().getWarp(a[0]);
-			
+
 			if (warp == null) {
-				send(s, "Essa warp não existe.");
+				send(s, "Essa warp nï¿½o existe.");
 				return;
 			}
-			
+
 			if (a[1].equalsIgnoreCase("on")) {
 				if (main.getServerManager().isDamageEnable(warp)) {
-					send(s, "O dano global já está " + (main.getServerManager().isDamageEnable(warp) ? "§a§lATIVADO" : "§4§lDESATIVADO") + "§f.");
+					send(s, "O dano global jï¿½ estï¿½ "
+							+ (main.getServerManager().isDamageEnable(warp) ? "ï¿½aï¿½lATIVADO" : "ï¿½4ï¿½lDESATIVADO")
+							+ "ï¿½f.");
 					return;
 				}
 				main.getServerManager().setDamageEnable(warp, true);
-				send(s, "Você " + (main.getServerManager().isDamageEnable(warp) ? "§a§lATIVOU" : "§4§lDESATIVOU") + " §fo pvp global.");
+				send(s, "Vocï¿½ " + (main.getServerManager().isDamageEnable(warp) ? "ï¿½aï¿½lATIVOU" : "ï¿½4ï¿½lDESATIVOU")
+						+ " ï¿½fo pvp global.");
 			} else if (a[1].equalsIgnoreCase("off")) {
 				if (!main.getServerManager().isDamageAll()) {
-					send(s, "O dano global já está " + (main.getServerManager().isDamageEnable(warp) ? "§a§lATIVADO" : "§4§lDESATIVADO") + "§f.");
+					send(s, "O dano global jï¿½ estï¿½ "
+							+ (main.getServerManager().isDamageEnable(warp) ? "ï¿½aï¿½lATIVADO" : "ï¿½4ï¿½lDESATIVADO")
+							+ "ï¿½f.");
 					return;
 				}
 				main.getServerManager().setDamageEnable(warp, false);
-				send(s, "Você " + (main.getServerManager().isDamageEnable(warp) ? "§a§lATIVOU" : "§4§lDESATIVOU") + " §fo pvp global.");
+				send(s, "Vocï¿½ " + (main.getServerManager().isDamageEnable(warp) ? "ï¿½aï¿½lATIVOU" : "ï¿½4ï¿½lDESATIVOU")
+						+ " ï¿½fo pvp global.");
 			} else {
-				send(s, "Use §a/damage [on/off]§f para ativar ou desativar o dano global.");
-				send(s, "Use §a/damage [Warp] [on/off]§f para ativar ou desativar o dano de uma warp.");
+				send(s, "Use ï¿½a/damage [on/off]ï¿½f para ativar ou desativar o dano global.");
+				send(s, "Use ï¿½a/damage [Warp] [on/off]ï¿½f para ativar ou desativar o dano de uma warp.");
 			}
 		}
 	}

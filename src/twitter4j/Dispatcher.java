@@ -21,7 +21,7 @@ package twitter4j;
  */
 public interface Dispatcher {
 
-    void invokeLater(Runnable task);
+	void invokeLater(Runnable task);
 
-    void shutdown();
+	void shutdown();
 }

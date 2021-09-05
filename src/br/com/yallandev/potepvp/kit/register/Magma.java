@@ -14,9 +14,10 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import br.com.yallandev.potepvp.kit.Kit;
 
 public class Magma extends Kit {
-	
+
 	public Magma() {
-		super("Magma", Material.MAGMA_CREAM, 18000, false, Arrays.asList("Use seu magma para", "ter 33% de deixar alguém", "com fogo e não tome", "dano para fogo."));
+		super("Magma", Material.MAGMA_CREAM, 18000, false, Arrays.asList("Use seu magma para",
+				"ter 33% de deixar alguï¿½m", "com fogo e nï¿½o tome", "dano para fogo."));
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)
@@ -29,9 +30,8 @@ public class Magma extends Kit {
 		if (!hasKit(p))
 			return;
 		EntityDamageEvent.DamageCause fire = event.getCause();
-		
-		if ((fire == EntityDamageEvent.DamageCause.FIRE)
-				|| (fire == EntityDamageEvent.DamageCause.LAVA)
+
+		if ((fire == EntityDamageEvent.DamageCause.FIRE) || (fire == EntityDamageEvent.DamageCause.LAVA)
 				|| (fire == EntityDamageEvent.DamageCause.FIRE_TICK)
 				|| (fire == EntityDamageEvent.DamageCause.LIGHTNING)) {
 			event.setCancelled(true);

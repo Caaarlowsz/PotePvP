@@ -17,7 +17,7 @@ import net.minecraft.server.v1_7_R4.EntitySnowball;
 import net.minecraft.server.v1_7_R4.PacketPlayOutEntityDestroy;
 
 public class CopyOfFishingHook extends EntityFishingHook {
-	
+
 	private Snowball sb;
 	private EntitySnowball controller;
 	public int a;

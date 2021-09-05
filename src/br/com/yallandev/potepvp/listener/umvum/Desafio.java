@@ -2,10 +2,8 @@ package br.com.yallandev.potepvp.listener.umvum;
 
 import org.bukkit.entity.Player;
 
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
-
 public class Desafio {
-	
+
 	private Player desafiante;
 	private Player desafiado;
 	private String espada;
@@ -23,9 +21,6 @@ public class Desafio {
 		if (true) {
 			this.espada = "DIAMOND_SWORD";
 			this.armadura = "IRON_CHESTPLATE";
-		} else {
-			this.espada = "WOOD_SWORD";
-			this.armadura = "GLASS";
 		}
 		this.refil = false;
 		this.speed = false;
@@ -88,7 +83,7 @@ public class Desafio {
 	public boolean hasExpire() {
 		return this.expire < System.currentTimeMillis();
 	}
-	
+
 	public long getExpire() {
 		return expire;
 	}

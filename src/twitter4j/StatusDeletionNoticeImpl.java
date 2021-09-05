@@ -17,69 +17,70 @@
 package twitter4j;
 
 /**
- * StatusDeletionNotice implementation. This class is NOT intended to be extended but left non-final for the ease of mock testing.
+ * StatusDeletionNotice implementation. This class is NOT intended to be
+ * extended but left non-final for the ease of mock testing.
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.1.2
  */
 class StatusDeletionNoticeImpl implements StatusDeletionNotice, java.io.Serializable {
 
-    private static final long serialVersionUID = 9144204870473786368L;
-    private final long statusId;
-    private final long userId;
+	private static final long serialVersionUID = 9144204870473786368L;
+	private final long statusId;
+	private final long userId;
 
-    /*package*/ StatusDeletionNoticeImpl(JSONObject status) {
-        this.statusId = ParseUtil.getLong("id", status);
-        this.userId = ParseUtil.getLong("user_id", status);
-    }
+	/* package */ StatusDeletionNoticeImpl(JSONObject status) {
+		this.statusId = ParseUtil.getLong("id", status);
+		this.userId = ParseUtil.getLong("user_id", status);
+	}
 
-    @Override
-    public long getStatusId() {
-        return statusId;
-    }
+	@Override
+	public long getStatusId() {
+		return statusId;
+	}
 
-    @Override
-    public long getUserId() {
-        return userId;
-    }
+	@Override
+	public long getUserId() {
+		return userId;
+	}
 
-    @Override
-    public int compareTo(StatusDeletionNotice that) {
-        long delta = this.statusId - that.getStatusId();
-        if (delta < Integer.MIN_VALUE) {
-            return Integer.MIN_VALUE;
-        } else if (delta > Integer.MAX_VALUE) {
-            return Integer.MAX_VALUE;
-        }
-        return (int) delta;
-    }
+	@Override
+	public int compareTo(StatusDeletionNotice that) {
+		long delta = this.statusId - that.getStatusId();
+		if (delta < Integer.MIN_VALUE) {
+			return Integer.MIN_VALUE;
+		} else if (delta > Integer.MAX_VALUE) {
+			return Integer.MAX_VALUE;
+		}
+		return (int) delta;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
 
-        StatusDeletionNoticeImpl that = (StatusDeletionNoticeImpl) o;
+		StatusDeletionNoticeImpl that = (StatusDeletionNoticeImpl) o;
 
-        if (statusId != that.statusId) return false;
-        if (userId != that.userId) return false;
+		if (statusId != that.statusId)
+			return false;
+		if (userId != that.userId)
+			return false;
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = (int) (statusId ^ (statusId >>> 32));
-        result = 31 * result + (int) (userId ^ (userId >>> 32));
-        return result;
-    }
+	@Override
+	public int hashCode() {
+		int result = (int) (statusId ^ (statusId >>> 32));
+		result = 31 * result + (int) (userId ^ (userId >>> 32));
+		return result;
+	}
 
-    @Override
-    public String toString() {
-        return "StatusDeletionNoticeImpl{" +
-                "statusId=" + statusId +
-                ", userId=" + userId +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "StatusDeletionNoticeImpl{" + "statusId=" + statusId + ", userId=" + userId + '}';
+	}
 }
-

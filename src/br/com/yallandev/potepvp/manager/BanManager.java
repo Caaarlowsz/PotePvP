@@ -4,32 +4,32 @@ import java.util.AbstractMap;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 
 import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.ban.constructor.Ban;
 import br.com.yallandev.potepvp.ban.constructor.Mute;
 import br.com.yallandev.potepvp.permissions.group.Group;
 import br.com.yallandev.potepvp.twitter.TweetUtils;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
 public class BanManager {
-	
+
 	private Cache<String, Entry<String, Ban>> banCache;
 
 	public BanManager() {
-		banCache = CacheBuilder.newBuilder().expireAfterWrite(30L, TimeUnit.MINUTES).build(new CacheLoader<String, Entry<String, Ban>>() {
-			@Override
-			public Entry<String, Ban> load(String name) throws Exception {
-				return null;
-			}
-		});
+		banCache = CacheBuilder.newBuilder().expireAfterWrite(30L, TimeUnit.MINUTES)
+				.build(new CacheLoader<String, Entry<String, Ban>>() {
+					@Override
+					public Entry<String, Ban> load(String name) throws Exception {
+						return null;
+					}
+				});
 	}
 
 	public void ban(Account player, Ban ban) {
@@ -62,17 +62,18 @@ public class BanManager {
 				account.sendMessage(banMessage);
 			}
 		}
-		
+
 		if (ban.isPermanent()) {
-			TweetUtils.tweetBans("📢  Jogador banido: " + player.getUserName() + "\n" + "📢 Banido por: " + ban.getBannedBy() + "\n" + "📢 Motivo: " + ban.getReason());
-			
+			TweetUtils.tweetBans("📢  Jogador banido: " + player.getUserName() + "\n" + "📢 Banido por: "
+					+ ban.getBannedBy() + "\n" + "📢 Motivo: " + ban.getReason());
+
 			String ipAddress = player.getIpAddress();
-			
+
 			if (ipAddress == null)
 				ipAddress = player.getLastIpAddress();
-			
+
 			if (ipAddress != null) {
-				this.banCache.asMap().put(ipAddress, new AbstractMap.SimpleEntry(player.getUserName(), ban));
+				this.banCache.asMap().put(ipAddress, new AbstractMap.SimpleEntry<String, Ban>(player.getUserName(), ban));
 			}
 		}
 
@@ -82,7 +83,7 @@ public class BanManager {
 			player.getPlayer().kickPlayer(ban.getMessage());
 		}
 	}
-	
+
 	public void mute(Account player, Mute mute) {
 		player.getMuteHistory().add(mute);
 
@@ -120,7 +121,7 @@ public class BanManager {
 
 	public void unban(Account player, String commandSender) {
 		player.getPunishmentHistory().getActualBan().unban(commandSender);
-		
+
 		for (Player pPlayer : Bukkit.getOnlinePlayers()) {
 			Account account = BukkitMain.getAccountCommon().getAccount(pPlayer.getUniqueId());
 
@@ -135,22 +136,22 @@ public class BanManager {
 				account.sendMessage(banMessage);
 			}
 		}
-		
+
 		String ipAddress = player.getLastIpAddress();
-		
+
 		if (ipAddress != null) {
 			if (banCache.asMap().containsKey(ipAddress)) {
 				banCache.asMap().remove(ipAddress);
 			}
 		}
-		
+
 		if (!player.isOnline())
 			BukkitMain.getAccountCommon().saveAccount(player);
 	}
-	
+
 	public void unmute(Account player, String commandSender) {
 		player.getPunishmentHistory().getActualMute().unmute(commandSender);
-		
+
 		for (Player pPlayer : Bukkit.getOnlinePlayers()) {
 			Account account = BukkitMain.getAccountCommon().getAccount(pPlayer.getUniqueId());
 
@@ -165,7 +166,7 @@ public class BanManager {
 				account.sendMessage(banMessage);
 			}
 		}
-		
+
 		if (!player.isOnline())
 			BukkitMain.getAccountCommon().saveAccount(player);
 	}
@@ -173,6 +174,5 @@ public class BanManager {
 	public Entry<String, Ban> getIpBan(String address) {
 		return this.banCache.asMap().get(address);
 	}
-
 
 }

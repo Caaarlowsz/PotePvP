@@ -150,23 +150,23 @@ public abstract class TinyProtocol {
 				if (TinyProtocol.this.closed) {
 					return;
 				}
-				
+
 				if (e.getPlayer() == null) {
-					e.disallow(Result.KICK_OTHER, "§cNão foi possivel enviar as packet!");
+					e.disallow(Result.KICK_OTHER, "ï¿½cNï¿½o foi possivel enviar as packet!");
 					return;
 				}
-				
+
 				if (e.getResult() != Result.ALLOWED) {
 					return;
 				}
-				
+
 				final Channel channel = TinyProtocol.this.getChannel(e.getPlayer());
-				
+
 				if (channel == null) {
-					e.disallow(Result.KICK_OTHER, "§cNão foi possivel enviar as packet!");
+					e.disallow(Result.KICK_OTHER, "ï¿½cNï¿½o foi possivel enviar as packet!");
 					return;
 				}
-				
+
 				if (!TinyProtocol.this.uninjectedChannels.contains(channel)) {
 					TinyProtocol.this.injectPlayer(e.getPlayer());
 				}

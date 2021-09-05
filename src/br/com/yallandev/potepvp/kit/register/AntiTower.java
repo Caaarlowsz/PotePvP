@@ -12,11 +12,12 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import br.com.yallandev.potepvp.kit.Kit;
 
 public class AntiTower extends Kit {
-	
+
 	public AntiTower() {
-		super("AntiTower", Material.DIAMOND_BOOTS, 12000, false, Arrays.asList("Use seu antitower para", "não ser pisoteado pelos", "stompers!"));
+		super("AntiTower", Material.DIAMOND_BOOTS, 12000, false,
+				Arrays.asList("Use seu antitower para", "nï¿½o ser pisoteado pelos", "stompers!"));
 	}
-	
+
 	@EventHandler(priority = EventPriority.HIGH)
 	private void onEntityDamage(EntityDamageEvent e) {
 		if (!(e.getEntity() instanceof Player))

@@ -5,7 +5,7 @@ import org.bukkit.ChatColor;
 public class CenterChat {
 
 	private final static int CENTER_PX = 154;
-	
+
 	public static String centered(String string) {
 		if (string == null || string.equals("")) {
 			return "";
@@ -17,7 +17,7 @@ public class CenterChat {
 		boolean isBold = false;
 
 		for (char c : string.toCharArray()) {
-			if (c == '§') {
+			if (c == 'ï¿½') {
 				previousCode = true;
 				continue;
 			} else if (previousCode == true) {
@@ -45,7 +45,7 @@ public class CenterChat {
 		}
 		return stringBuilder.toString() + string;
 	}
-	
+
 	public static String centered(String string, int center) {
 		if (string == null || string.equals("")) {
 			return "";
@@ -57,7 +57,7 @@ public class CenterChat {
 		boolean isBold = false;
 
 		for (char c : string.toCharArray()) {
-			if (c == '§') {
+			if (c == 'ï¿½') {
 				previousCode = true;
 				continue;
 			} else if (previousCode == true) {

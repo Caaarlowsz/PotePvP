@@ -11,11 +11,12 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import br.com.yallandev.potepvp.kit.Kit;
 
 public class Hulk extends Kit {
-	
+
 	public Hulk() {
-		super("Hulk", Material.SADDLE, 18000, false, Arrays.asList("Use seu hulk para", "puxar alguem e deixa-lo", "em cima de sua cabeça."));
+		super("Hulk", Material.SADDLE, 18000, false,
+				Arrays.asList("Use seu hulk para", "puxar alguem e deixa-lo", "em cima de sua cabeça."));
 	}
-	
+
 	public static HashMap<String, Long> cooldown = new HashMap<>();
 
 	@EventHandler
@@ -32,11 +33,11 @@ public class Hulk extends Kit {
 					e.setCancelled(true);
 					p.updateInventory();
 					p.setPassenger(r);
-					
+
 					sendMessage(r, "Você foi pego pelo §a" + p.getName() + "§f.");
 					sendMessage(p, "Você pegou o §a" + r.getName() + "§f.");
 					sendAction(p, "Você pegou o §a" + r.getName() + "§f.");
-					
+
 					addCooldown(p, 18);
 				}
 			}

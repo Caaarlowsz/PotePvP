@@ -21,20 +21,20 @@ package twitter4j;
  */
 public interface ExtendedMediaEntity extends MediaEntity {
 
-    int getVideoAspectRatioWidth();
+	int getVideoAspectRatioWidth();
 
-    int getVideoAspectRatioHeight();
+	int getVideoAspectRatioHeight();
 
-    long getVideoDurationMillis();
+	long getVideoDurationMillis();
 
-    interface Variant extends java.io.Serializable {
+	interface Variant extends java.io.Serializable {
 
-        int getBitrate();
+		int getBitrate();
 
-        String getContentType();
+		String getContentType();
 
-        String getUrl();
-    }
+		String getUrl();
+	}
 
-    Variant[] getVideoVariants();
+	Variant[] getVideoVariants();
 }

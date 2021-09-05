@@ -31,66 +31,65 @@ import twitter4j.management.APIStatisticsMBean;
 import twitter4j.management.APIStatisticsOpenMBean;
 
 /**
- * Singleton instance of all Twitter API monitoring. Handles URL parsing and "wire off" logic.
- * We could avoid using a singleton here if Twitter objects were instantiated
- * from a factory.
+ * Singleton instance of all Twitter API monitoring. Handles URL parsing and
+ * "wire off" logic. We could avoid using a singleton here if Twitter objects
+ * were instantiated from a factory.
  *
  * @author Nick Dellamaggiore (nick.dellamaggiore at gmail.com)
  * @since Twitter4J 2.2.1
  */
 public class TwitterAPIMonitor {
-    private static final Logger logger = Logger.getLogger(TwitterAPIMonitor.class);
-    // https?:\/\/[^\/]+\/[0-9.]*\/([a-zA-Z_\.]*).*
-    // finds the "method" part a Twitter REST API url, ignoring member-specific resource names
-    private static final Pattern pattern =
-            Pattern.compile("https?://[^/]+/[0-9.]*/([a-zA-Z_\\.]*).*");
+	private static final Logger logger = Logger.getLogger(TwitterAPIMonitor.class);
+	// https?:\/\/[^\/]+\/[0-9.]*\/([a-zA-Z_\.]*).*
+	// finds the "method" part a Twitter REST API url, ignoring member-specific
+	// resource names
+	private static final Pattern pattern = Pattern.compile("https?://[^/]+/[0-9.]*/([a-zA-Z_\\.]*).*");
 
-    private static final TwitterAPIMonitor SINGLETON = new TwitterAPIMonitor();
+	private static final TwitterAPIMonitor SINGLETON = new TwitterAPIMonitor();
 
-    private static final APIStatistics STATISTICS = new APIStatistics(100);
+	private static final APIStatistics STATISTICS = new APIStatistics(100);
 
+	static {
+		try {
 
-    static {
-        try {
+			MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+			ObjectName oName = new ObjectName("twitter4j.mbean:type=APIStatisticsOpenMBean");
+			APIStatisticsOpenMBean openMBean = new APIStatisticsOpenMBean(STATISTICS);
+			mbs.registerMBean(openMBean, oName);
+		} catch (InstanceAlreadyExistsException e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+		} catch (MBeanRegistrationException e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+		} catch (NotCompliantMBeanException e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+		} catch (MalformedObjectNameException e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+		}
+	}
 
-            MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-            ObjectName oName = new ObjectName("twitter4j.mbean:type=APIStatisticsOpenMBean");
-            APIStatisticsOpenMBean openMBean = new APIStatisticsOpenMBean(STATISTICS);
-            mbs.registerMBean(openMBean, oName);
-        } catch (InstanceAlreadyExistsException e) {
-            e.printStackTrace();
-            logger.error(e.getMessage());
-        } catch (MBeanRegistrationException e) {
-            e.printStackTrace();
-            logger.error(e.getMessage());
-        } catch (NotCompliantMBeanException e) {
-            e.printStackTrace();
-            logger.error(e.getMessage());
-        } catch (MalformedObjectNameException e) {
-            e.printStackTrace();
-            logger.error(e.getMessage());
-        }
-    }
+	/**
+	 * Constructor
+	 */
+	private TwitterAPIMonitor() {
+	}
 
-    /**
-     * Constructor
-     */
-    private TwitterAPIMonitor() {
-    }
+	public static TwitterAPIMonitor getInstance() {
+		return SINGLETON;
+	}
 
-    public static TwitterAPIMonitor getInstance() {
-        return SINGLETON;
-    }
+	public APIStatisticsMBean getStatistics() {
+		return STATISTICS;
+	}
 
-    public APIStatisticsMBean getStatistics() {
-        return STATISTICS;
-    }
-
-    void methodCalled(String twitterUrl, long elapsedTime, boolean success) {
-        Matcher matcher = pattern.matcher(twitterUrl);
-        if (matcher.matches() && matcher.groupCount() > 0) {
-            String method = matcher.group(1);
-            STATISTICS.methodCalled(method, elapsedTime, success);
-        }
-    }
+	void methodCalled(String twitterUrl, long elapsedTime, boolean success) {
+		Matcher matcher = pattern.matcher(twitterUrl);
+		if (matcher.matches() && matcher.groupCount() > 0) {
+			String method = matcher.group(1);
+			STATISTICS.methodCalled(method, elapsedTime, success);
+		}
+	}
 }

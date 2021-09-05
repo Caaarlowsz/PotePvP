@@ -11,8 +11,6 @@ import java.util.List;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-import com.mysql.jdbc.Messages;
-
 import br.com.yallandev.potepvp.BukkitMain;
 import br.com.yallandev.potepvp.version.Version;
 
@@ -38,13 +36,13 @@ public class Util {
 
 	public static List<Player> getOnlinePlayers() {
 		final List<Player> list = new ArrayList<>();
-		
+
 		for (World world : BukkitMain.getPlugin().getServer().getWorlds()) {
 			for (Player player : world.getPlayers()) {
 				list.add(player);
 			}
 		}
-		
+
 		return list;
 	}
 
@@ -57,6 +55,7 @@ public class Util {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public static Object networkList(SocketAddress socketAddress, String connectionMethod, String networkManager) {
 		try {
 			Class<?> minecraftServer = Class

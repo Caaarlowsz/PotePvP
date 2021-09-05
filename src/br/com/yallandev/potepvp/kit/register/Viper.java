@@ -14,7 +14,8 @@ import br.com.yallandev.potepvp.kit.Kit;
 public class Viper extends Kit {
 
 	public Viper() {
-		super("Viper", Material.FERMENTED_SPIDER_EYE, 18000, true, Arrays.asList("Use seu viper para", "ter 33% de deixar alguém", "com veneno."));
+		super("Viper", Material.FERMENTED_SPIDER_EYE, 18000, true,
+				Arrays.asList("Use seu viper para", "ter 33% de deixar alguï¿½m", "com veneno."));
 	}
 
 	@EventHandler

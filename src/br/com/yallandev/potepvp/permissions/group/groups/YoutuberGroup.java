@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class YoutuberGroup extends GroupInterface {
-	
+
 	@Override
 	public List<String> getPermissions() {
 		List<String> permissions = new ArrayList<>();
-		for (String str : new String[] { "setworldspawn", "time", "kick", "gamemode", "toggledownfall", "tp", "teleport" }) {
+		for (String str : new String[] { "setworldspawn", "time", "kick", "gamemode", "toggledownfall", "tp",
+				"teleport" }) {
 			permissions.add("minecraft.command." + str);
 			permissions.add("bukkit.command." + str);
 			permissions.add("bukkit.cmd." + str);
@@ -17,5 +18,5 @@ public class YoutuberGroup extends GroupInterface {
 		permissions.add("worldedit.*");
 		return permissions;
 	}
-	
+
 }

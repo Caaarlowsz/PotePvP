@@ -21,55 +21,55 @@ package twitter4j;
  * @since Twitter4J 2.1.4
  */
 final class NullLogger extends Logger {
-    @Override
-    public boolean isDebugEnabled() {
-        return false;
-    }
+	@Override
+	public boolean isDebugEnabled() {
+		return false;
+	}
 
-    @Override
-    public boolean isInfoEnabled() {
-        return false;
-    }
+	@Override
+	public boolean isInfoEnabled() {
+		return false;
+	}
 
-    @Override
-    public boolean isWarnEnabled() {
-        return false;
-    }
+	@Override
+	public boolean isWarnEnabled() {
+		return false;
+	}
 
-    @Override
-    public boolean isErrorEnabled() {
-        return false;
-    }
+	@Override
+	public boolean isErrorEnabled() {
+		return false;
+	}
 
-    @Override
-    public void debug(String message) {
-    }
+	@Override
+	public void debug(String message) {
+	}
 
-    @Override
-    public void debug(String message, String message2) {
-    }
+	@Override
+	public void debug(String message, String message2) {
+	}
 
-    @Override
-    public void info(String message) {
-    }
+	@Override
+	public void info(String message) {
+	}
 
-    @Override
-    public void info(String message, String message2) {
-    }
+	@Override
+	public void info(String message, String message2) {
+	}
 
-    @Override
-    public void warn(String message) {
-    }
+	@Override
+	public void warn(String message) {
+	}
 
-    @Override
-    public void warn(String message, String message2) {
-    }
+	@Override
+	public void warn(String message, String message2) {
+	}
 
-    @Override
-    public void error(String message) {
-    }
+	@Override
+	public void error(String message) {
+	}
 
-    @Override
-    public void error(String message, Throwable th) {
-    }
+	@Override
+	public void error(String message, Throwable th) {
+	}
 }

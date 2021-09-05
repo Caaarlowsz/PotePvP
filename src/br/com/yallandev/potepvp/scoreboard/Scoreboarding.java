@@ -7,8 +7,6 @@ import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.Team;
 import org.spigotmc.ProtocolInjector;
 import org.spigotmc.ProtocolInjector.PacketTabHeader;
 
@@ -28,187 +26,201 @@ import net.minecraft.server.v1_7_R4.ChatSerializer;
 import net.minecraft.server.v1_7_R4.IChatBaseComponent;
 
 public class Scoreboarding {
-	
+
 	private static void addRanking(ScoreboardManager scoreboardManager, Account player) {
 		if (player.getRanking() == Ranking.POTTER) {
-			String color = "§";
-			
+			String color = "Â§";
+
 			if (new Random().nextBoolean()) {
 				color += String.valueOf(colors[new Random().nextInt(colors.length)]);
 			} else {
 				color += new Random().nextInt(9) + 1;
 			}
-			
-			scoreboardManager.addLine("§fRanking: ", color + player.getRanking().getIcon() + " " + player.getRanking().name());
+
+			scoreboardManager.addLine("Â§fRanking: ",
+					color + player.getRanking().getIcon() + " " + player.getRanking().name());
 		} else {
-			scoreboardManager.addLine("§fRanking: ", player.getRanking().getColor() + player.getRanking().getIcon() + " " + player.getRanking().name());
+			scoreboardManager.addLine("Â§fRanking: ",
+					player.getRanking().getColor() + player.getRanking().getIcon() + " " + player.getRanking().name());
 		}
 	}
-	
+
 	public static void setScoreboard(Player p) {
 		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
-		
+
 		if (player == null)
 			return;
-		
+
 		if (!player.isScoreboardEnable())
 			return;
-		
+
 		Warp warp = BukkitMain.getInstance().getPlayerManager().getWarp(p.getUniqueId());
-		
+
 		if (BukkitMain.getInstance().getPlayerManager().isScreenshare(p.getUniqueId())) {
-			ScoreboardManager scoreboard = new ScoreboardManager("§6§lSCREENSHARE", "ss");
-			
+			ScoreboardManager scoreboard = new ScoreboardManager("Â§6Â§lSCREENSHARE", "ss");
+
 			scoreboard.blankLine();
-			scoreboard.addLine("§fGroup: ", player.getServerGroup() == Group.MEMBRO ? "§f§lMEMBRO" : Tag.valueOf(player.getServerGroup().name()).getPrefix().replace(" ", ""));
-			scoreboard.addLine("§fXp: §7", "" + player.getStatus().getXp());
+			scoreboard.addLine("Â§fGroup: ", player.getServerGroup() == Group.MEMBRO ? "Â§fÂ§lMEMBRO"
+					: Tag.valueOf(player.getServerGroup().name()).getPrefix().replace(" ", ""));
+			scoreboard.addLine("Â§fXp: Â§7", "" + player.getStatus().getXp());
 			addRanking(scoreboard, player);
 			scoreboard.blankLine();
-			scoreboard.addLine("§cSCREEN SHARE");
+			scoreboard.addLine("Â§cSCREEN SHARE");
 			scoreboard.blankLine();
-			scoreboard.addLine("§e/score");
-			scoreboard.addLine("§3§n" + Configuration.SCOREBOARD_SITE.getMessage());
+			scoreboard.addLine("Â§e/score");
+			scoreboard.addLine("Â§3Â§n" + Configuration.SCOREBOARD_SITE.getMessage());
 			scoreboard.update(p);
 			return;
 		}
-		
+
 		if (BukkitMain.getInstance().getVanishMode().isAdmin(player.getUuid())) {
-			ScoreboardManager scoreboard = new ScoreboardManager("§6§lPVP", "admin");
-			
+			ScoreboardManager scoreboard = new ScoreboardManager("Â§6Â§lPVP", "admin");
+
 			scoreboard.blankLine();
-			scoreboard.addLine("§fGroup: ", player.getServerGroup() == Group.MEMBRO ? "§f§lMEMBRO" : Tag.valueOf(player.getServerGroup().name()).getPrefix().replace(" ", ""));
-			scoreboard.addLine("§fXp: §7", "" + player.getStatus().getXp());
+			scoreboard.addLine("Â§fGroup: ", player.getServerGroup() == Group.MEMBRO ? "Â§fÂ§lMEMBRO"
+					: Tag.valueOf(player.getServerGroup().name()).getPrefix().replace(" ", ""));
+			scoreboard.addLine("Â§fXp: Â§7", "" + player.getStatus().getXp());
 			addRanking(scoreboard, player);
 			scoreboard.blankLine();
-			scoreboard.addLine("§cMODO VANISH");
+			scoreboard.addLine("Â§cMODO VANISH");
 			scoreboard.blankLine();
-			scoreboard.addLine("§7/score");
-			scoreboard.addLine("§3§n" + Configuration.SCOREBOARD_SITE.getMessage());
+			scoreboard.addLine("Â§7/score");
+			scoreboard.addLine("Â§3Â§n" + Configuration.SCOREBOARD_SITE.getMessage());
 			scoreboard.update(p);
 			return;
 		}
-		
+
 		if (warp.getWarpName().equalsIgnoreCase("1v1")) {
 			if (Warp1v1.isIn1v1(p)) {
-				ScoreboardManager scoreboard = new ScoreboardManager("§6§l1v1", "1vs1");
-				
+				ScoreboardManager scoreboard = new ScoreboardManager("Â§6Â§l1v1", "1vs1");
+
 				scoreboard.blankLine();
-				scoreboard.addLine("§fGroup: ", player.getServerGroup() == Group.MEMBRO ? "§f§lMEMBRO" : Tag.valueOf(player.getServerGroup().name()).getPrefix().replace(" ", ""));
-				scoreboard.addLine("§fXp: §7", "" + player.getStatus().getXp());
-				scoreboard.addLine("§fRanking: §7", player.getRanking().name());
+				scoreboard.addLine("Â§fGroup: ", player.getServerGroup() == Group.MEMBRO ? "Â§fÂ§lMEMBRO"
+						: Tag.valueOf(player.getServerGroup().name()).getPrefix().replace(" ", ""));
+				scoreboard.addLine("Â§fXp: Â§7", "" + player.getStatus().getXp());
+				scoreboard.addLine("Â§fRanking: Â§7", player.getRanking().name());
 				scoreboard.blankLine();
-				scoreboard.addLine("§fBatalhando contra: ");
-				scoreboard.addLine("§3" + Warp1v1.duel.get(p));
+				scoreboard.addLine("Â§fBatalhando contra: ");
+				scoreboard.addLine("Â§3" + Warp1v1.duel.get(p));
 				scoreboard.blankLine();
-				scoreboard.addLine("§e/score");
-				scoreboard.addLine("§3§n" + Configuration.SCOREBOARD_SITE.getMessage());
+				scoreboard.addLine("Â§e/score");
+				scoreboard.addLine("Â§3Â§n" + Configuration.SCOREBOARD_SITE.getMessage());
 				scoreboard.update(p);
 			} else {
-				ScoreboardManager scoreboard = new ScoreboardManager("§6§l1v1", "1v1");
-				
+				ScoreboardManager scoreboard = new ScoreboardManager("Â§6Â§l1v1", "1v1");
+
 				scoreboard.blankLine();
-				scoreboard.addLine("§fGroup: ", player.getServerGroup() == Group.MEMBRO ? "§7§lMEMBRO" : Tag.valueOf(player.getServerGroup().name()).getPrefix().replace(" ", ""));
-				scoreboard.addLine("§fXp: §7", "" + player.getStatus().getXp());
+				scoreboard.addLine("Â§fGroup: ", player.getServerGroup() == Group.MEMBRO ? "Â§7Â§lMEMBRO"
+						: Tag.valueOf(player.getServerGroup().name()).getPrefix().replace(" ", ""));
+				scoreboard.addLine("Â§fXp: Â§7", "" + player.getStatus().getXp());
 				addRanking(scoreboard, player);
 				scoreboard.blankLine();
-				scoreboard.addLine("§fKills: §7", "" + player.getStatus().getKills());
-				scoreboard.addLine("§fDeaths: §7", "" + player.getStatus().getDeaths());
-				scoreboard.addLine("§fStreak: §7", "" + player.getStatus().getKillstreak());
+				scoreboard.addLine("Â§fKills: Â§7", "" + player.getStatus().getKills());
+				scoreboard.addLine("Â§fDeaths: Â§7", "" + player.getStatus().getDeaths());
+				scoreboard.addLine("Â§fStreak: Â§7", "" + player.getStatus().getKillstreak());
 				scoreboard.blankLine();
-				scoreboard.addLine("§e/score");
-				scoreboard.addLine("§3§n" + Configuration.SCOREBOARD_SITE.getMessage());
+				scoreboard.addLine("Â§e/score");
+				scoreboard.addLine("Â§3Â§n" + Configuration.SCOREBOARD_SITE.getMessage());
 				scoreboard.update(p);
 			}
 			return;
 		}
-		
+
 		if (warp.getWarpName().equalsIgnoreCase("Sumo")) {
 			if (WarpSumo.isIn1v1(p)) {
-				ScoreboardManager scoreboard = new ScoreboardManager("§6§lSUMO", "sumo");
-				
+				ScoreboardManager scoreboard = new ScoreboardManager("Â§6Â§lSUMO", "sumo");
+
 				scoreboard.blankLine();
-				scoreboard.addLine("§fGroup: ", player.getServerGroup() == Group.MEMBRO ? "§f§lMEMBRO" : Tag.valueOf(player.getServerGroup().name()).getPrefix().replace(" ", ""));
-				scoreboard.addLine("§fXp: §7", "" + player.getStatus().getXp());
+				scoreboard.addLine("Â§fGroup: ", player.getServerGroup() == Group.MEMBRO ? "Â§fÂ§lMEMBRO"
+						: Tag.valueOf(player.getServerGroup().name()).getPrefix().replace(" ", ""));
+				scoreboard.addLine("Â§fXp: Â§7", "" + player.getStatus().getXp());
 				addRanking(scoreboard, player);
 				scoreboard.blankLine();
-				scoreboard.addLine("§fBatalhando contra: ");
-				scoreboard.addLine("§3" + WarpSumo.duel.get(p));
+				scoreboard.addLine("Â§fBatalhando contra: ");
+				scoreboard.addLine("Â§3" + WarpSumo.duel.get(p));
 				scoreboard.blankLine();
-				scoreboard.addLine("§e/score");
-				scoreboard.addLine("§3§n" + Configuration.SCOREBOARD_SITE.getMessage());
+				scoreboard.addLine("Â§e/score");
+				scoreboard.addLine("Â§3Â§n" + Configuration.SCOREBOARD_SITE.getMessage());
 				scoreboard.update(p);
 			} else {
-				ScoreboardManager scoreboard = new ScoreboardManager("§6§lSUMO", "sumo2");
-				
+				ScoreboardManager scoreboard = new ScoreboardManager("Â§6Â§lSUMO", "sumo2");
+
 				scoreboard.blankLine();
-				scoreboard.addLine("§fGroup: ", player.getServerGroup() == Group.MEMBRO ? "§7§lMEMBRO" : Tag.valueOf(player.getServerGroup().name()).getPrefix().replace(" ", ""));
-				scoreboard.addLine("§fXp: §7", "" + player.getStatus().getXp());
+				scoreboard.addLine("Â§fGroup: ", player.getServerGroup() == Group.MEMBRO ? "Â§7Â§lMEMBRO"
+						: Tag.valueOf(player.getServerGroup().name()).getPrefix().replace(" ", ""));
+				scoreboard.addLine("Â§fXp: Â§7", "" + player.getStatus().getXp());
 				addRanking(scoreboard, player);
 				scoreboard.blankLine();
-				scoreboard.addLine("§fKills: §7", "" + player.getStatus().getKills());
-				scoreboard.addLine("§fDeaths: §7", "" + player.getStatus().getDeaths());
-				scoreboard.addLine("§fStreak: §7", "" + player.getStatus().getKillstreak());
+				scoreboard.addLine("Â§fKills: Â§7", "" + player.getStatus().getKills());
+				scoreboard.addLine("Â§fDeaths: Â§7", "" + player.getStatus().getDeaths());
+				scoreboard.addLine("Â§fStreak: Â§7", "" + player.getStatus().getKillstreak());
 				scoreboard.blankLine();
-				scoreboard.addLine("§e/score");
-				scoreboard.addLine("§3§n" + Configuration.SCOREBOARD_SITE.getMessage());
+				scoreboard.addLine("Â§e/score");
+				scoreboard.addLine("Â§3Â§n" + Configuration.SCOREBOARD_SITE.getMessage());
 				scoreboard.update(p);
 			}
 			return;
 		}
-		
-		ScoreboardManager scoreboard = new ScoreboardManager("§6§lPVP", warp.getWarpName().equalsIgnoreCase("Spawn") ? "spawn" : "warp");
-		
+
+		ScoreboardManager scoreboard = new ScoreboardManager("Â§6Â§lPVP",
+				warp.getWarpName().equalsIgnoreCase("Spawn") ? "spawn" : "warp");
+
 		scoreboard.blankLine();
-		scoreboard.addLine("§fGroup: ", player.getServerGroup() == Group.MEMBRO ? "§7§lMEMBRO" : Tag.valueOf(player.getServerGroup().name()).getPrefix().replace(" ", ""));
-		scoreboard.addLine("§fXp: §7", "" + player.getStatus().getXp());
+		scoreboard.addLine("Â§fGroup: ", player.getServerGroup() == Group.MEMBRO ? "Â§7Â§lMEMBRO"
+				: Tag.valueOf(player.getServerGroup().name()).getPrefix().replace(" ", ""));
+		scoreboard.addLine("Â§fXp: Â§7", "" + player.getStatus().getXp());
 		addRanking(scoreboard, player);
 		scoreboard.blankLine();
-		
+
 		if (warp.getWarpName().equalsIgnoreCase("Spawn")) {
-			scoreboard.addLine("§fKit: §a", BukkitMain.getInstance().getKitManager().getNameOfAbility(player.getUuid()));
+			scoreboard.addLine("Â§fKit: Â§a",
+					BukkitMain.getInstance().getKitManager().getNameOfAbility(player.getUuid()));
 		} else {
-			scoreboard.addLine("§fWarp: §a", warp.getWarpName());
+			scoreboard.addLine("Â§fWarp: Â§a", warp.getWarpName());
 		}
-		scoreboard.addLine("§fMoney: §7", "" + player.getStatus().getMoney());
+		scoreboard.addLine("Â§fMoney: Â§7", "" + player.getStatus().getMoney());
 		scoreboard.blankLine();
-		scoreboard.addLine("§fKills: §7", "" + player.getStatus().getKills());
-		scoreboard.addLine("§fDeaths: §7", "" + player.getStatus().getDeaths());
-		scoreboard.addLine("§fStreak: §7", "" + player.getStatus().getKillstreak());
+		scoreboard.addLine("Â§fKills: Â§7", "" + player.getStatus().getKills());
+		scoreboard.addLine("Â§fDeaths: Â§7", "" + player.getStatus().getDeaths());
+		scoreboard.addLine("Â§fStreak: Â§7", "" + player.getStatus().getKillstreak());
 		scoreboard.blankLine();
-		scoreboard.addLine("§e/score");
-		scoreboard.addLine("§3§n" + Configuration.SCOREBOARD_SITE.getMessage());
+		scoreboard.addLine("Â§e/score");
+		scoreboard.addLine("Â§3Â§n" + Configuration.SCOREBOARD_SITE.getMessage());
 		scoreboard.update(p);
 	}
-	
+
 	private static void update(Player p) {
-		Scoreboard sb = p.getScoreboard();
-		
 		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
-		
+
 		if (player == null)
 			return;
-		
+
 		setScoreboard(p);
-		sendTab(p, "§6Servidor: §fA1 §8| §6Kit: §f" + BukkitMain.getInstance().getKitManager().getNameOfAbility(p.getUniqueId()) + "  §8| §6Ping: §f" + ((CraftPlayer) p).getHandle().ping + "ms", "\n§bNick: §f" + player.getUserName() + " §8| §bXp: §f" + player.getStatus().getXp() + " §8| §bRanking: §f" + player.getRanking().name() + "\n§bMais informações: §f" + Configuration.SITE.getMessage()); 
+		sendTab(p,
+				"Â§6Servidor: Â§fA1 Â§8| Â§6Kit: Â§f"
+						+ BukkitMain.getInstance().getKitManager().getNameOfAbility(p.getUniqueId())
+						+ "  Â§8| Â§6Ping: Â§f" + ((CraftPlayer) p).getHandle().ping + "ms",
+				"\nÂ§bNick: Â§f" + player.getUserName() + " Â§8| Â§bXp: Â§f" + player.getStatus().getXp()
+						+ " Â§8| Â§bRanking: Â§f" + player.getRanking().name() + "\nÂ§bMais informaÂ§Â§es: Â§f"
+						+ Configuration.SITE.getMessage());
 	}
-	
+
 	public static char[] colors = { 'a', 'e', 'b', 'c', 'd' };
-	
+
 	public static void sendTab(Player p, String cima, String baixo) {
 		if (((CraftPlayer) p).getHandle().playerConnection.networkManager.getVersion() < 46) {
 			return;
 		}
-		
+
 		IChatBaseComponent tabcima = ChatSerializer.a("{\"text\": \"" + cima + "\"}");
 		IChatBaseComponent tabbaixo = ChatSerializer.a("{\"text\": \"" + baixo + "\"}");
 		PacketTabHeader packet = new ProtocolInjector.PacketTabHeader(tabcima, tabbaixo);
 		((CraftPlayer) p).getHandle().playerConnection.sendPacket(packet);
 	}
 
-	
 	public static void startUpdater() {
 		Bukkit.getPluginManager().registerEvents(new Listener() {
-			
+
 			@EventHandler
 			public void onUpdate(UpdateEvent e) {
 				if (e.getType() == UpdateType.SECOND) {
@@ -217,7 +229,7 @@ public class Scoreboarding {
 					}
 				}
 			}
-			
+
 		}, BukkitMain.getPlugin());
 	}
 

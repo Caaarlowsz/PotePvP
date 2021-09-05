@@ -28,11 +28,13 @@ import br.com.yallandev.potepvp.utils.ItemManager;
 public class Avatar extends Kit {
 
 	public Avatar() {
-		super("Avatar", Material.BEACON, 18000, Arrays.asList(new ItemManager(Material.BEACON, "§aAvatar").build()), Arrays.asList("§fUse seu avatar para", "§fpara controlar todos os", "§felementos ar, terra, agua e fogo."));
+		super("Avatar", Material.BEACON, 18000, Arrays.asList(new ItemManager(Material.BEACON, "ï¿½aAvatar").build()),
+				Arrays.asList("ï¿½fUse seu avatar para", "ï¿½fpara controlar todos os",
+						"ï¿½felementos ar, terra, agua e fogo."));
 	}
 
 	public static ItemStack getItem(ItemStack item) {
-		ItemManager itemmanager = new ItemManager(Material.BEACON, "§aAvatar");
+		ItemManager itemmanager = new ItemManager(Material.BEACON, "ï¿½aAvatar");
 		if (item.getType() == Material.BEACON) {
 			itemmanager.setMaterial(Material.WOOL);
 			return itemmanager.build();
@@ -75,7 +77,7 @@ public class Avatar extends Kit {
 			if (!(player.getItemInHand().getItemMeta().hasDisplayName())) {
 				return;
 			}
-			if (!player.getItemInHand().getItemMeta().getDisplayName().equals("§aAvatar")) {
+			if (!player.getItemInHand().getItemMeta().getDisplayName().equals("ï¿½aAvatar")) {
 				return;
 			}
 			if (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {

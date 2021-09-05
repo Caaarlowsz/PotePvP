@@ -14,45 +14,45 @@ import br.com.yallandev.potepvp.permissions.group.Group;
 import br.com.yallandev.potepvp.utils.DateUtils;
 
 public class BanCommand extends CommandClass {
-	
+
 	@Command(name = "ban", groupToUse = Group.TRIAL, onlyPlayers = true)
 	public void onBan(CommandArgs cmdArgs) {
 		CommandSender s = cmdArgs.getSender();
 		String[] a = cmdArgs.getArgs();
-		
+
 		if (a.length == 0) {
-			send(s, "Use §a/ban [Jogador] [Motivo]§f para banir permanentemente alguém.");
+			send(s, "Use ï¿½a/ban [Jogador] [Motivo]ï¿½f para banir permanentemente alguï¿½m.");
 			return;
 		}
-		
+
 		if (getAccountCommon().getUUID(a[0]) == null) {
-			send(s, "O jogador §c\"" + a[0] + "\" §fnão existe!");
+			send(s, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fnï¿½o existe!");
 			return;
 		}
-		
+
 		UUID uuid = getAccountCommon().getUUID(a[0]);
-		
+
 		if (uuid == null) {
-			send(s, "O jogador §c\"" + a[0] + "\" §fnão existe no nosso banco de dados!");
+			send(s, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fnï¿½o existe no nosso banco de dados!");
 			return;
 		}
-		
+
 		Account player = getAccountCommon().getAccount(uuid);
-		
+
 		if (player == null) {
 			player = getAccountCommon().loadAccount(uuid, false);
-			
+
 			if (player == null) {
-				send(s, "O jogador §c\"" + a[0] + "\" §fnão existe!");
+				send(s, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fnï¿½o existe!");
 				return;
 			}
 		}
-		
+
 		if (player.getGroup().ordinal() > getGroup(s).ordinal()) {
-			send(s, "Você não pode banir alguem que tem um cargo maior que o seu!");
+			send(s, "Vocï¿½ nï¿½o pode banir alguem que tem um cargo maior que o seu!");
 			return;
 		}
-		
+
 		StringBuilder sb = new StringBuilder();
 
 		if (a.length == 1) {
@@ -68,84 +68,85 @@ public class BanCommand extends CommandClass {
 		}
 
 		String reason = sb.toString().trim();
-		
-		if (player.getPunishmentHistory().getActualBan() != null && player.getPunishmentHistory().getActualBan().isPermanent()) {
-			send(s, "O jogador §a\"" + player.getUserName() + "\" §fjá está banido!");
+
+		if (player.getPunishmentHistory().getActualBan() != null
+				&& player.getPunishmentHistory().getActualBan().isPermanent()) {
+			send(s, "O jogador ï¿½a\"" + player.getUserName() + "\" ï¿½fjï¿½ estï¿½ banido!");
 			return;
 		}
-		
+
 		Ban ban = new Ban((cmdArgs.isPlayer() ? cmdArgs.getAccount().getUserName() : s.getName()), reason);
-		
-		send(s, "Você baniu o jogador §a\"" + player.getUserName() + "\" §f pelo motivo §a\"" + reason + "\"§f.");
+
+		send(s, "Vocï¿½ baniu o jogador ï¿½a\"" + player.getUserName() + "\" ï¿½f pelo motivo ï¿½a\"" + reason + "\"ï¿½f.");
 		main.getBanManager().ban(player, ban);
 	}
-	
+
 	@Command(name = "unban", aliases = { "pardon" }, groupToUse = Group.ADMIN)
 	public void onUnban(CommandArgs cmdArgs) {
 		CommandSender s = cmdArgs.getSender();
 		String[] a = cmdArgs.getArgs();
-		
+
 		if (a.length == 0) {
-			send(s, "Use §a/unban [Jogador]§f para desbanir um jogador!");
+			send(s, "Use ï¿½a/unban [Jogador]ï¿½f para desbanir um jogador!");
 			return;
 		}
-		
+
 		if (getAccountCommon().getUUID(a[0]) == null) {
-			send(s, "O jogador §c\"" + a[0] + "\" §fnão existe!");
+			send(s, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fnï¿½o existe!");
 			return;
 		}
-		
+
 		Account player = getAccountCommon().getAccount(getAccountCommon().getUUID(a[0]));
-		
+
 		if (player == null) {
 			player = getAccountCommon().loadAccount(getAccountCommon().getUUID(a[0]), false);
-			
+
 			if (player == null) {
-				send(s, "O jogador §c\"" + a[0] + "\" §fnão existe!");
+				send(s, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fnï¿½o existe!");
 				return;
 			}
 		}
-		
+
 		if (player.getPunishmentHistory().getActualBan() == null) {
-			send(s, "O jogador §c\"" + a[0] + "\" §fnão está banido!");
+			send(s, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fnï¿½o estï¿½ banido!");
 			return;
 		}
-		
-		send(s, "Você desbaniu o jogador §a\"" + a[0] + "\" §f!");
+
+		send(s, "Vocï¿½ desbaniu o jogador ï¿½a\"" + a[0] + "\" ï¿½f!");
 		main.getBanManager().unban(player, s.getName());
 	}
-	
+
 	@Command(name = "tempban", groupToUse = Group.TRIAL)
 	public void onTempban(CommandArgs cmdArgs) {
 		CommandSender s = cmdArgs.getSender();
 		String[] a = cmdArgs.getArgs();
-		
+
 		if (a.length == 0) {
-			send(s, "Use §a/tempban [Jogador] [Tempo] [Motivo]§f para banir temporariamente um jogaor!");
+			send(s, "Use ï¿½a/tempban [Jogador] [Tempo] [Motivo]ï¿½f para banir temporariamente um jogaor!");
 			return;
 		}
-		
+
 		if (a.length == 1) {
-			send(s, "Use §a/tempban [Jogador] [Tempo] [Motivo]§f para banir temporariamente um jogaor!");
+			send(s, "Use ï¿½a/tempban [Jogador] [Tempo] [Motivo]ï¿½f para banir temporariamente um jogaor!");
 			return;
 		}
-		
+
 		if (getAccountCommon().getUUID(a[0]) == null) {
-			send(s, "O jogador §c\"" + a[0] + "\" §fnão existe!");
+			send(s, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fnï¿½o existe!");
 			return;
 		}
-		
+
 		Account player = getAccountCommon().getAccount(getAccountCommon().getUUID(a[0]));
-		
+
 		if (player == null) {
 			player = getAccountCommon().loadAccount(getAccountCommon().getUUID(a[0]), false);
-			
+
 			if (player == null) {
-				send(s, "O jogador §c\"" + a[0] + "\" §fnão existe!");
+				send(s, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fnï¿½o existe!");
 				return;
 			}
 		}
-		
+
 		StringBuilder sb = new StringBuilder();
 
 		if (a.length == 2) {
@@ -162,51 +163,53 @@ public class BanCommand extends CommandClass {
 
 		String reason = sb.toString().trim();
 		Long expire = null;
-		
+
 		try {
 			expire = DateUtils.getTime(a[1]);
 		} catch (Exception e) {
 			send(s, "Use um formato de tempo valido (Exemplo: 30s, 1m, 2h, 5d, 2mo, 1y)");
 			return;
 		}
-		
-		if (player.getPunishmentHistory().getActualBan() != null && player.getPunishmentHistory().getActualBan().isPermanent()) {
-			send(s, "O jogador §a\"" + player.getUserName() + "\" §fjá está banido!");
+
+		if (player.getPunishmentHistory().getActualBan() != null
+				&& player.getPunishmentHistory().getActualBan().isPermanent()) {
+			send(s, "O jogador ï¿½a\"" + player.getUserName() + "\" ï¿½fjï¿½ estï¿½ banido!");
 			return;
 		}
-		
+
 		Ban ban = new Ban((cmdArgs.isPlayer() ? cmdArgs.getAccount().getUserName() : s.getName()), reason, expire);
-		
-		send(s, "Você baniu o jogador §a\"" + player.getUserName() + "\" §f pelo motivo §a\"" + reason + "\"§f pelo tempo §a§n" + DateUtils.getTime(expire) + "§f.");
+
+		send(s, "Vocï¿½ baniu o jogador ï¿½a\"" + player.getUserName() + "\" ï¿½f pelo motivo ï¿½a\"" + reason
+				+ "\"ï¿½f pelo tempo ï¿½aï¿½n" + DateUtils.getTime(expire) + "ï¿½f.");
 		main.getBanManager().ban(player, ban);
 	}
-	
+
 	@Command(name = "mute", groupToUse = Group.HELPER)
 	public void onMute(CommandArgs cmdArgs) {
 		CommandSender s = cmdArgs.getSender();
 		String[] a = cmdArgs.getArgs();
-		
+
 		if (a.length == 0) {
-			send(s, "Use §a/mute [Jogador] [Motivo]§f para mutar permanentemente um jogaor!");
+			send(s, "Use ï¿½a/mute [Jogador] [Motivo]ï¿½f para mutar permanentemente um jogaor!");
 			return;
 		}
-		
+
 		if (getAccountCommon().getUUID(a[0]) == null) {
-			send(s, "O jogador §c\"" + a[0] + "\" §fnão existe!");
+			send(s, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fnï¿½o existe!");
 			return;
 		}
-		
+
 		Account player = getAccountCommon().getAccount(getAccountCommon().getUUID(a[0]));
-		
+
 		if (player == null) {
 			player = getAccountCommon().loadAccount(getAccountCommon().getUUID(a[0]), false);
-			
+
 			if (player == null) {
-				send(s, "O jogador §c\"" + a[0] + "\" §fnão existe!");
+				send(s, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fnï¿½o existe!");
 				return;
 			}
 		}
-		
+
 		StringBuilder sb = new StringBuilder();
 
 		if (a.length == 1) {
@@ -220,81 +223,82 @@ public class BanCommand extends CommandClass {
 				}
 			}
 		}
-		
+
 		String reason = sb.toString().trim();
-		
-		if (player.getPunishmentHistory().getActualMute() != null && player.getPunishmentHistory().getActualMute().isPermanent()) {
-			send(s, "O jogador §c\"" + a[0] + "\" §fjá está mutado!");
+
+		if (player.getPunishmentHistory().getActualMute() != null
+				&& player.getPunishmentHistory().getActualMute().isPermanent()) {
+			send(s, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fjï¿½ estï¿½ mutado!");
 			return;
 		}
-		
+
 		Mute mute = new Mute((cmdArgs.isPlayer() ? cmdArgs.getAccount().getUserName() : s.getName()), reason);
-		
-		send(s, "Você mutou o jogador §a\"" + player.getUserName() + "\" §f pelo motivo §a\"" + reason + "\"§f.");
+
+		send(s, "Vocï¿½ mutou o jogador ï¿½a\"" + player.getUserName() + "\" ï¿½f pelo motivo ï¿½a\"" + reason + "\"ï¿½f.");
 		main.getBanManager().mute(player, mute);
 	}
-	
+
 	@Command(name = "unmute", groupToUse = Group.MODPLUS)
 	public void onUnmute(CommandArgs cmdArgs) {
 		CommandSender s = cmdArgs.getSender();
 		String[] a = cmdArgs.getArgs();
-		
+
 		if (a.length == 0) {
-			send(s, "Use §a/unmute [Jogador]§f para desmutar um jogador!");
+			send(s, "Use ï¿½a/unmute [Jogador]ï¿½f para desmutar um jogador!");
 			return;
 		}
-		
+
 		if (getAccountCommon().getUUID(a[0]) == null) {
-			send(s, "O jogador §c\"" + a[0] + "\" §fnão existe!");
+			send(s, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fnï¿½o existe!");
 			return;
 		}
-		
+
 		Account player = getAccountCommon().getAccount(getAccountCommon().getUUID(a[0]));
-		
+
 		if (player == null) {
 			player = getAccountCommon().loadAccount(getAccountCommon().getUUID(a[0]), false);
-			
+
 			if (player == null) {
-				send(s, "O jogador §c\"" + a[0] + "\" §fnão existe!");
+				send(s, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fnï¿½o existe!");
 				return;
 			}
 		}
-		
+
 		if (player.getPunishmentHistory().getActualMute() == null) {
-			send(s, "O jogador §c\"" + a[0] + "\" §fnão está mutado!");
+			send(s, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fnï¿½o estï¿½ mutado!");
 			return;
 		}
-		
-		send(s, "Você desmutou o jogador §a\"" + a[0] + "\" §f!");
+
+		send(s, "Vocï¿½ desmutou o jogador ï¿½a\"" + a[0] + "\" ï¿½f!");
 		main.getBanManager().unmute(player, s.getName());
 	}
-	
+
 	@Command(name = "tempmute", groupToUse = Group.HELPER)
 	public void onTempmute(CommandArgs cmdArgs) {
 		CommandSender s = cmdArgs.getSender();
 		String[] a = cmdArgs.getArgs();
-		
+
 		if (a.length <= 1) {
-			send(s, "Use §a/tempmute [Jogador] [Tempo] [Motivo]§f para mutar temporariamente um jogaor!");
+			send(s, "Use ï¿½a/tempmute [Jogador] [Tempo] [Motivo]ï¿½f para mutar temporariamente um jogaor!");
 			return;
 		}
-		
+
 		if (getAccountCommon().getUUID(a[0]) == null) {
-			send(s, "O jogador §c\"" + a[0] + "\" §fnão existe!");
+			send(s, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fnï¿½o existe!");
 			return;
 		}
-		
+
 		Account player = getAccountCommon().getAccount(getAccountCommon().getUUID(a[0]));
-		
+
 		if (player == null) {
 			player = getAccountCommon().loadAccount(getAccountCommon().getUUID(a[0]), false);
-			
+
 			if (player == null) {
-				send(s, "O jogador §c\"" + a[0] + "\" §fnão existe!");
+				send(s, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fnï¿½o existe!");
 				return;
 			}
 		}
-		
+
 		StringBuilder sb = new StringBuilder();
 
 		if (a.length == 2) {
@@ -311,56 +315,58 @@ public class BanCommand extends CommandClass {
 
 		String reason = sb.toString().trim();
 		Long expire = null;
-		
+
 		try {
 			expire = DateUtils.getTime(a[1]);
 		} catch (Exception e) {
 			send(s, "Use um formato de tempo valido (Exemplo: 30s, 1m, 2h, 5d, 2mo, 1y)");
 			return;
 		}
-		
-		if (player.getPunishmentHistory().getActualMute() != null && player.getPunishmentHistory().getActualMute().isPermanent()) {
-			send(s, "O jogador §a\"" + player.getUserName() + "\" §fjá está banido!");
+
+		if (player.getPunishmentHistory().getActualMute() != null
+				&& player.getPunishmentHistory().getActualMute().isPermanent()) {
+			send(s, "O jogador ï¿½a\"" + player.getUserName() + "\" ï¿½fjï¿½ estï¿½ banido!");
 			return;
 		}
-		
+
 		Mute ban = new Mute((cmdArgs.isPlayer() ? cmdArgs.getAccount().getUserName() : s.getName()), reason, expire);
-		
-		send(s, "Você mutou o jogador §a\"" + player.getUserName() + "\" §f pelo motivo §a\"" + reason + "\"§f pelo tempo §a§n" + DateUtils.getTime(expire) + "§f.");
+
+		send(s, "Vocï¿½ mutou o jogador ï¿½a\"" + player.getUserName() + "\" ï¿½f pelo motivo ï¿½a\"" + reason
+				+ "\"ï¿½f pelo tempo ï¿½aï¿½n" + DateUtils.getTime(expire) + "ï¿½f.");
 		main.getBanManager().mute(player, ban);
 	}
-	
+
 	@Command(name = "kick", groupToUse = Group.HELPER)
 	public void onKick(CommandArgs cmdArgs) {
 		CommandSender s = cmdArgs.getSender();
 		String[] a = cmdArgs.getArgs();
-		
+
 		if (a.length == 0) {
-			send(s, "Use §a/kick [Jogador] [Motivo]§f para kickar alguém.");
+			send(s, "Use ï¿½a/kick [Jogador] [Motivo]ï¿½f para kickar alguï¿½m.");
 			return;
 		}
-		
+
 		if (getAccountCommon().getUUID(a[0]) == null) {
-			send(s, "O jogador §c\"" + a[0] + "\" §fnão existe!");
+			send(s, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fnï¿½o existe!");
 			return;
 		}
-		
+
 		Account player = getAccountCommon().getAccount(getAccountCommon().getUUID(a[0]));
-		
+
 		if (player == null) {
 			player = getAccountCommon().loadAccount(getAccountCommon().getUUID(a[0]), false);
-			
+
 			if (player == null) {
-				send(s, "O jogador §c\"" + a[0] + "\" §fnão existe!");
+				send(s, "O jogador ï¿½c\"" + a[0] + "\" ï¿½fnï¿½o existe!");
 				return;
 			}
 		}
-		
+
 		if (!player.isOnline()) {
-			send(s, "O jogador §a\"" + player.getUserName() + "\" §fnão está online!");
+			send(s, "O jogador ï¿½a\"" + player.getUserName() + "\" ï¿½fnï¿½o estï¿½ online!");
 			return;
 		}
-		
+
 		StringBuilder sb = new StringBuilder();
 
 		if (a.length == 1) {
@@ -376,9 +382,9 @@ public class BanCommand extends CommandClass {
 		}
 
 		String reason = sb.toString().trim();
-		
-		player.getPlayer().kickPlayer("§cSua conta foi kickada do servidor!\nMotivo: " + reason);
-		send(s, "Você kickou o jogador §a\"" + player.getUserName() + "\" §f pelo motivo §a\"" + reason + "\"§f.");
+
+		player.getPlayer().kickPlayer("ï¿½cSua conta foi kickada do servidor!\nMotivo: " + reason);
+		send(s, "Vocï¿½ kickou o jogador ï¿½a\"" + player.getUserName() + "\" ï¿½f pelo motivo ï¿½a\"" + reason + "\"ï¿½f.");
 	}
 
 }

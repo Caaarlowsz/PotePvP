@@ -12,7 +12,6 @@ import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.Command;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.CommandArgs;
 import br.com.yallandev.potepvp.manager.CommandClass;
-import br.com.yallandev.potepvp.manager.WarpManager.Warp;
 import br.com.yallandev.potepvp.permissions.group.Group;
 
 public class SkitCommand extends CommandClass {
@@ -29,11 +28,10 @@ public class SkitCommand extends CommandClass {
 			return;
 
 		if (a.length == 0) {
-			send(p, "Use §a/skit [criar/create] [Name]§f para criar um skit.");
-			send(p, "Use §a/skit update [Name]§f para criar um skit.");
-			send(p, 
-					"Use §a/skit [aplicar/apply] [Name] [Raio/All/Jogador/Warp]§f para aplicar um skit em um raio determinado, em todos do servidor ou em um player só.");
-			send(p, "Use §a/skit list§f para ver a lista de skits.");
+			send(p, "Use ï¿½a/skit [criar/create] [Name]ï¿½f para criar um skit.");
+			send(p, "Use ï¿½a/skit update [Name]ï¿½f para criar um skit.");
+			send(p, "Use ï¿½a/skit [aplicar/apply] [Name] [Raio/All/Jogador/Warp]ï¿½f para aplicar um skit em um raio determinado, em todos do servidor ou em um player sï¿½.");
+			send(p, "Use ï¿½a/skit listï¿½f para ver a lista de skits.");
 		} else if (a.length == 1) {
 			if (a[0].equalsIgnoreCase("list")) {
 				List<String> list = new ArrayList<>();
@@ -43,7 +41,7 @@ public class SkitCommand extends CommandClass {
 				}
 
 				if (list.size() == 0) {
-					send(p, "Não há nenhum skit.");
+					send(p, "Nï¿½o hï¿½ nenhum skit.");
 				} else {
 					String bgl = "";
 					for (int j = 0; j < list.size(); j++) {
@@ -57,10 +55,9 @@ public class SkitCommand extends CommandClass {
 					send(p, "Skit's disponiveis: " + bgl);
 				}
 			} else {
-				send(p, "Use §a/skit [criar/create] [Name]§f para criar um skit.");
-				send(p, 
-						"Use §a/skit [aplicar/apply] [Name] [Raio/All/Jogador/Warp]§f para aplicar um skit em um raio determinado, em todos do servidor ou em um player só.");
-				send(p, "Use §a/skit list§f para ver a lista de skits.");
+				send(p, "Use ï¿½a/skit [criar/create] [Name]ï¿½f para criar um skit.");
+				send(p, "Use ï¿½a/skit [aplicar/apply] [Name] [Raio/All/Jogador/Warp]ï¿½f para aplicar um skit em um raio determinado, em todos do servidor ou em um player sï¿½.");
+				send(p, "Use ï¿½a/skit listï¿½f para ver a lista de skits.");
 			}
 		} else if (a.length == 2) {
 			if (a[0].equalsIgnoreCase("create") || a[0].equalsIgnoreCase("criar")) {
@@ -68,17 +65,15 @@ public class SkitCommand extends CommandClass {
 			} else if (a[0].equalsIgnoreCase("update")) {
 				BukkitMain.getInstance().getSimpleKitManager().updateSkit(p, a[1]);
 			} else {
-				send(p, "Use §a/skit [criar/create] [Name]§f para criar um skit.");
-				send(p, 
-						"Use §a/skit [aplicar/apply] [Name] [Raio/All/Jogador/Warp]§f para aplicar um skit em um raio determinado, em todos do servidor ou em um player só.");
-				send(p, "Use §a/skit list§f para ver a lista de skits.");
+				send(p, "Use ï¿½a/skit [criar/create] [Name]ï¿½f para criar um skit.");
+				send(p, "Use ï¿½a/skit [aplicar/apply] [Name] [Raio/All/Jogador/Warp]ï¿½f para aplicar um skit em um raio determinado, em todos do servidor ou em um player sï¿½.");
+				send(p, "Use ï¿½a/skit listï¿½f para ver a lista de skits.");
 			}
 		} else {
 			if (a[0].equalsIgnoreCase("aplicar") || a[0].equalsIgnoreCase("apply")) {
 				if (a[2].equalsIgnoreCase("all")) {
 					BukkitMain.getInstance().getSimpleKitManager().applyInAll(p, a[1]);
-				} else if (BukkitMain.getInstance().getWarpManager().getWarp(a[2]) != null) { 
-					Warp warp = BukkitMain.getInstance().getWarpManager().getWarp(a[2]);
+				} else if (BukkitMain.getInstance().getWarpManager().getWarp(a[2]) != null) {
 				} else if (Bukkit.getPlayer(a[2]) != null) {
 					BukkitMain.getInstance().getSimpleKitManager().applyInPlayer(p, Bukkit.getPlayer(a[2]), a[1]);
 				} else {

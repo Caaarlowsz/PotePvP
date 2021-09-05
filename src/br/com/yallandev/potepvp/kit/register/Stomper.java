@@ -14,17 +14,17 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
-import br.com.yallandev.potepvp.BukkitMain;
 import br.com.yallandev.potepvp.kit.Kit;
 
 public class Stomper extends Kit {
-	
+
 	public boolean hasPlayer(Player p) {
 		return true;
 	}
-	
+
 	public Stomper() {
-		super("Stomper", Material.IRON_BOOTS, 36000, false, Arrays.asList("Use seu stomper para", "pisotear alguém perto de você."));
+		super("Stomper", Material.IRON_BOOTS, 36000, false,
+				Arrays.asList("Use seu stomper para", "pisotear alguï¿½m perto de vocï¿½."));
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)

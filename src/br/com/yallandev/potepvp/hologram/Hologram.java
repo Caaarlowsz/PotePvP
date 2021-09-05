@@ -48,6 +48,7 @@ public class Hologram {
 	private double linesSpace;
 	private boolean register;
 
+	@SuppressWarnings("unchecked")
 	public Hologram(String text, Location location, boolean register) {
 		this.text = text;
 		this.location = location;
@@ -60,7 +61,8 @@ public class Hologram {
 		armorstand1_8.setLocation(location.getX(), location.getY() - 1, location.getZ(), 0, 0);
 
 		DataWatcher dataWatcher = armorstand1_8.getDataWatcher();
-		TIntObjectMap<WatchableObject> dataValues = (TIntObjectMap<WatchableObject>) ReflectionUtils.getValue("dataValues", dataWatcher);
+		TIntObjectMap<WatchableObject> dataValues = (TIntObjectMap<WatchableObject>) ReflectionUtils
+				.getValue("dataValues", dataWatcher);
 
 		List<Integer> toRemove = new ArrayList<>();
 
@@ -168,8 +170,10 @@ public class Hologram {
 		horse1_7.setCustomNameVisible(!text.isEmpty());
 		armorstand1_8.setCustomNameVisible(!text.isEmpty());
 
-		PacketPlayOutEntityMetadata metadata1_7 = new PacketPlayOutEntityMetadata(horse1_7.getId(), horse1_7.getDataWatcher(), true);
-		PacketPlayOutEntityMetadata metadata1_8 = new PacketPlayOutEntityMetadata(armorstand1_8.getId(), armorstand1_8.getDataWatcher(), true);
+		PacketPlayOutEntityMetadata metadata1_7 = new PacketPlayOutEntityMetadata(horse1_7.getId(),
+				horse1_7.getDataWatcher(), true);
+		PacketPlayOutEntityMetadata metadata1_8 = new PacketPlayOutEntityMetadata(armorstand1_8.getId(),
+				armorstand1_8.getDataWatcher(), true);
 
 		/* Getting showing */
 
@@ -197,10 +201,12 @@ public class Hologram {
 		EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
 
 		if (entityPlayer.playerConnection.networkManager.getVersion() >= 47) {
-			PacketPlayOutEntityMetadata metadata1_8 = new PacketPlayOutEntityMetadata(armorstand1_8.getId(), armorstand1_8.getDataWatcher(), true);
+			PacketPlayOutEntityMetadata metadata1_8 = new PacketPlayOutEntityMetadata(armorstand1_8.getId(),
+					armorstand1_8.getDataWatcher(), true);
 			entityPlayer.playerConnection.sendPacket(metadata1_8);
 		} else {
-			PacketPlayOutEntityMetadata metadata1_7 = new PacketPlayOutEntityMetadata(horse1_7.getId(), horse1_7.getDataWatcher(), true);
+			PacketPlayOutEntityMetadata metadata1_7 = new PacketPlayOutEntityMetadata(horse1_7.getId(),
+					horse1_7.getDataWatcher(), true);
 			entityPlayer.playerConnection.sendPacket(metadata1_7);
 		}
 
@@ -223,13 +229,15 @@ public class Hologram {
 
 		if (nmsPlayer.playerConnection.networkManager.getVersion() >= 47) {
 			nmsPlayer.playerConnection.sendPacket(spawnArmorStand1_8);
-			PacketPlayOutEntityMetadata metadata1_8 = new PacketPlayOutEntityMetadata(armorstand1_8.getId(), armorstand1_8.getDataWatcher(), true);
+			PacketPlayOutEntityMetadata metadata1_8 = new PacketPlayOutEntityMetadata(armorstand1_8.getId(),
+					armorstand1_8.getDataWatcher(), true);
 			nmsPlayer.playerConnection.sendPacket(metadata1_8);
 		} else {
 			nmsPlayer.playerConnection.sendPacket(spawnHorse1_7);
 			nmsPlayer.playerConnection.sendPacket(spawnSkull1_7);
 			nmsPlayer.playerConnection.sendPacket(attach1_7);
-			PacketPlayOutEntityMetadata metadata1_7 = new PacketPlayOutEntityMetadata(horse1_7.getId(), horse1_7.getDataWatcher(), true);
+			PacketPlayOutEntityMetadata metadata1_7 = new PacketPlayOutEntityMetadata(horse1_7.getId(),
+					horse1_7.getDataWatcher(), true);
 			nmsPlayer.playerConnection.sendPacket(metadata1_7);
 		}
 
@@ -267,7 +275,8 @@ public class Hologram {
 
 	public void remove() {
 		HologramListener.getHolograms().remove(this);
-		showing.stream().filter(showing -> Bukkit.getPlayer(showing) != null).forEach(showing -> hide(Bukkit.getPlayer(showing)));
+		showing.stream().filter(showing -> Bukkit.getPlayer(showing) != null)
+				.forEach(showing -> hide(Bukkit.getPlayer(showing)));
 		showing.clear();
 		horse1_7.die();
 		skull1_7.die();
@@ -277,8 +286,10 @@ public class Hologram {
 	/* Teleport the hologram to other position */
 
 	public synchronized void teleport(Location location) {
-		skull1_7.setLocation(location.getX(), location.getY() + 1 + 55, location.getZ(), location.getYaw(), location.getPitch());
-		armorstand1_8.setLocation(location.getX(), location.getY() - 1, location.getZ(), location.getYaw(), location.getPitch());
+		skull1_7.setLocation(location.getX(), location.getY() + 1 + 55, location.getZ(), location.getYaw(),
+				location.getPitch());
+		armorstand1_8.setLocation(location.getX(), location.getY() - 1, location.getZ(), location.getYaw(),
+				location.getPitch());
 		PacketPlayOutEntityTeleport teleport1_7Skull = new PacketPlayOutEntityTeleport(skull1_7);
 		PacketPlayOutEntityTeleport teleport1_8Horse = new PacketPlayOutEntityTeleport(armorstand1_8);
 

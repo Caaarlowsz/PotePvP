@@ -12,9 +12,10 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import br.com.yallandev.potepvp.kit.Kit;
 
 public class Fireman extends Kit {
-	
+
 	public Fireman() {
-		super("Fireman", Material.LAVA_BUCKET, 18000, false, Arrays.asList("Use seu fireman para", "não tome dano para o", "fogo."));
+		super("Fireman", Material.LAVA_BUCKET, 18000, false,
+				Arrays.asList("Use seu fireman para", "nï¿½o tome dano para o", "fogo."));
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)
@@ -27,9 +28,8 @@ public class Fireman extends Kit {
 		if (!hasKit(p))
 			return;
 		EntityDamageEvent.DamageCause fire = event.getCause();
-		
-		if ((fire == EntityDamageEvent.DamageCause.FIRE)
-				|| (fire == EntityDamageEvent.DamageCause.LAVA)
+
+		if ((fire == EntityDamageEvent.DamageCause.FIRE) || (fire == EntityDamageEvent.DamageCause.LAVA)
 				|| (fire == EntityDamageEvent.DamageCause.FIRE_TICK)
 				|| (fire == EntityDamageEvent.DamageCause.LIGHTNING)) {
 			event.setCancelled(true);

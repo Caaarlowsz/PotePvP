@@ -22,31 +22,35 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 
 public class TagCommand extends CommandClass {
-	
+
 	private BaseComponent buildComponent(Tag tag, String displayName) {
-		BaseComponent baseComponent = new TextComponent(tag == Tag.MEMBRO ? "§f§lMEMBRO" : tag.getPrefix().replace(" ", ""));
-		baseComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Como seu nickname irá ficar: \"" + tag.getPrefix().replace(" ", "") + " " + displayName).create()));
+		BaseComponent baseComponent = new TextComponent(
+				tag == Tag.MEMBRO ? "ï¿½fï¿½lMEMBRO" : tag.getPrefix().replace(" ", ""));
+		baseComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+				new ComponentBuilder(
+						"Como seu nickname irï¿½ ficar: \"" + tag.getPrefix().replace(" ", "") + " " + displayName)
+								.create()));
 		baseComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tag " + tag.name()));
 		return baseComponent;
 	}
-	
+
 	@Command(name = "tag", aliases = "tags")
 	public void onTag(CommandArgs args) {
 		if (!args.isPlayer())
 			return;
-		
+
 		Player p = args.getPlayer();
 		String[] a = args.getArgs();
 		Account player = (Account) BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
-		
+
 		if (a.length == 0) {
-			send(p, "Use §a/tag [tag]§f para alterar sua tag!");
-			send(p, "Use §a/tag TAB§f para ver suas tags.");
-			
+			send(p, "Use ï¿½a/tag [tag]ï¿½f para alterar sua tag!");
+			send(p, "Use ï¿½a/tag TABï¿½f para ver suas tags.");
+
 			TextComponent tagsMessage = new TextComponent(Configuration.PREFIX.getMessage() + "Suas tags: ");
-			
+
 			List<Tag> tags = new ArrayList<>();
-			
+
 			for (Tag t : Tag.values()) {
 				if (t == Tag.TOP1) {
 					if (player.getStatus().getRank() == 1) {
@@ -67,7 +71,8 @@ public class TagCommand extends CommandClass {
 					continue;
 				}
 				if (t.isExclusive()) {
-					if (player.isGroup(t.getGroup()) || player.hasServerGroup(Group.ADMIN) || player.hasPermission("tag." + t.name())) {
+					if (player.isGroup(t.getGroup()) || player.hasServerGroup(Group.ADMIN)
+							|| player.hasPermission("tag." + t.name())) {
 						tags.add(t);
 					}
 				} else {
@@ -76,104 +81,106 @@ public class TagCommand extends CommandClass {
 					}
 				}
 			}
-			
+
 			for (int i = 0; i < tags.size(); i++) {
 				if (i == tags.size() - 1) {
 					tagsMessage.addExtra(".");
 					break;
 				}
-				
+
 				Tag tag = tags.get(i);
 				tagsMessage.addExtra(i == 0 ? "" : ", ");
 				tagsMessage.addExtra(buildComponent(tag, p.getName()));
 			}
-			
+
 			p.spigot().sendMessage(tagsMessage);
-			
+
 		} else {
 			Tag tag = null;
 
 			try {
 				tag = Tag.getTag(a[0]);
 			} catch (Exception ex) {
-				player.sendMessage("A tag §a\"" + a[0] + "\"§f não existe!");
+				player.sendMessage("A tag ï¿½a\"" + a[0] + "\"ï¿½f nï¿½o existe!");
 				return;
 			}
-			
+
 			if (tag == Tag.TOP1) {
 				if (player.getStatus().getRank() == 1) {
 					for (Player players : Bukkit.getOnlinePlayers()) {
 						Account account = BukkitMain.getAccountCommon().getAccount(players.getUniqueId());
-						
+
 						if (account == null)
 							continue;
-						
+
 						if (account.getTag() == Tag.TOP1)
 							account.setTag(Tag.valueOf(account.getGroup().name()));
 					}
-					
-					player.sendMessage("Você alterou sua tag para " + tag.getPrefix().replace(" ", "") + "§f.");
+
+					player.sendMessage("Vocï¿½ alterou sua tag para " + tag.getPrefix().replace(" ", "") + "ï¿½f.");
 					player.setTag(tag);
 				} else {
-					player.sendMessage("Você não é o TOP 1§f.");
+					player.sendMessage("Vocï¿½ nï¿½o ï¿½ o TOP 1ï¿½f.");
 				}
 				return;
 			}
-			
+
 			if (tag == Tag.LOSER) {
 				if (player.getStatus().getRankDeath() == 1) {
 					for (Player players : Bukkit.getOnlinePlayers()) {
 						Account account = BukkitMain.getAccountCommon().getAccount(players.getUniqueId());
-						
+
 						if (account == null)
 							continue;
-						
+
 						if (account.getTag() == Tag.LOSER)
 							account.setTag(Tag.valueOf(account.getGroup().name()));
 					}
-					
-					player.sendMessage("Você alterou sua tag para " + tag.getPrefix().replace(" ", "") + "§f.");
+
+					player.sendMessage("Vocï¿½ alterou sua tag para " + tag.getPrefix().replace(" ", "") + "ï¿½f.");
 					player.setTag(tag);
 				} else {
-					player.sendMessage("Você não é o o §8§lTOP DEATHS§f.");
+					player.sendMessage("Vocï¿½ nï¿½o ï¿½ o o ï¿½8ï¿½lTOP DEATHSï¿½f.");
 				}
 				return;
 			}
-			
+
 			if (tag == Tag.BETA) {
 				if (player.isBeta() || player.hasServerGroup(Group.BETA)) {
-					player.sendMessage("Você alterou sua tag para " + tag.getPrefix().replace(" ", "") + "§f.");
+					player.sendMessage("Vocï¿½ alterou sua tag para " + tag.getPrefix().replace(" ", "") + "ï¿½f.");
 					player.setTag(tag);
-					
+
 					if (!player.isBeta())
 						player.setBeta(true);
 				} else {
-					player.sendMessage("Você não tem permissão para essa tag.");
+					player.sendMessage("Vocï¿½ nï¿½o tem permissï¿½o para essa tag.");
 				}
 				return;
 			}
-			
+
 			if (tag.isExclusive()) {
-				if (!player.isGroup(tag.getGroup()) && !player.hasServerGroup(Group.ADMIN) && !player.hasPermission("tag." + tag.name())) {
-					player.sendMessage("Você não tem permissão para essa tag.");
+				if (!player.isGroup(tag.getGroup()) && !player.hasServerGroup(Group.ADMIN)
+						&& !player.hasPermission("tag." + tag.name())) {
+					player.sendMessage("Vocï¿½ nï¿½o tem permissï¿½o para essa tag.");
 					return;
 				}
-				
+
 				player.setTag(tag);
-				player.sendMessage("Você alterou sua tag para " + tag.getPrefix().replace(" ", "") + "§f.");
+				player.sendMessage("Vocï¿½ alterou sua tag para " + tag.getPrefix().replace(" ", "") + "ï¿½f.");
 				return;
 			}
-			
+
 			if (!player.hasServerGroup(tag.getGroup())) {
-				player.sendMessage("Você não tem permissão para essa tag.");
+				player.sendMessage("Vocï¿½ nï¿½o tem permissï¿½o para essa tag.");
 				return;
 			}
-			
+
 			player.setTag(tag);
-			player.sendMessage("Você alterou sua tag para " + (tag == Tag.MEMBRO ? "§f§lMEMBRO" : tag.getPrefix().replace(" ", "")) + "§f.");
+			player.sendMessage("Vocï¿½ alterou sua tag para "
+					+ (tag == Tag.MEMBRO ? "ï¿½fï¿½lMEMBRO" : tag.getPrefix().replace(" ", "")) + "ï¿½f.");
 		}
 	}
-	
+
 	@Completer(name = "tag")
 	public List<String> tagCompleter(CommandArgs cmdArgs) {
 		if (cmdArgs.isPlayer()) {
@@ -198,7 +205,8 @@ public class TagCommand extends CommandClass {
 							continue;
 						}
 						if (t.isExclusive()) {
-							if (player.isGroup(t.getGroup()) || player.hasServerGroup(Group.ADMIN) || player.hasPermission("tag." + t.name())) {
+							if (player.isGroup(t.getGroup()) || player.hasServerGroup(Group.ADMIN)
+									|| player.hasPermission("tag." + t.name())) {
 								tags.add(t.name());
 							}
 						} else {

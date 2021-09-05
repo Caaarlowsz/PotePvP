@@ -11,7 +11,7 @@ import java.util.jar.JarFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ClassGetter {
-	
+
 	public static ArrayList<Class<?>> getClassesForPackage(final JavaPlugin plugin, final String pkgname) {
 		final ArrayList<Class<?>> classes = new ArrayList<Class<?>>();
 		final CodeSource src = plugin.getClass().getProtectionDomain().getCodeSource();
@@ -22,10 +22,10 @@ public class ClassGetter {
 		}
 		return classes;
 	}
-	
+
 	public static ArrayList<Class<?>> getClassesForPackage(Class<?> clas, String pkgname) {
 		ArrayList<Class<?>> classes = new ArrayList<Class<?>>();
-		
+
 		CodeSource src = clas.getProtectionDomain().getCodeSource();
 		if (src != null) {
 			URL resource = src.getLocation();
@@ -34,7 +34,6 @@ public class ClassGetter {
 		}
 		return classes;
 	}
-
 
 	private static Class<?> loadClass(final String className) {
 		try {

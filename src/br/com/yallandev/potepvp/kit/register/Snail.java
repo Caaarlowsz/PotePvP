@@ -15,7 +15,8 @@ import br.com.yallandev.potepvp.kit.Kit;
 public class Snail extends Kit {
 
 	public Snail() {
-		super("Snail", Material.STRING, 18000, false, Arrays.asList("Use seu snail para", "ter 33% de deixar alguém", "com lentidão."));
+		super("Snail", Material.STRING, 18000, false,
+				Arrays.asList("Use seu snail para", "ter 33% de deixar alguï¿½m", "com lentidï¿½o."));
 	}
 
 	@EventHandler
@@ -28,9 +29,9 @@ public class Snail extends Kit {
 		}
 		Player p = (Player) e.getEntity();
 		Player d = (Player) e.getDamager();
-		
+
 		if (hasKit(d)) {
-			if ((new Random().nextInt(100)+1) <= 33) {
+			if ((new Random().nextInt(100) + 1) <= 33) {
 				p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 80, 0));
 			}
 		}

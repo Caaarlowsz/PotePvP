@@ -18,7 +18,6 @@ package twitter4j;
 
 import java.util.List;
 
-
 /**
  * List of TwitterResponse.
  *
@@ -26,6 +25,6 @@ import java.util.List;
  */
 public interface ResponseList<T> extends TwitterResponse, List<T> {
 
-    @Override
-    public RateLimitStatus getRateLimitStatus();
+	@Override
+	public RateLimitStatus getRateLimitStatus();
 }

@@ -47,7 +47,8 @@ public class DateUtils {
 
 		return diff.isEmpty() ? "0 " + "segundos" : diff;
 	}
-	
+
+	@SuppressWarnings("unused")
 	private static String formatDifferenceM(long time) {
 		if (time == 0L) {
 			return "";
@@ -56,7 +57,6 @@ public class DateUtils {
 		long hours = TimeUnit.SECONDS.toHours(time) - day * 24L;
 		long minutes = TimeUnit.SECONDS.toMinutes(time) - TimeUnit.SECONDS.toHours(time) * 60L;
 		long seconds = TimeUnit.SECONDS.toSeconds(time) - TimeUnit.SECONDS.toMinutes(time) * 60L;
-		long miliSeconds = TimeUnit.SECONDS.toMillis(time) - TimeUnit.SECONDS.toSeconds(time) * 60L;
 
 		StringBuilder sb = new StringBuilder();
 		if (day > 0L) {
@@ -79,7 +79,8 @@ public class DateUtils {
 	public static Long getTime(String string) {
 		try {
 			return parseDateDiff(string, true) + TimeUnit.SECONDS.toMillis(1);
-		} catch (Exception e) {}
+		} catch (Exception e) {
+		}
 		return null;
 	}
 

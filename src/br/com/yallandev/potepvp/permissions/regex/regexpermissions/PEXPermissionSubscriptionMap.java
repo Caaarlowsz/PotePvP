@@ -1,6 +1,5 @@
 package br.com.yallandev.potepvp.permissions.regex.regexpermissions;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,7 +9,6 @@ import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.concurrent.atomic.AtomicReference;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permissible;
 import org.bukkit.plugin.PluginManager;
@@ -26,27 +24,27 @@ public class PEXPermissionSubscriptionMap extends HashMap<String, Map<Permissibl
 	 * 
 	 */
 	private static final long serialVersionUID = -3815816386187051557L;
+	@SuppressWarnings("rawtypes")
 	private static FieldReplacer<PluginManager, Map> INJECTOR;
-	private static final AtomicReference<PEXPermissionSubscriptionMap> INSTANCE = new AtomicReference();
-	private final BukkitMain plugin;
+	private static final AtomicReference<PEXPermissionSubscriptionMap> INSTANCE = new AtomicReference<PEXPermissionSubscriptionMap>();
 	private final PluginManager manager;
 
 	private PEXPermissionSubscriptionMap(BukkitMain plugin, PluginManager manager,
 			Map<String, Map<Permissible, Boolean>> backing) {
 		super(backing);
-		this.plugin = plugin;
 		this.manager = manager;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static PEXPermissionSubscriptionMap inject(BukkitMain plugin, PluginManager manager) {
 		PEXPermissionSubscriptionMap map = (PEXPermissionSubscriptionMap) INSTANCE.get();
 		if (map != null) {
 			return map;
 		}
 		if (INJECTOR == null) {
-			INJECTOR = new FieldReplacer(manager.getClass(), "permSubs", Map.class);
+			INJECTOR = new FieldReplacer<PluginManager, Map>(manager.getClass(), "permSubs", Map.class);
 		}
-		Map<String, Map<Permissible, Boolean>> backing = (Map) INJECTOR.get(manager);
+		Map<String, Map<Permissible, Boolean>> backing = INJECTOR.get(manager);
 		if ((backing instanceof PEXPermissionSubscriptionMap)) {
 			return (PEXPermissionSubscriptionMap) backing;
 		}
@@ -60,7 +58,7 @@ public class PEXPermissionSubscriptionMap extends HashMap<String, Map<Permissibl
 
 	public void uninject() {
 		if (INSTANCE.compareAndSet(this, null)) {
-			Map<String, Map<Permissible, Boolean>> unwrappedMap = new HashMap(size());
+			Map<String, Map<Permissible, Boolean>> unwrappedMap = new HashMap<String, Map<Permissible, Boolean>>(size());
 			for (Map.Entry<String, Map<Permissible, Boolean>> entry : entrySet()) {
 				if ((entry.getValue() instanceof PEXSubscriptionValueMap)) {
 					unwrappedMap.put((String) entry.getKey(), ((PEXSubscriptionValueMap) entry.getValue()).backing);
@@ -91,7 +89,7 @@ public class PEXPermissionSubscriptionMap extends HashMap<String, Map<Permissibl
 		if (!(value instanceof PEXSubscriptionValueMap)) {
 			value = new PEXSubscriptionValueMap(key, value);
 		}
-		return (Map) super.put(key, value);
+		return (Map<Permissible, Boolean>) super.put(key, value);
 	}
 
 	public class PEXSubscriptionValueMap implements Map<Permissible, Boolean> {
@@ -149,8 +147,8 @@ public class PEXPermissionSubscriptionMap extends HashMap<String, Map<Permissibl
 		public Set<Permissible> keySet() {
 			List<Player> players = Util.getOnlinePlayers();
 			int size = players.size();
-			
-			Set<Permissible> pexMatches = new HashSet(size);
+
+			Set<Permissible> pexMatches = new HashSet<Permissible>(size);
 			for (Player player : Util.getOnlinePlayers()) {
 				if (player.hasPermission(this.permission)) {
 					pexMatches.add(player);

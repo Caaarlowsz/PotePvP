@@ -22,79 +22,74 @@ import net.minecraft.server.v1_7_R4.IChatBaseComponent;
 import net.minecraft.server.v1_7_R4.PacketPlayOutChat;
 
 public class Kit implements Listener {
-	
+
 	public BukkitMain main = BukkitMain.getInstance();
 	private String kitName;
 	private ItemStack kitIcon;
 	private List<ItemStack> kitItens;
 	private int price;
 	private boolean active = true;
-	
+
 	public Kit(String kitName, ItemStack kitIcon, List<ItemStack> kitItens, int price) {
 		this.main = BukkitMain.getInstance();
 		this.kitName = kitName;
 		this.kitIcon = kitIcon;
-		
+
 		if (kitItens == null) {
 			this.kitItens = new ArrayList<>();
 		} else {
 			this.kitItens = new ArrayList<>(kitItens);
 		}
-		
+
 		this.price = price;
 	}
-	
+
 	public Kit(String kitName, ItemStack kitIcon, ItemStack kitItens, int price) {
 		this(kitName, kitIcon, Arrays.asList(kitItens), price);
 	}
-	
+
 	public Kit(String kitName, ItemStack kitIcon, ItemStack kitItens) {
 		this(kitName, kitIcon, kitItens, 10000);
 	}
-	
+
 	public Kit(String kitName, Material kitIcon, int price, List<ItemStack> kitItens) {
-		this(kitName, new ItemManager(kitIcon, "§a" + kitName).build(), kitItens, price);
+		this(kitName, new ItemManager(kitIcon, "ï¿½a" + kitName).build(), kitItens, price);
 	}
-	
+
 	public Kit(String kitName, Material kitIcon, int price, List<ItemStack> kitItens, List<String> kitInfo) {
-		this(kitName, new ItemManager(kitIcon, "§a" + kitName).setLore(kitInfo).build(), kitItens, price);
+		this(kitName, new ItemManager(kitIcon, "ï¿½a" + kitName).setLore(kitInfo).build(), kitItens, price);
 	}
-	
+
 	public Kit(String kitName, Material kitIcon, int price, boolean kitItens, List<String> kitInfo) {
 		List<ItemStack> itens = new ArrayList<>();
 		if (kitItens) {
-			itens.add(new ItemManager(kitIcon, "§a" + kitName).build());
+			itens.add(new ItemManager(kitIcon, "ï¿½a" + kitName).build());
 		}
-		
-		this.main = main;
+
 		this.kitName = kitName;
-		this.kitIcon = new ItemManager(kitIcon, "§a" + kitName).setLore(kitInfo).build();
-		
-		if (itens == null) {
-			this.kitItens = new ArrayList<>();
-		} else {
-			this.kitItens = new ArrayList<>(itens);
-		}
-		
+		this.kitIcon = new ItemManager(kitIcon, "ï¿½a" + kitName).setLore(kitInfo).build();
+
+		this.kitItens = new ArrayList<>(itens);
+
 		this.price = price;
 	}
 
 	public String getKitName() {
 		return kitName;
 	}
-	
+
 	public ItemStack getKitIcon() {
 		return kitIcon;
 	}
-	
+
 	public List<ItemStack> getKitItens() {
 		return kitItens;
 	}
-	
+
 	public int getPrice() {
 		return price;
 	}
-	
+
 	public Kit clone() {
 		return new Kit(kitName, kitIcon, kitItens, price);
 	}
@@ -102,90 +97,92 @@ public class Kit implements Listener {
 	public boolean canUse(Account account) {
 		if (account.hasServerGroup(Group.PRO))
 			return true;
-		
+
 		if (getKitName().equalsIgnoreCase("PvP"))
 			return true;
-		
+
 		if (account.hasServerGroup(Group.LIGHT) || account.getStatus().getRank() == 1) {
 			if (main.getKitManager().getKitRotate().get(Group.LIGHT).contains(getKitName().toLowerCase())) {
 				return true;
 			}
 		}
-		
+
 		if (account.hasServerGroup(Group.MVP)) {
 			if (main.getKitManager().getKitRotate().get(Group.MVP).contains(getKitName().toLowerCase())) {
 				return true;
 			}
 		}
-		
+
 		if (main.getKitManager().getKitRotate().get(Group.MEMBRO).contains(getKitName().toLowerCase())) {
 			return true;
 		}
-		
+
 		return account.hasPermission("kit." + kitName.toLowerCase());
 	}
-	
+
 	public Kit getKit() {
 		return this;
 	}
-	
+
 	public boolean hasKit(Player player) {
 		return main.getKitManager().hasAbility(player.getUniqueId(), getKitName());
 	}
-	
+
 	public boolean hasKit(Player player, String kitName) {
 		return main.getKitManager().hasAbility(player.getUniqueId(), kitName);
 	}
-	
+
 	public boolean isCooldown(Player player) {
 		return main.getKitManager().isCooldown(player.getName(), getKitName());
 	}
-	
+
 	public void setCooldown(Player player, Long time) {
 		main.getKitManager().setCooldown(player.getName(), getKitName(), time);
 	}
-	
+
 	public void addCooldown(Player player, int time) {
 		setCooldown(player, System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(time));
 	}
-	
+
 	public void cooldownMessage(Player player) {
 		if (!isCooldown(player))
 			return;
-		
-		sendMessage(player, "Você está em cooldown de §a" + DateUtils.getTime(main.getKitManager().getCooldown(player.getName(), getKitName())) + "§f.");
+
+		sendMessage(player, "Vocï¿½ estï¿½ em cooldown de ï¿½a"
+				+ DateUtils.getTime(main.getKitManager().getCooldown(player.getName(), getKitName())) + "ï¿½f.");
 	}
-	
+
 	public void sendMessage(Player player, String message) {
 		player.sendMessage(Configuration.PREFIX.getMessage() + message);
 	}
-	
+
 	public void sendAction(Player player, String action) {
-		if (((CraftPlayer)player).getHandle().playerConnection.networkManager.getVersion() < 47) {
+		if (((CraftPlayer) player).getHandle().playerConnection.networkManager.getVersion() < 47) {
 			return;
 		}
-        IChatBaseComponent comp = ChatSerializer.a("{\"text\":\"" + action + " \"}");
-        PacketPlayOutChat bar = new PacketPlayOutChat(comp, 2);
-        ((CraftPlayer)player).getHandle().playerConnection.sendPacket(bar);
+		IChatBaseComponent comp = ChatSerializer.a("{\"text\":\"" + action + " \"}");
+		PacketPlayOutChat bar = new PacketPlayOutChat(comp, 2);
+		((CraftPlayer) player).getHandle().playerConnection.sendPacket(bar);
 	}
-	
+
 	public BukkitMain getMain() {
 		return main;
 	}
-	
+
 	public String getPrefix() {
 		return Configuration.PREFIX.getMessage();
 	}
-	
+
 	public boolean isActive() {
 		return active;
 	}
 
 	public boolean containsKitItem(ItemStack itemStack) {
 		for (ItemStack kitItens : this.kitItens) {
-			return itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName() && itemStack.getItemMeta().getDisplayName().contains(kitItens.getItemMeta().getDisplayName());
+			return itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName()
+					&& itemStack.getItemMeta().getDisplayName().contains(kitItens.getItemMeta().getDisplayName());
 		}
-		
+
 		return false;
 	}
 }

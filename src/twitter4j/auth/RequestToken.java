@@ -22,45 +22,41 @@ import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationContext;
 
 /**
- * @author Yusuke Yamamoto - yusuke at mac.com
- *         representing unauthorized Request Token which is passed to the service provider when acquiring the authorized Access Token
+ * @author Yusuke Yamamoto - yusuke at mac.com representing unauthorized Request
+ *         Token which is passed to the service provider when acquiring the
+ *         authorized Access Token
  */
 public final class RequestToken extends OAuthToken implements java.io.Serializable {
-    private static final long serialVersionUID = -8806439091674811734L;
-    private final Configuration conf;
-    private OAuthSupport oauth;
+	private static final long serialVersionUID = -8806439091674811734L;
+	private final Configuration conf;
 
-    RequestToken(HttpResponse res, OAuthSupport oauth) throws TwitterException {
-        super(res);
-        conf = ConfigurationContext.getInstance();
-        this.oauth = oauth;
-    }
+	RequestToken(HttpResponse res, OAuthSupport oauth) throws TwitterException {
+		super(res);
+		conf = ConfigurationContext.getInstance();
+	}
 
-    public RequestToken(String token, String tokenSecret) {
-        super(token, tokenSecret);
-        conf = ConfigurationContext.getInstance();
-    }
+	public RequestToken(String token, String tokenSecret) {
+		super(token, tokenSecret);
+		conf = ConfigurationContext.getInstance();
+	}
 
-    RequestToken(String token, String tokenSecret, OAuthSupport oauth) {
-        super(token, tokenSecret);
-        conf = ConfigurationContext.getInstance();
-        this.oauth = oauth;
-    }
+	RequestToken(String token, String tokenSecret, OAuthSupport oauth) {
+		super(token, tokenSecret);
+		conf = ConfigurationContext.getInstance();
+	}
 
-    /**
-     * @return authorization URL
-     * since Twitter4J 2.0.0
-     */
-    public String getAuthorizationURL() {
-        return conf.getOAuthAuthorizationURL() + "?oauth_token=" + getToken();
-    }
+	/**
+	 * @return authorization URL since Twitter4J 2.0.0
+	 */
+	public String getAuthorizationURL() {
+		return conf.getOAuthAuthorizationURL() + "?oauth_token=" + getToken();
+	}
 
-    /**
-     * @return authentication URL
-     * since Twitter4J 2.0.10
-     */
-    public String getAuthenticationURL() {
-        return conf.getOAuthAuthenticationURL() + "?oauth_token=" + getToken();
-    }
+	/**
+	 * @return authentication URL since Twitter4J 2.0.10
+	 */
+	public String getAuthenticationURL() {
+		return conf.getOAuthAuthenticationURL() + "?oauth_token=" + getToken();
+	}
 
 }

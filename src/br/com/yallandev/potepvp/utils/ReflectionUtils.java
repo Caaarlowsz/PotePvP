@@ -3,8 +3,6 @@ package br.com.yallandev.potepvp.utils;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 
-import net.minecraft.util.com.mojang.authlib.properties.Property;
-
 public class ReflectionUtils {
 
 	public static void setValue(String field, Class<?> clazz, Object instance, Object value) {
@@ -49,13 +47,13 @@ public class ReflectionUtils {
 		return null;
 	}
 
-    public static Object invokeConstructor(Class<?> clazz, Class<?>[] args, Object... initargs) throws Exception {
-        return getConstructor(clazz, args).newInstance(initargs);
-    }
-    
-    public static Constructor<?> getConstructor(Class<?> clazz, Class<?>... args) throws Exception {
-        Constructor<?> c = clazz.getConstructor(args);
-        c.setAccessible(true);
-        return c;
-    }
+	public static Object invokeConstructor(Class<?> clazz, Class<?>[] args, Object... initargs) throws Exception {
+		return getConstructor(clazz, args).newInstance(initargs);
+	}
+
+	public static Constructor<?> getConstructor(Class<?> clazz, Class<?>... args) throws Exception {
+		Constructor<?> c = clazz.getConstructor(args);
+		c.setAccessible(true);
+		return c;
+	}
 }

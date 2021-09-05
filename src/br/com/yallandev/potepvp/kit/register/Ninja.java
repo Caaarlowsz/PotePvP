@@ -16,7 +16,8 @@ import br.com.yallandev.potepvp.kit.Kit;
 public class Ninja extends Kit {
 
 	public Ninja() {
-		super("Ninja", Material.NETHER_STAR, 18000, false, Arrays.asList("Use seu ninja para", "teletransporta-se para o ultimo", "jogador hitado."));
+		super("Ninja", Material.NETHER_STAR, 18000, false,
+				Arrays.asList("Use seu ninja para", "teletransporta-se para o ultimo", "jogador hitado."));
 	}
 
 	public HashMap<UUID, Player> ninjado = new HashMap<>();
@@ -41,34 +42,34 @@ public class Ninja extends Kit {
 
 		if (hasKit(p)) {
 			if (!isCooldown(p)) {
-				
+
 				if (ninjado.containsKey(p.getUniqueId())) {
 					if (ninjado.get(p.getUniqueId()).isOnline()) {
 						Player pninjado = ninjado.get(p.getUniqueId());
 //						if (BukkitMain.getInstance().getVanishMode().isAdmin(pninjado.getUniqueId())) {
 //							sendMessage(p, "Jogador offline!");
 //						} else {
-							if (pninjado.getLocation().distance(p.getLocation()) > 60) {
-								sendMessage(p, "Jogador muito distante.");
+						if (pninjado.getLocation().distance(p.getLocation()) > 60) {
+							sendMessage(p, "Jogador muito distante.");
+							return;
+						}
+						if (BukkitMain.getInstance().getGladiatorFightController().isInFight(p)) {
+							if (!BukkitMain.getInstance().getGladiatorFightController().isInFight(pninjado)) {
+								sendMessage(p, "Vocï¿½ estï¿½ no gladiator!");
 								return;
 							}
-							if (BukkitMain.getInstance().getGladiatorFightController().isInFight(p)) {
-								if (!BukkitMain.getInstance().getGladiatorFightController().isInFight(pninjado)) {
-									sendMessage(p, "Você está no gladiator!");
-									return;
-								}
-							}
-							p.teleport(pninjado);
-							sendMessage(p, "Você foi teletransportado!");
-							sendAction(p, "Você foi teletransportado!");
-							addCooldown(p, 6);
-							ninjado.remove(p.getUniqueId());
+						}
+						p.teleport(pninjado);
+						sendMessage(p, "Vocï¿½ foi teletransportado!");
+						sendAction(p, "Vocï¿½ foi teletransportado!");
+						addCooldown(p, 6);
+						ninjado.remove(p.getUniqueId());
 //						}
 					} else {
 						sendMessage(p, "Jogador offline!");
 					}
 				} else {
-					sendMessage(p, "Você ainda não bateu em ninguém.");
+					sendMessage(p, "Vocï¿½ ainda nï¿½o bateu em ninguï¿½m.");
 				}
 			} else {
 				cooldownMessage(p);

@@ -21,9 +21,9 @@ package twitter4j;
  * @since Twitter4J 2.1.1
  */
 public interface Category {
-    String getName();
+	String getName();
 
-    String getSlug();
+	String getSlug();
 
-    int getSize();
+	int getSize();
 }

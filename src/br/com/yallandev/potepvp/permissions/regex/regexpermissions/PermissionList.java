@@ -21,8 +21,10 @@ public class PermissionList extends HashMap<String, Permission> {
 		 * 
 		 */
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
 	private static FieldReplacer<PluginManager, Map> INJECTOR;
-	private static final Map<Class<?>, FieldReplacer<Permission, Map>> CHILDREN_MAPS = new HashMap();
+	@SuppressWarnings("rawtypes")
+	private static final Map<Class<?>, FieldReplacer<Permission, Map>> CHILDREN_MAPS = new HashMap<>();
 	private final Multimap<String, Map.Entry<String, Boolean>> childParentMapping = Multimaps
 			.synchronizedMultimap(HashMultimap.<String, Map.Entry<String, Boolean>>create());
 
@@ -33,6 +35,7 @@ public class PermissionList extends HashMap<String, Permission> {
 		super(existing);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private FieldReplacer<Permission, Map> getFieldReplacer(Permission perm) {
 		FieldReplacer<Permission, Map> ret = (FieldReplacer) CHILDREN_MAPS.get(perm.getClass());
 		if (ret == null) {
@@ -42,6 +45,7 @@ public class PermissionList extends HashMap<String, Permission> {
 		return ret;
 	}
 
+	@SuppressWarnings("rawtypes")
 	private void removeAllChildren(String perm) {
 		for (Iterator<Map.Entry<String, Map.Entry<String, Boolean>>> it = this.childParentMapping.entries()
 				.iterator(); it.hasNext();) {
@@ -68,6 +72,7 @@ public class PermissionList extends HashMap<String, Permission> {
 			return (Boolean) super.remove(perm);
 		}
 
+		@SuppressWarnings("rawtypes")
 		private void removeFromMapping(String child) {
 			for (Iterator<Map.Entry<String, Boolean>> it = PermissionList.this.childParentMapping.get(child)
 					.iterator(); it.hasNext();) {
@@ -78,7 +83,7 @@ public class PermissionList extends HashMap<String, Permission> {
 		}
 
 		public Boolean put(String perm, Boolean val) {
-			PermissionList.this.childParentMapping.put(perm, new AbstractMap.SimpleEntry(this.perm.getName(), val));
+			PermissionList.this.childParentMapping.put(perm, new AbstractMap.SimpleEntry<String, Boolean>(this.perm.getName(), val));
 			return (Boolean) super.put(perm, val);
 		}
 
@@ -88,6 +93,7 @@ public class PermissionList extends HashMap<String, Permission> {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static PermissionList inject(PluginManager manager) {
 		if (INJECTOR == null) {
 			INJECTOR = new FieldReplacer(manager.getClass(), "permissions", Map.class);
@@ -99,10 +105,11 @@ public class PermissionList extends HashMap<String, Permission> {
 		return list;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Permission put(String k, Permission v) {
 		for (Map.Entry<String, Boolean> ent : v.getChildren().entrySet()) {
 			this.childParentMapping.put((String) ent.getKey(),
-					new AbstractMap.SimpleEntry(v.getName(), (Boolean) ent.getValue()));
+					new AbstractMap.SimpleEntry<String, Boolean>(v.getName(), (Boolean) ent.getValue()));
 		}
 		FieldReplacer<Permission, Map> repl = getFieldReplacer(v);
 		repl.set(v, new NotifyingChildrenMap(v));
@@ -113,7 +120,7 @@ public class PermissionList extends HashMap<String, Permission> {
 		Permission ret = (Permission) super.remove(k);
 		if (ret != null) {
 			removeAllChildren(k.toString());
-			getFieldReplacer(ret).set(ret, new LinkedHashMap(ret.getChildren()));
+			getFieldReplacer(ret).set(ret, new LinkedHashMap<Object, Object>(ret.getChildren()));
 		}
 		return ret;
 	}

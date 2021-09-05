@@ -6,7 +6,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import br.com.yallandev.potepvp.BukkitMain;
 
 public class Raios {
-	
+
 	public static double cos(double i) {
 		return Math.cos(i);
 	}

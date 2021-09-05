@@ -17,70 +17,73 @@ import br.com.yallandev.potepvp.ban.constructor.Ban;
 import br.com.yallandev.potepvp.permissions.group.Group;
 
 public class ScreenshareListener implements Listener {
-	
+
 	private BukkitMain main;
-	
+
 	public ScreenshareListener() {
 		this.main = BukkitMain.getInstance();
 	}
-	
+
 	@EventHandler
 	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent e) {
 		Player p = e.getPlayer();
 		UUID uuid = p.getUniqueId();
-		
+
 		if (!main.getPlayerManager().isScreenshare(uuid))
 			return;
-		
+
 		if (e.getMessage().startsWith("/warp ")) {
 			p.sendMessage(Configuration.PREFIX.getMessage() + "Esse comando foi bloqueado no screenshare.");
 			e.setCancelled(true);
 			return;
 		}
-		
+
 		if (e.getMessage().startsWith("/kill")) {
 			p.sendMessage(Configuration.PREFIX.getMessage() + "Esse comando foi bloqueado no screenshare.");
 			e.setCancelled(true);
 			return;
 		}
 	}
-	
+
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerQuit(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		UUID uuid = p.getUniqueId();
 		Account player = BukkitMain.getAccountCommon().getAccount(uuid);
-		
+
 		if (player.getPunishmentHistory().getActualBan() != null)
 			return;
-		
+
 		if (main.getPlayerManager().isScreenshare(p.getUniqueId())) {
-			Account moderator = BukkitMain.getAccountCommon().getAccount(main.getPlayerManager().getScreenshareModerator(uuid));
-			
+			Account moderator = BukkitMain.getAccountCommon()
+					.getAccount(main.getPlayerManager().getScreenshareModerator(uuid));
+
 			Ban ban = new Ban(moderator.getUserName(), "ScreenShare leave!");
-			
-			moderator.sendMessage("O jogador §a\"" + player.getUserName() + "\"§f foi banido automaticamente pois §csaiu do screenshare§f.");
+
+			moderator.sendMessage("O jogador ï¿½a\"" + player.getUserName()
+					+ "\"ï¿½f foi banido automaticamente pois ï¿½csaiu do screenshareï¿½f.");
 			main.getBanManager().ban(player, ban);
 			main.getPlayerManager().removeScreenshare(uuid);
 			return;
 		}
-		
+
 		if (player.hasServerGroup(Group.MODGC)) {
 			for (UUID uuids : main.getPlayerManager().getScreenshare().keySet()) {
 				if (Bukkit.getPlayer(uuids) == null)
 					continue;
-				
+
 				if (!main.getPlayerManager().getScreenshare().get(uuids).equals(uuid))
 					continue;
-				
+
 				Account ssPlayer = BukkitMain.getAccountCommon().getAccount(uuids);
-				
+
 				if (ssPlayer == null) {
-					Bukkit.getPlayer(uuids).kickPlayer(Configuration.KICK_PREFIX.getMessage() + "\nVocê saiu do screenshare!");
+					Bukkit.getPlayer(uuids)
+							.kickPlayer(Configuration.KICK_PREFIX.getMessage() + "\nVocï¿½ saiu do screenshare!");
 					break;
 				}
-				
-				ssPlayer.sendMessage("Você foi removido do screenshare, pois o §cmoderador saiu§f!");
+
+				ssPlayer.sendMessage("Vocï¿½ foi removido do screenshare, pois o ï¿½cmoderador saiuï¿½f!");
 				main.getPlayerManager().removeScreenshare(uuids);
 			}
 		}

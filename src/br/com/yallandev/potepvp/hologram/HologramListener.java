@@ -119,7 +119,7 @@ public class HologramListener implements Listener {
 		for (Hologram hologram : holograms)
 			hologram.hide(event.getPlayer());
 	}
-	
+
 	@EventHandler
 	public void onDisable(PluginDisableEvent e) {
 		for (Hologram hologram : holograms)

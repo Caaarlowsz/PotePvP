@@ -9,26 +9,27 @@ import br.com.yallandev.potepvp.commands.BukkitCommandFramework.CommandArgs;
 import br.com.yallandev.potepvp.manager.CommandClass;
 
 public class PingCommand extends CommandClass {
-	
+
 	@Command(name = "ping")
 	public void onPing(CommandArgs args) {
 		if (!args.isPlayer())
 			return;
-		
+
 		Player player = args.getPlayer();
 		String[] a = args.getArgs();
-		
+
 		if (a.length == 0) {
-			send(player, "Você está a §a" + ((CraftPlayer) player).getHandle().ping + " ms§f.");
+			send(player, "Vocï¿½ estï¿½ a ï¿½a" + ((CraftPlayer) player).getHandle().ping + " msï¿½f.");
 		} else {
 			Player target = Bukkit.getPlayer(a[0]);
-			
+
 			if (target == null) {
-				send(player, "O jogador §a\"" + a[0] + "§f não está online!");
+				send(player, "O jogador ï¿½a\"" + a[0] + "ï¿½f nï¿½o estï¿½ online!");
 				return;
 			}
-			
-			send(player, "O jogador §a\""+target.getName()+"\"§f está a §a" + ((CraftPlayer) target).getHandle().ping + " ms§f.");
+
+			send(player, "O jogador ï¿½a\"" + target.getName() + "\"ï¿½f estï¿½ a ï¿½a"
+					+ ((CraftPlayer) target).getHandle().ping + " msï¿½f.");
 		}
 	}
 

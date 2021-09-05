@@ -1,13 +1,10 @@
 package br.com.yallandev.potepvp.commands.register;
 
 import java.util.HashMap;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import br.com.yallandev.potepvp.BukkitMain;
 import br.com.yallandev.potepvp.BukkitMain.Configuration;
@@ -21,96 +18,99 @@ import br.com.yallandev.potepvp.utils.DateUtils;
 import br.com.yallandev.potepvp.utils.string.CenterChat;
 
 public class AdminCommand extends CommandClass {
-	
+
 	private static HashMap<String, Long> reportCooldown = new HashMap<>();
-	
+
 	@Command(name = "aplicar")
 	public void onAplicar(CommandArgs cmdArgs) {
 		cmdArgs.getSender().sendMessage("");
-		cmdArgs.getSender().sendMessage(CenterChat.centered("§7Formulario de §d§lTRIAL §8- §7" + Configuration.TRIAL.getMessage()));
-		cmdArgs.getSender().sendMessage(CenterChat.centered("§7Formulario de §5§lMODGC §8- §7" + Configuration.MODGC.getMessage()));
-		cmdArgs.getSender().sendMessage(CenterChat.centered("§7Formulario de §e§lHELPER §8- §7" + Configuration.HELPER.getMessage()));
+		cmdArgs.getSender().sendMessage(
+				CenterChat.centered("ï¿½7Formulario de ï¿½dï¿½lTRIAL ï¿½8- ï¿½7" + Configuration.TRIAL.getMessage()));
+		cmdArgs.getSender().sendMessage(
+				CenterChat.centered("ï¿½7Formulario de ï¿½5ï¿½lMODGC ï¿½8- ï¿½7" + Configuration.MODGC.getMessage()));
+		cmdArgs.getSender().sendMessage(
+				CenterChat.centered("ï¿½7Formulario de ï¿½eï¿½lHELPER ï¿½8- ï¿½7" + Configuration.HELPER.getMessage()));
 		cmdArgs.getSender().sendMessage("");
 	}
-	
+
 	@Command(name = "report", onlyPlayers = true)
 	public void onReport(CommandArgs cmdArgs) {
 		Player p = (Player) cmdArgs.getPlayer();
 		String[] a = cmdArgs.getArgs();
-		
+
 		Account player = cmdArgs.getAccount();
-		
+
 		if (player == null)
 			return;
-		
+
 		if (reportCooldown.containsKey(player.getUserName())) {
 			if (reportCooldown.get(player.getUserName()) > System.currentTimeMillis()) {
-				player.sendMessage("Você precisa esperar mais §a" + DateUtils.getTime(reportCooldown.get(player.getUserName())) + "§f reportar novamente.");
+				player.sendMessage("Vocï¿½ precisa esperar mais ï¿½a"
+						+ DateUtils.getTime(reportCooldown.get(player.getUserName())) + "ï¿½f reportar novamente.");
 				return;
 			}
 		}
-		
+
 		reportCooldown.put(player.getUserName(), System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(30));
-		
+
 		if (a.length < 2) {
-			send(p, "Use §a/report [Nick] [Motivo]§f para reportar alguem.");
+			send(p, "Use ï¿½a/report [Nick] [Motivo]ï¿½f para reportar alguem.");
 			return;
 		}
-		
+
 		if (Bukkit.getPlayer(a[0]) == null) {
-			send(p, "Você não pode reportar alguem que não esteja online!");
+			send(p, "Vocï¿½ nï¿½o pode reportar alguem que nï¿½o esteja online!");
 			return;
 		}
-		
+
 		Account target = getAccountCommon().getAccount(Bukkit.getPlayer(a[0]).getUniqueId());
-		
+
 		if (target == null) {
 			send(p, "Ocorreu um erro ao reportar esse jogador!");
 			return;
 		}
-		
+
 		String reason = "";
-		
+
 		for (int i = 1; i < a.length; i++) {
 			reason = reason + a[i] + " ";
 		}
-		
-		broadcastD("§c§l§m----§4§l REPORT §c§l§m----", Group.TRIAL);
-		broadcastD("§fSuspeito: §a" + target.getUserName(), Group.TRIAL);
-		broadcastD("§fPessoa que reportou: §a" + p.getName(), Group.TRIAL);
-		broadcastD("§fMotivo: §c" + reason, Group.TRIAL);
-		broadcastD("§c§l§m----§4§l REPORT §c§l§m----", Group.TRIAL);
+
+		broadcastD("ï¿½cï¿½lï¿½m----ï¿½4ï¿½l REPORT ï¿½cï¿½lï¿½m----", Group.TRIAL);
+		broadcastD("ï¿½fSuspeito: ï¿½a" + target.getUserName(), Group.TRIAL);
+		broadcastD("ï¿½fPessoa que reportou: ï¿½a" + p.getName(), Group.TRIAL);
+		broadcastD("ï¿½fMotivo: ï¿½c" + reason, Group.TRIAL);
+		broadcastD("ï¿½cï¿½lï¿½m----ï¿½4ï¿½l REPORT ï¿½cï¿½lï¿½m----", Group.TRIAL);
 	}
-	
+
 	@Command(name = "staffchat", aliases = { "sc" }, groupToUse = Group.BUILDER, onlyPlayers = true)
 	public void onStaffchat(CommandArgs cmdArgs) {
 		Player p = (Player) cmdArgs.getPlayer();
-		String[] a = cmdArgs.getArgs();
-		
+
 		Account player = cmdArgs.getAccount();
-		
+
 		if (player == null)
 			return;
-		
+
 		boolean staffchat = !main.getPlayerManager().getStaffchat().contains(player.getUuid());
-		
-		send(p, "Você " + (staffchat ? "§a§lATIVOU" : "§4§lDESATIVOU") + "§f o staffchat.");
-		
+
+		send(p, "Vocï¿½ " + (staffchat ? "ï¿½aï¿½lATIVOU" : "ï¿½4ï¿½lDESATIVOU") + "ï¿½f o staffchat.");
+
 		if (staffchat)
 			main.getPlayerManager().getStaffchat().add(player.getUuid());
 		else
 			main.getPlayerManager().getStaffchat().remove(player.getUuid());
 	}
-	
+
 	@Command(name = "admin", groupToUse = Group.TRIAL, onlyPlayers = true)
 	public void onAdmin(CommandArgs cmdArgs) {
 		Player p = (Player) cmdArgs.getPlayer();
-		
+
 		if (BukkitMain.getInstance().getVanishMode().isAdmin(p.getUniqueId()))
 			BukkitMain.getInstance().getVanishMode().setPlayer(p);
 		else
 			BukkitMain.getInstance().getVanishMode().setAdmin(p);
-		
+
 		Scoreboarding.setScoreboard(p);
 	}
 }

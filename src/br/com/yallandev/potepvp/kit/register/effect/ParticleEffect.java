@@ -15,25 +15,15 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public enum ParticleEffect {
-	HUGE_EXPLOSION("hugeexplosion"), LARGE_EXPLODE("largeexplode"), FIREWORKS_SPARK("fireworksSpark"), BUBBLE(
-			"bubble"), SUSPEND("suspend"), DEPTH_SUSPEND("depthSuspend"), TOWN_AURA("townaura"), CRIT(
-					"crit"), MAGIC_CRIT("magicCrit"), SMOKE("smoke"), MOB_SPELL("mobSpell"), MOB_SPELL_AMBIENT(
-							"mobSpellAmbient"), SPELL("spell"), INSTANT_SPELL(
-									"instantSpell"), WITCH_MAGIC("witchMagic"), NOTE("note"), PORTAL(
-											"portal"), ENCHANTMENT_TABLE("enchantmenttable"), EXPLODE("explode"), FLAME(
-													"flame"), LAVA("lava"), FOOTSTEP("footstep"), SPLASH(
-															"splash"), WAKE("wake"), LARGE_SMOKE("largesmoke"), CLOUD(
-																	"cloud"), RED_DUST("reddust"), SNOWBALL_POOF(
-																			"snowballpoof"), DRIP_WATER(
-																					"dripWater"), DRIP_LAVA(
-																							"dripLava"), SNOW_SHOVEL(
-																									"snowshovel"), SLIME(
-																											"slime"), HEART(
-																													"heart"), ANGRY_VILLAGER(
-																															"angryVillager"), HAPPY_VILLAGER(
-																																	"happyVillager");
+	HUGE_EXPLOSION("hugeexplosion"), LARGE_EXPLODE("largeexplode"), FIREWORKS_SPARK("fireworksSpark"), BUBBLE("bubble"),
+	SUSPEND("suspend"), DEPTH_SUSPEND("depthSuspend"), TOWN_AURA("townaura"), CRIT("crit"), MAGIC_CRIT("magicCrit"),
+	SMOKE("smoke"), MOB_SPELL("mobSpell"), MOB_SPELL_AMBIENT("mobSpellAmbient"), SPELL("spell"),
+	INSTANT_SPELL("instantSpell"), WITCH_MAGIC("witchMagic"), NOTE("note"), PORTAL("portal"),
+	ENCHANTMENT_TABLE("enchantmenttable"), EXPLODE("explode"), FLAME("flame"), LAVA("lava"), FOOTSTEP("footstep"),
+	SPLASH("splash"), WAKE("wake"), LARGE_SMOKE("largesmoke"), CLOUD("cloud"), RED_DUST("reddust"),
+	SNOWBALL_POOF("snowballpoof"), DRIP_WATER("dripWater"), DRIP_LAVA("dripLava"), SNOW_SHOVEL("snowshovel"),
+	SLIME("slime"), HEART("heart"), ANGRY_VILLAGER("angryVillager"), HAPPY_VILLAGER("happyVillager");
 
-	private static final double MAX_RANGE = 16.0D;
 	private static Constructor<?> packetPlayOutWorldParticles;
 	private static Method getHandle;
 	private static Field playerConnection;
@@ -73,6 +63,7 @@ public enum ParticleEffect {
 		return this.name;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static ParticleEffect fromName(String name) {
 		if (name != null) {
 			for (Map.Entry e : NAME_MAP.entrySet()) {

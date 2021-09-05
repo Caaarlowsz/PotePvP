@@ -22,7 +22,8 @@ import br.com.yallandev.potepvp.kit.register.gladiator.GladiatorFight;
 public class Gladiator extends Kit {
 
 	public Gladiator() {
-		super("Gladiator", Material.IRON_FENCE, 25000, true, Arrays.asList("Use seu gladiator para", "puxar alguém para uma", "arena 1v1 onde vocês", "possam tirar pvp sem", "interferencia externa."));
+		super("Gladiator", Material.IRON_FENCE, 25000, true, Arrays.asList("Use seu gladiator para",
+				"puxar alguï¿½m para uma", "arena 1v1 onde vocï¿½s", "possam tirar pvp sem", "interferencia externa."));
 	}
 
 	@EventHandler
@@ -36,10 +37,10 @@ public class Gladiator extends Kit {
 				if (!BukkitMain.getInstance().getGladiatorFightController().isInFight(t)) {
 					new GladiatorFight(e.getPlayer(), t, BukkitMain.getInstance());
 				} else {
-					e.getPlayer().sendMessage(getPrefix() + "§fEste jogador já está em §aBATALHA§f.");
+					e.getPlayer().sendMessage(getPrefix() + "ï¿½fEste jogador jï¿½ estï¿½ em ï¿½aBATALHAï¿½f.");
 				}
 			} else {
-				e.getPlayer().sendMessage(getPrefix() + "§fVocê já esta em §aBATALHA§f.");
+				e.getPlayer().sendMessage(getPrefix() + "ï¿½fVocï¿½ jï¿½ esta em ï¿½aBATALHAï¿½f.");
 			}
 		}
 	}
@@ -53,7 +54,7 @@ public class Gladiator extends Kit {
 			e.setCancelled(true);
 		}
 	}
-	
+
 	@EventHandler
 	public void onPlayerCommandPreProcess(PlayerCommandPreprocessEvent e) {
 		if (BukkitMain.getInstance().getGladiatorFightController().isInFight(e.getPlayer())) {
@@ -78,7 +79,6 @@ public class Gladiator extends Kit {
 	public void onExplode(EntityExplodeEvent event) {
 		Iterator<Block> blockIt = event.blockList().iterator();
 		while (blockIt.hasNext()) {
-			Block b = (Block) blockIt.next();
 			blockIt.remove();
 		}
 	}

@@ -19,7 +19,8 @@ import br.com.yallandev.potepvp.kit.register.effect.Raios;
 public class Waterbender extends Kit {
 
 	public Waterbender() {
-		super("Waterbender", Material.LAPIS_BLOCK, 18000, true, Arrays.asList("Use seu waterbender para", "prender alguem em uma", "bola de água e deixa-ló", "com veneno."));
+		super("Waterbender", Material.LAPIS_BLOCK, 18000, true, Arrays.asList("Use seu waterbender para",
+				"prender alguem em uma", "bola de ï¿½gua e deixa-lï¿½", "com veneno."));
 	}
 
 	public static ArrayList<String> wateratack = new ArrayList<String>();

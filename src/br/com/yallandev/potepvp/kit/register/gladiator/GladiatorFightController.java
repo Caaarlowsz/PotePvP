@@ -10,7 +10,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 public class GladiatorFightController {
-	
+
 	private HashMap<UUID, String> playersInFight;
 	private List<Block> fightsBlocks;
 
@@ -36,7 +36,7 @@ public class GladiatorFightController {
 	public void addPlayerToFights(UUID id, String type) {
 		this.playersInFight.put(id, type);
 	}
-	
+
 	public String getType(UUID id) {
 		return this.playersInFight.get(id);
 	}

@@ -17,24 +17,24 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
 
 public class LauncherListener implements Listener {
-	
+
 	public ArrayList<UUID> noFall;
-	
+
 	public LauncherListener() {
 		noFall = new ArrayList<>();
 	}
-	
+
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
-		
+
 		if (e.getTo().getBlock().getRelative(BlockFace.DOWN).getType() == Material.REDSTONE_BLOCK) {
 			Location loc = e.getTo().getBlock().getLocation();
 			Vector sponge = p.getLocation().getDirection().multiply(3).setY(1);
 			p.setVelocity(sponge);
 			p.playSound(loc, Sound.LEVEL_UP, 6.0F, 1.0F);
 			p.playEffect(loc, Effect.FLAME, null);
-			
+
 			if (!noFall.contains(p.getUniqueId()))
 				noFall.add(p.getUniqueId());
 		} else if (e.getTo().getBlock().getRelative(BlockFace.DOWN).getType() == Material.DIAMOND_BLOCK) {
@@ -43,7 +43,7 @@ public class LauncherListener implements Listener {
 			p.setVelocity(sponge);
 			p.playSound(loc, Sound.LEVEL_UP, 6.0F, 1.0F);
 			p.playEffect(loc, Effect.FLAME, null);
-			
+
 			if (!noFall.contains(p.getUniqueId()))
 				noFall.add(p.getUniqueId());
 		} else if (e.getTo().getBlock().getRelative(BlockFace.DOWN).getType() == Material.IRON_BLOCK) {
@@ -52,7 +52,7 @@ public class LauncherListener implements Listener {
 			p.setVelocity(sponge);
 			p.playSound(loc, Sound.LEVEL_UP, 6.0F, 1.0F);
 			p.playEffect(loc, Effect.FLAME, null);
-			
+
 			if (!noFall.contains(p.getUniqueId()))
 				noFall.add(p.getUniqueId());
 		} else if (e.getTo().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SPONGE) {
@@ -61,23 +61,23 @@ public class LauncherListener implements Listener {
 			p.setVelocity(sponge);
 			p.playSound(loc, Sound.LEVEL_UP, 6.0F, 1.0F);
 			p.playEffect(loc, Effect.FLAME, null);
-			
+
 			if (!noFall.contains(p.getUniqueId()))
 				noFall.add(p.getUniqueId());
 		}
 	}
-	
+
 	@EventHandler
 	public void onEntityDamage(EntityDamageEvent e) {
 		if ((e.getEntity() instanceof Player)) {
 			Player p = (Player) e.getEntity();
 			if ((e.getCause().equals(EntityDamageEvent.DamageCause.FALL)) && (noFall.contains(p.getUniqueId()))) {
 				e.setCancelled(true);
-				
+
 				while (noFall.contains(p.getUniqueId()))
 					noFall.remove(p.getUniqueId());
 			}
 		}
 	}
-	
+
 }

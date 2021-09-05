@@ -21,23 +21,23 @@ package twitter4j;
  */
 public interface HttpClientConfiguration {
 
-    String getHttpProxyHost();
+	String getHttpProxyHost();
 
-    int getHttpProxyPort();
+	int getHttpProxyPort();
 
-    String getHttpProxyUser();
+	String getHttpProxyUser();
 
-    String getHttpProxyPassword();
+	String getHttpProxyPassword();
 
-    int getHttpConnectionTimeout();
+	int getHttpConnectionTimeout();
 
-    int getHttpReadTimeout();
+	int getHttpReadTimeout();
 
-    int getHttpRetryCount();
+	int getHttpRetryCount();
 
-    int getHttpRetryIntervalSeconds();
+	int getHttpRetryIntervalSeconds();
 
-    boolean isPrettyDebugEnabled();
+	boolean isPrettyDebugEnabled();
 
-    boolean isGZIPEnabled();
+	boolean isGZIPEnabled();
 }

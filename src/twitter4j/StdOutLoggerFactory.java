@@ -21,10 +21,10 @@ package twitter4j;
  * @since Twitter4J 2.1.1
  */
 final class StdOutLoggerFactory extends LoggerFactory {
-    private static final Logger SINGLETON = new StdOutLogger();
+	private static final Logger SINGLETON = new StdOutLogger();
 
-    @Override
-    public Logger getLogger(Class<?> clazz) {
-        return SINGLETON;
-    }
+	@Override
+	public Logger getLogger(Class<?> clazz) {
+		return SINGLETON;
+	}
 }

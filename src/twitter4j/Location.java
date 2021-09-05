@@ -20,17 +20,17 @@ package twitter4j;
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
 public interface Location extends java.io.Serializable {
-    int getWoeid();
+	int getWoeid();
 
-    String getCountryName();
+	String getCountryName();
 
-    String getCountryCode();
+	String getCountryCode();
 
-    String getPlaceName();
+	String getPlaceName();
 
-    int getPlaceCode();
+	int getPlaceCode();
 
-    String getName();
+	String getName();
 
-    String getURL();
+	String getURL();
 }

@@ -22,11 +22,11 @@ package twitter4j;
  */
 public abstract class LoggerFactory {
 
-    /**
-     * Returns a logger associated with the specified class.
-     *
-     * @param clazz class
-     * @return a logger instance
-     */
-    public abstract Logger getLogger(Class<?> clazz);
+	/**
+	 * Returns a logger associated with the specified class.
+	 *
+	 * @param clazz class
+	 * @return a logger instance
+	 */
+	public abstract Logger getLogger(Class<?> clazz);
 }

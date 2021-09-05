@@ -29,7 +29,7 @@ import net.minecraft.util.com.mojang.authlib.GameProfile;
 import net.minecraft.util.com.mojang.authlib.properties.Property;
 
 public class FakePlayerUtils {
-	
+
 	public static void changePlayerName(Player player, String name) {
 		changePlayerName(player, name, true);
 	}
@@ -38,11 +38,11 @@ public class FakePlayerUtils {
 		Collection<? extends Player> players = player.getWorld().getPlayers();
 		EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
 		GameProfile playerProfile = entityPlayer.getProfile();
-		
+
 		if (respawn) {
 			removeFromTab(player, players);
 		}
-		
+
 		try {
 			Field field = playerProfile.getClass().getDeclaredField("name");
 			field.setAccessible(true);
@@ -53,7 +53,7 @@ public class FakePlayerUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		if (respawn) {
 			respawnPlayer(player, players);
 		}
@@ -93,7 +93,8 @@ public class FakePlayerUtils {
 
 	public void addToTab(Player player, Collection<? extends Player> players) {
 		PacketPlayOutPlayerInfo addPlayerInfo = PacketPlayOutPlayerInfo.addPlayer(((CraftPlayer) player).getHandle());
-		PacketPlayOutPlayerInfo updatePlayerInfo = PacketPlayOutPlayerInfo.updateDisplayName(((CraftPlayer) player).getHandle());
+		PacketPlayOutPlayerInfo updatePlayerInfo = PacketPlayOutPlayerInfo
+				.updateDisplayName(((CraftPlayer) player).getHandle());
 		for (Player online : players) {
 			if (online.canSee(player)) {
 				((CraftPlayer) online).getHandle().playerConnection.sendPacket(addPlayerInfo);
@@ -117,7 +118,7 @@ public class FakePlayerUtils {
 			if (!p.isOnline()) {
 				return;
 			}
-			
+
 			CraftPlayer cp = (CraftPlayer) p;
 			EntityPlayer ep = cp.getHandle();
 			int entId = ep.getId();
@@ -149,23 +150,23 @@ public class FakePlayerUtils {
 			for (Player pOnline : (Bukkit.getServer()).getOnlinePlayers()) {
 				final CraftPlayer craftOnline = (CraftPlayer) pOnline;
 				PlayerConnection con = craftOnline.getHandle().playerConnection;
-				
+
 				if (pOnline.equals(p)) {
 					con.sendPacket(removeInfo);
 					con.sendPacket(addInfo);
 					con.sendPacket(respawn);
 					con.sendPacket(pos);
 					con.sendPacket(slot);
-					
+
 					craftOnline.updateScaledHealth();
 					craftOnline.getHandle().triggerHealthUpdate();
 					craftOnline.updateInventory();
-					
+
 					if (pOnline.isOp()) {
 						pOnline.setOp(false);
 						pOnline.setOp(true);
 					}
-					
+
 					Bukkit.getScheduler().runTask(BukkitMain.getInstance(), new Runnable() {
 
 						@Override
@@ -177,7 +178,7 @@ public class FakePlayerUtils {
 					});
 					continue;
 				}
-				
+
 				if (pOnline.canSee(p) && pOnline.getWorld().equals(p.getWorld())) {
 					con.sendPacket(removeEntity);
 					con.sendPacket(removeInfo);

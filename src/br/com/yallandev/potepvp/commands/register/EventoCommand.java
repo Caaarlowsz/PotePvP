@@ -1,7 +1,5 @@
 package br.com.yallandev.potepvp.commands.register;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -15,58 +13,61 @@ import br.com.yallandev.potepvp.manager.CommandClass;
 import br.com.yallandev.potepvp.permissions.group.Group;
 
 public class EventoCommand extends CommandClass {
-	
+
 	@Command(name = "evento")
 	public void onEvento(CommandArgs cmdArgs) {
 		String[] a = cmdArgs.getArgs();
 		CommandSender s = cmdArgs.getSender();
-		
+
 		if (a.length == 0) {
 			if (main.getEventManager().isRunningRDM()) {
-				send(s, "Use §a/evento entrar§f para entrar em um evento!");
-				send(s, "Use §a/evento sair§f para sair de um evento!");
-				send(s, "Use §a/evento spec§f para espectar um evento!");
+				send(s, "Use ï¿½a/evento entrarï¿½f para entrar em um evento!");
+				send(s, "Use ï¿½a/evento sairï¿½f para sair de um evento!");
+				send(s, "Use ï¿½a/evento specï¿½f para espectar um evento!");
 			} else {
-				send(s, "Não há nenhum evento no momento!");
+				send(s, "Nï¿½o hï¿½ nenhum evento no momento!");
 			}
-			
+
 			if (hasServerGroup(s, Group.MODPLUS)) {
-				send(s, "Use §a/evento iniciar§f para iniciar um evento!");
-				send(s, "Use §a/evento fechar§f para fechar um evento!");
-				send(s, "Use §a/evento kick [Player]§f para kickar um jogador do evento!");
-				send(s, "Use §a/evento time [Tempo]§f para mudar o tempo do evento!");
-				send(s, "Use §a/evento setmax [Tempo]§f para mudar o tempo do evento!");
+				send(s, "Use ï¿½a/evento iniciarï¿½f para iniciar um evento!");
+				send(s, "Use ï¿½a/evento fecharï¿½f para fechar um evento!");
+				send(s, "Use ï¿½a/evento kick [Player]ï¿½f para kickar um jogador do evento!");
+				send(s, "Use ï¿½a/evento time [Tempo]ï¿½f para mudar o tempo do evento!");
+				send(s, "Use ï¿½a/evento setmax [Tempo]ï¿½f para mudar o tempo do evento!");
 			}
 		} else if (a.length == 1) {
 			if (a[0].equalsIgnoreCase("entrar")) {
 				if (cmdArgs.isPlayer()) {
 					if (main.getEventManager().isRunningRDM()) {
 						if (main.getEventManager().getRdmAutomatic().getGameType() == GameType.GAMIMG) {
-							send(s, "O evento já iniciou!");
+							send(s, "O evento jï¿½ iniciou!");
 							return;
 						}
-						
-						if (main.getEventManager().getRdmAutomatic().getPlayers().size() > main.getEventManager().getRdmAutomatic().getMaxPlayers()) {
+
+						if (main.getEventManager().getRdmAutomatic().getPlayers().size() > main.getEventManager()
+								.getRdmAutomatic().getMaxPlayers()) {
 							if (!hasServerGroup(s, Group.MVP)) {
-								send(s, "O evento está cheio!");
-								send(s, "Compre vip em §n" + Configuration.SITE.getMessage() + "§f e tenha o acesso liberado!");
+								send(s, "O evento estï¿½ cheio!");
+								send(s, "Compre vip em ï¿½n" + Configuration.SITE.getMessage()
+										+ "ï¿½f e tenha o acesso liberado!");
 								return;
 							}
 						}
-						
+
 						main.getEventManager().getRdmAutomatic().putInEvent((Player) s);
 					} else {
-						send(s, "Não há nenhum evento no momento!");
+						send(s, "Nï¿½o hï¿½ nenhum evento no momento!");
 					}
 				} else {
 					send(s, "Somente jogadores podem executar esse comando!");
 				}
-			} if (a[0].equalsIgnoreCase("sair")) {
+			}
+			if (a[0].equalsIgnoreCase("sair")) {
 				if (cmdArgs.isPlayer()) {
 					if (main.getEventManager().isRunningRDM()) {
 						main.getEventManager().getRdmAutomatic().leaveEvent((Player) s);
 					} else {
-						send(s, "Não há nenhum evento no momento!");
+						send(s, "Nï¿½o hï¿½ nenhum evento no momento!");
 					}
 				} else {
 					send(s, "Somente jogadores podem executar esse comando!");
@@ -74,32 +75,32 @@ public class EventoCommand extends CommandClass {
 			} else if (a[0].equalsIgnoreCase("spec")) {
 				if (hasServerGroup(s, Group.LIGHT)) {
 					Account player = cmdArgs.getAccount();
-					
+
 					if (!main.getEventManager().getRdmAutomatic().isSpec((Player) s))
 						main.getEventManager().getRdmAutomatic().setSpec(player);
 					else
 						main.getEventManager().getRdmAutomatic().removeSpec(player);
 				} else {
-					send(s, "Somente jogadores §aVIPS§f podem usar esse comando!");
+					send(s, "Somente jogadores ï¿½aVIPSï¿½f podem usar esse comando!");
 				}
 			} else if (a[0].equalsIgnoreCase("iniciar")) {
 				if (hasServerGroup(s, Group.MODPLUS)) {
 					if (main.getEventManager().isRunningRDM()) {
-						send(s, "Já há um evento em andamento!");
+						send(s, "Jï¿½ hï¿½ um evento em andamento!");
 					} else {
 						main.getEventManager().setRdmAutomatic(new RDMAutomatic());
-						send(s, "Você iniciou um evento rei da mesa!");
-						broadcast("O jogador §a" + s.getName() + "§f iniciou um evento §aRei da Mesa§f.", Group.TRIAL);
+						send(s, "Vocï¿½ iniciou um evento rei da mesa!");
+						broadcast("O jogador ï¿½a" + s.getName() + "ï¿½f iniciou um evento ï¿½aRei da Mesaï¿½f.", Group.TRIAL);
 					}
 				}
 			} else if (a[0].equalsIgnoreCase("fechar")) {
 				if (hasServerGroup(s, Group.MODPLUS)) {
 					if (main.getEventManager().isRunningRDM()) {
 						main.getEventManager().getRdmAutomatic().destroy();
-						send(s, "Você finalizou o evento §aRei da Mesa§f.");
-						broadcast("O jogador §a" + s.getName() + "§f fechou um evento §aRei da Mesa§f.", Group.TRIAL);
+						send(s, "Vocï¿½ finalizou o evento ï¿½aRei da Mesaï¿½f.");
+						broadcast("O jogador ï¿½a" + s.getName() + "ï¿½f fechou um evento ï¿½aRei da Mesaï¿½f.", Group.TRIAL);
 					} else {
-						send(s, "Não há nenhum evento em andamento no momento!");
+						send(s, "Nï¿½o hï¿½ nenhum evento em andamento no momento!");
 					}
 				}
 			}
@@ -107,46 +108,48 @@ public class EventoCommand extends CommandClass {
 			if (a[0].equalsIgnoreCase("time")) {
 				if (hasServerGroup(s, Group.MODPLUS)) {
 					if (!main.getEventManager().isRunningRDM()) {
-						send(s, "Não há nenhum evento em andamento no momento!");
+						send(s, "Nï¿½o hï¿½ nenhum evento em andamento no momento!");
 						return;
 					}
 					if (!isNumeric(a[1])) {
 						send(s, "Use numeros como tempo!");
 						return;
 					}
-					
+
 					Integer time = Integer.valueOf(a[1]);
-					
+
 					if (time <= 0) {
 						send(s, "O tempo tem que ser maior do que 0!");
 						return;
 					}
-					
+
 					main.getEventManager().getRdmAutomatic().setTime(time);
-					send(s, "Você alterou o tempo do evento para §a" + time + "§f.");
-					broadcast("O tempo do evento foi alterado pelo §a" + s.getName() + "§f para §a" + time + "§f.", Group.TRIAL);
+					send(s, "Vocï¿½ alterou o tempo do evento para ï¿½a" + time + "ï¿½f.");
+					broadcast("O tempo do evento foi alterado pelo ï¿½a" + s.getName() + "ï¿½f para ï¿½a" + time + "ï¿½f.",
+							Group.TRIAL);
 				}
 			} else if (a[0].equalsIgnoreCase("setmax")) {
 				if (hasServerGroup(s, Group.MODPLUS)) {
 					if (!main.getEventManager().isRunningRDM()) {
-						send(s, "Não há nenhum evento em andamento no momento!");
+						send(s, "Nï¿½o hï¿½ nenhum evento em andamento no momento!");
 						return;
 					}
 					if (!isNumeric(a[1])) {
 						send(s, "Use numeros como tempo!");
 						return;
 					}
-					
+
 					Integer time = Integer.valueOf(a[1]);
-					
+
 					if (time <= 0) {
 						send(s, "O tempo tem que ser maior do que 0!");
 						return;
 					}
-					
+
 					main.getEventManager().getRdmAutomatic().setMaxPlayers(time);
-					send(s, "Você alterou o maximo de jogadores do evento para §a" + time + "§f.");
-					broadcast("O maximo de jogadores do evento foi alterado pelo §a" + s.getName() + "§f para §a" + time + "§f.", Group.TRIAL);
+					send(s, "Vocï¿½ alterou o maximo de jogadores do evento para ï¿½a" + time + "ï¿½f.");
+					broadcast("O maximo de jogadores do evento foi alterado pelo ï¿½a" + s.getName() + "ï¿½f para ï¿½a" + time
+							+ "ï¿½f.", Group.TRIAL);
 				}
 			}
 		}

@@ -11,80 +11,82 @@ import br.com.yallandev.potepvp.BukkitMain.Configuration;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.Command;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.CommandArgs;
-import br.com.yallandev.potepvp.event.account.PlayerJoinWarpEvent;
 import br.com.yallandev.potepvp.listener.PlayerListener;
 import br.com.yallandev.potepvp.manager.CommandClass;
 import br.com.yallandev.potepvp.permissions.group.Group;
 import br.com.yallandev.potepvp.scoreboard.Scoreboarding;
 
 public class ScreenshareCommand extends CommandClass {
-	
+
 	@Command(name = "screenshare", aliases = { "ss" }, groupToUse = Group.MODGC)
 	public void onScreenshare(CommandArgs cmdArgs) {
 		CommandSender s = cmdArgs.getSender();
 		String[] a = cmdArgs.getArgs();
 		Player p = cmdArgs.getPlayer();
 		Account player = cmdArgs.getAccount();
-		
+
 		if (player == null)
 			return;
-		
+
 		if (a.length == 0) {
-			send(s, "Use §a/screenshare [Player]§f para mandar alguém para o screenshare.");
+			send(s, "Use ï¿½a/screenshare [Player]ï¿½f para mandar alguï¿½m para o screenshare.");
 			return;
 		}
-		
+
 		Player t = Bukkit.getPlayer(a[0]);
-		
+
 		if (t == null) {
-			send(s, "O jogador §a\"" + a[0] + "\"§f não está online!");
+			send(s, "O jogador ï¿½a\"" + a[0] + "\"ï¿½f nï¿½o estï¿½ online!");
 			return;
 		}
-		
+
 		UUID uuid = t.getUniqueId();
 		Account target = BukkitMain.getAccountCommon().getAccount(uuid);
-		
+
 		if (target == null) {
-			send(s, "O jogador §a\"" + a[0] + "\"§f está bugado!");
-			t.kickPlayer(Configuration.KICK_PREFIX.getMessage() + "\n§cAlgo de errado ocorreu em sua conta!\nRelogue para desbugar!");
+			send(s, "O jogador ï¿½a\"" + a[0] + "\"ï¿½f estï¿½ bugado!");
+			t.kickPlayer(Configuration.KICK_PREFIX.getMessage()
+					+ "\nï¿½cAlgo de errado ocorreu em sua conta!\nRelogue para desbugar!");
 			return;
 		}
-		
+
 		if (main.getPlayerManager().isScreenshare(uuid)) {
 			if (main.getPlayerManager().getScreenshareModerator(uuid).equals(player.getUuid())) {
-				target.sendMessage("Você foi liberado do screenshare!");
+				target.sendMessage("Vocï¿½ foi liberado do screenshare!");
 				main.getPlayerManager().removeScreenshare(target.getUuid());
-				send(s, "Você liberou o jogador §a" + target.getUserName() + "§f.");
-				
+				send(s, "Vocï¿½ liberou o jogador ï¿½a" + target.getUserName() + "ï¿½f.");
+
 				t.teleport(main.getWarpManager().getWarp("Spawn").getWarpLocation());
 				main.getPlayerManager().setWarp(target.getUuid(), main.getWarpManager().getWarp("Spawn"));
 				main.getPlayerManager().setProtection(target.getUuid(), true);
 				main.getKitManager().removeAbility(target.getUuid());
 				PlayerListener.setItem(target);
-				
+
 				p.teleport(main.getWarpManager().getWarp("Spawn").getWarpLocation());
 				main.getPlayerManager().setWarp(player.getUuid(), main.getWarpManager().getWarp("Spawn"));
 				main.getPlayerManager().setProtection(player.getUuid(), true);
 				main.getKitManager().removeAbility(player.getUuid());
 				PlayerListener.setItem(player);
 			} else {
-				player.sendMessage("Você não é o moderador que está telando o jogador §a" + target.getUserName() + "§f, e por isso não pode retirar ele da telagem.");
+				player.sendMessage("Vocï¿½ nï¿½o ï¿½ o moderador que estï¿½ telando o jogador ï¿½a" + target.getUserName()
+						+ "ï¿½f, e por isso nï¿½o pode retirar ele da telagem.");
 			}
 			return;
 		}
-		
-		target.sendMessage("Você foi enviado para a §aScreenShare§f pelo moderador §a" + player.getUserName() + "§f.");
-		target.sendMessage("Siga as instruções do moderador!");
-		target.sendMessage("Se você deslogar será banido!");
-		
+
+		target.sendMessage("Vocï¿½ foi enviado para a ï¿½aScreenShareï¿½f pelo moderador ï¿½a" + player.getUserName() + "ï¿½f.");
+		target.sendMessage("Siga as instruï¿½ï¿½es do moderador!");
+		target.sendMessage("Se vocï¿½ deslogar serï¿½ banido!");
+
 		t.teleport(main.getWarpManager().getScreenshare().getWarpLocation());
 		cmdArgs.getPlayer().teleport(main.getWarpManager().getScreenshare().getWarpLocation());
-		
+
 		Scoreboarding.setScoreboard(p);
 		Scoreboarding.setScoreboard(t);
-		
+
 		main.getPlayerManager().getScreenshare().put(target.getUuid(), player.getUuid());
-		broadcast("O jogador §a" + target.getUserName() + "§f foi puxado para o screenshare pelo §a" + player.getUserName() + "§f.", Group.MODGC);
-		send(s, "Você puxou o jogador §a\"" + target.getUserName() + "\"§f para screenshare.");
+		broadcast("O jogador ï¿½a" + target.getUserName() + "ï¿½f foi puxado para o screenshare pelo ï¿½a"
+				+ player.getUserName() + "ï¿½f.", Group.MODGC);
+		send(s, "Vocï¿½ puxou o jogador ï¿½a\"" + target.getUserName() + "\"ï¿½f para screenshare.");
 	}
 }

@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.LightningStrike;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,7 +20,7 @@ public class Thor extends Kit {
 	public static List<Location> explodir = new ArrayList<>();
 
 	public Thor() {
-		super("Thor", Material.WOOD_AXE, 18000, true, Arrays.asList("Use seu thor para", "lançar raios."));
+		super("Thor", Material.WOOD_AXE, 18000, true, Arrays.asList("Use seu thor para", "lanï¿½ar raios."));
 	}
 
 	@EventHandler
@@ -56,7 +55,7 @@ public class Thor extends Kit {
 			return;
 		}
 		Player player = (Player) event.getEntity();
-		
+
 		if ((event.getEntity() instanceof LightningStrike)) {
 			if (hasKit(player)) {
 				event.setDamage(0.0D);

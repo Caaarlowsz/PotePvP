@@ -7,7 +7,6 @@ import java.util.Random;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,21 +30,21 @@ import br.com.yallandev.potepvp.manager.WarpManager.Warp;
 import br.com.yallandev.potepvp.utils.ItemManager;
 
 public class RDMAutomatic {
-	
+
 	private BukkitMain main;
-	
+
 	private int time;
 	private GameType gameType;
 	private Listener listener;
 	private List<Player> players;
 	private int maxPlayers;
 	private boolean full;
-	
+
 	private boolean pvp;
 	private List<Player> playersInPvp;
-	
+
 	private List<Player> specs;
-	
+
 	public RDMAutomatic() {
 		this.main = BukkitMain.getInstance();
 		this.time = 300;
@@ -56,70 +55,71 @@ public class RDMAutomatic {
 		this.pvp = false;
 		this.specs = new ArrayList<>();
 		this.playersInPvp = new ArrayList<>();
-		BukkitMain.broadcast("O evento §aRei da Mesa§f irá iniciar em §a5 minutos§f.");
-		BukkitMain.broadcast("Use §a/evento entrar§f para entrar no evento!");
-		
+		BukkitMain.broadcast("O evento ï¿½aRei da Mesaï¿½f irï¿½ iniciar em ï¿½a5 minutosï¿½f.");
+		BukkitMain.broadcast("Use ï¿½a/evento entrarï¿½f para entrar no evento!");
+
 		Bukkit.getPluginManager().registerEvents(listener = new Listener() {
-			
+
 			@EventHandler
 			public void onUpdate(UpdateEvent e) {
 				if (e.getType() != UpdateType.SECOND)
 					return;
-				
+
 				if (getGameType() == GameType.STARTING) {
 					if (time == 240) {
-						BukkitMain.broadcast("O evento §aRei da Mesa§f irá iniciar em §a4 minutos§f.");
-						BukkitMain.broadcast("Use §a/evento entrar§f para entrar no evento!");
-						BukkitMain.broadcast("§e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
+						BukkitMain.broadcast("O evento ï¿½aRei da Mesaï¿½f irï¿½ iniciar em ï¿½a4 minutosï¿½f.");
+						BukkitMain.broadcast("Use ï¿½a/evento entrarï¿½f para entrar no evento!");
+						BukkitMain.broadcast("ï¿½e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
 					}
 					if (time == 180) {
-						BukkitMain.broadcast("O evento §aRei da Mesa§f irá iniciar em §a3 minutos§f.");
-						BukkitMain.broadcast("Use §a/evento entrar§f para entrar no evento!");
-						BukkitMain.broadcast("§e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
+						BukkitMain.broadcast("O evento ï¿½aRei da Mesaï¿½f irï¿½ iniciar em ï¿½a3 minutosï¿½f.");
+						BukkitMain.broadcast("Use ï¿½a/evento entrarï¿½f para entrar no evento!");
+						BukkitMain.broadcast("ï¿½e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
 					}
 					if (time == 120) {
-						BukkitMain.broadcast("O evento §aRei da Mesa§f irá iniciar em §a2 minutos§f.");
-						BukkitMain.broadcast("Use §a/evento entrar§f para entrar no evento!");
-						BukkitMain.broadcast("§e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
+						BukkitMain.broadcast("O evento ï¿½aRei da Mesaï¿½f irï¿½ iniciar em ï¿½a2 minutosï¿½f.");
+						BukkitMain.broadcast("Use ï¿½a/evento entrarï¿½f para entrar no evento!");
+						BukkitMain.broadcast("ï¿½e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
 					}
 					if (time == 90) {
-						BukkitMain.broadcast("O evento §aRei da Mesa§f irá iniciar em §a2 minutos e 30 segundos§f.");
-						BukkitMain.broadcast("Use §a/evento entrar§f para entrar no evento!");
-						BukkitMain.broadcast("§e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
+						BukkitMain.broadcast("O evento ï¿½aRei da Mesaï¿½f irï¿½ iniciar em ï¿½a2 minutos e 30 segundosï¿½f.");
+						BukkitMain.broadcast("Use ï¿½a/evento entrarï¿½f para entrar no evento!");
+						BukkitMain.broadcast("ï¿½e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
 					}
 					if (time == 60) {
-						BukkitMain.broadcast("O evento §aRei da Mesa§f irá iniciar em §a1 minuto§f.");
-						BukkitMain.broadcast("Use §a/evento entrar§f para entrar no evento!");
-						BukkitMain.broadcast("§e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
+						BukkitMain.broadcast("O evento ï¿½aRei da Mesaï¿½f irï¿½ iniciar em ï¿½a1 minutoï¿½f.");
+						BukkitMain.broadcast("Use ï¿½a/evento entrarï¿½f para entrar no evento!");
+						BukkitMain.broadcast("ï¿½e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
 					}
 					if (time == 30) {
-						BukkitMain.broadcast("O evento §aRei da Mesa§f irá iniciar em §a30 segundos§f.");
-						BukkitMain.broadcast("Use §a/evento entrar§f para entrar no evento!");
-						BukkitMain.broadcast("§e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
+						BukkitMain.broadcast("O evento ï¿½aRei da Mesaï¿½f irï¿½ iniciar em ï¿½a30 segundosï¿½f.");
+						BukkitMain.broadcast("Use ï¿½a/evento entrarï¿½f para entrar no evento!");
+						BukkitMain.broadcast("ï¿½e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
 					}
 					if (time == 15) {
-						BukkitMain.broadcast("O evento §aRei da Mesa§f irá iniciar em §a15 segundos§f.");
-						BukkitMain.broadcast("Use §a/evento entrar§f para entrar no evento!");
-						BukkitMain.broadcast("§e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
+						BukkitMain.broadcast("O evento ï¿½aRei da Mesaï¿½f irï¿½ iniciar em ï¿½a15 segundosï¿½f.");
+						BukkitMain.broadcast("Use ï¿½a/evento entrarï¿½f para entrar no evento!");
+						BukkitMain.broadcast("ï¿½e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
 					}
-					
+
 					if (time == 10) {
-						BukkitMain.broadcast("O evento §aRei da Mesa§f irá iniciar em §a10 segundos§f.");
-						BukkitMain.broadcast("Use §a/evento entrar§f para entrar no evento!");
-						BukkitMain.broadcast("§e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
+						BukkitMain.broadcast("O evento ï¿½aRei da Mesaï¿½f irï¿½ iniciar em ï¿½a10 segundosï¿½f.");
+						BukkitMain.broadcast("Use ï¿½a/evento entrarï¿½f para entrar no evento!");
+						BukkitMain.broadcast("ï¿½e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
 					}
-					
-					if (players.size() == (10-maxPlayers) && time >= 50&& !full) {
+
+					if (players.size() == (10 - maxPlayers) && time >= 50 && !full) {
 						time = 30;
-						BukkitMain.broadcast("O tempo foi alterado para §a30 segundos§f, porque o evento está quase cheio!");
+						BukkitMain.broadcast(
+								"O tempo foi alterado para ï¿½a30 segundosï¿½f, porque o evento estï¿½ quase cheio!");
 						full = true;
 					}
-					
+
 					if (time <= 0) {
 						gameType = GameType.GAMIMG;
-						BukkitMain.broadcast("O evento §aRei da Mesa§f iniciou!");
+						BukkitMain.broadcast("O evento ï¿½aRei da Mesaï¿½f iniciou!");
 					}
-					
+
 					time--;
 				} else {
 					if (!pvp) {
@@ -127,386 +127,395 @@ public class RDMAutomatic {
 					}
 				}
 			}
-			
+
 			@EventHandler
 			public void onPlayerQuit(PlayerQuitEvent e) {
 				if (players.contains(e.getPlayer())) {
 					players.remove(e.getPlayer());
-				
+
 					if (playersInPvp.contains(e.getPlayer())) {
 						e.getPlayer().damage(9999D);
 						playersInPvp.remove(e.getPlayer());
 						pvp = false;
-						broadcast("O jogador §a" + e.getPlayer().getName() + "§f foi eliminado do evento por combate log!");
+						broadcast("O jogador ï¿½a" + e.getPlayer().getName()
+								+ "ï¿½f foi eliminado do evento por combate log!");
 						return;
 					}
-					
+
 					if (getGameType() == GameType.GAMIMG) {
-						broadcast("O jogador §a" + e.getPlayer().getName() + "§f saiu do servidor e foi desclassificado do evento!");
+						broadcast("O jogador ï¿½a" + e.getPlayer().getName()
+								+ "ï¿½f saiu do servidor e foi desclassificado do evento!");
 					}
 				}
 			}
-			
+
 			@EventHandler
 			public void onPlayerDeath(PlayerDeathEvent e) {
 				if (!(e.getEntity() instanceof Player))
 					return;
-				
+
 				if (e.getEntity().getKiller() == null)
 					return;
-				
+
 				Player p = e.getEntity();
 				Player d = e.getEntity().getKiller();
-				
+
 				if (players.contains(d) || players.contains(p)) {
 					if (playersInPvp.contains(d) && playersInPvp.contains(p)) {
 						playersInPvp.remove(p);
 						players.remove(p);
 						pvp = false;
-						p.sendMessage(Configuration.PREFIX.getMessage() + "Você foi eliminado do evento pelo §a" + d.getName() + "§f!");
-						broadcast("O jogador §a" + p.getName() + "§f foi eliminado do evento pelo §a" + d.getName() + "§f.");
-						broadcast("§a" + players.size() + "§f jogadores restantes.");
+						p.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ foi eliminado do evento pelo ï¿½a"
+								+ d.getName() + "ï¿½f!");
+						broadcast("O jogador ï¿½a" + p.getName() + "ï¿½f foi eliminado do evento pelo ï¿½a" + d.getName()
+								+ "ï¿½f.");
+						broadcast("ï¿½a" + players.size() + "ï¿½f jogadores restantes.");
 						broadcast("Procurando proximo jogador...");
 					}
 				}
 			}
-			
+
 			@EventHandler(priority = EventPriority.MONITOR)
 			public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
 				if (!(e.getDamager() instanceof Player))
 					return;
-				
+
 				if (!isSpec((Player) e.getDamager()))
 					return;
-				
+
 				e.setCancelled(true);
 			}
-			
+
 			@EventHandler
 			public void onPlayerCommandPreProcess(PlayerCommandPreprocessEvent e) {
 				Player p = e.getPlayer();
-				
+
 				if (!isInEvent(p))
 					return;
-				
+
 				if (isInPvP(p)) {
 					e.setCancelled(true);
 					return;
 				}
-				
+
 				if (e.getMessage().toLowerCase().startsWith("/warp")) {
 					e.setCancelled(true);
-					p.sendMessage(Configuration.PREFIX.getMessage() + "Use §a/evento sair§f para sair do evento!");
+					p.sendMessage(Configuration.PREFIX.getMessage() + "Use ï¿½a/evento sairï¿½f para sair do evento!");
 					return;
 				}
-				
+
 				if (e.getMessage().toLowerCase().startsWith("/kit")) {
 					e.setCancelled(true);
-					p.sendMessage(Configuration.PREFIX.getMessage() + "Use §a/evento sair§f para sair do evento!");
+					p.sendMessage(Configuration.PREFIX.getMessage() + "Use ï¿½a/evento sairï¿½f para sair do evento!");
 					return;
 				}
 			}
-			
-			
+
 		}, main);
 	}
-	
+
 	public boolean isInEvent(Player player) {
 		return getPlayers().contains(player);
 	}
-	
+
 	public void queuedPlayers() {
 		Player firstPlayer = null;
 		Player secondPlayer = null;
-		
+
 		if (players.size() == 1) {
 			Player winner = players.get(0);
 			this.playersInPvp.clear();
-			BukkitMain.broadcast("O jogador §a" + winner.getName() + "§f ganhou o evento!");
-			
+			BukkitMain.broadcast("O jogador ï¿½a" + winner.getName() + "ï¿½f ganhou o evento!");
+
 			Account player = BukkitMain.getAccountCommon().getAccount(winner.getUniqueId());
-			
-			player.sendMessage("Você ganhou §a50 de xp§f!");
-			player.sendMessage("Você ganhou §a1500 de coins§f!");
-			
+
+			player.sendMessage("Vocï¿½ ganhou ï¿½a50 de xpï¿½f!");
+			player.sendMessage("Vocï¿½ ganhou ï¿½a1500 de coinsï¿½f!");
+
 			player.getStatus().addXp(100);
 			player.getStatus().addMoney(1500);
 			player.saveStatus();
-			
+
 			destroy();
 			return;
 		}
-		
+
 		if (players.size() == 0) {
-			BukkitMain.broadcast("Não houve nenhum ganhador!");
+			BukkitMain.broadcast("Nï¿½o houve nenhum ganhador!");
 			this.playersInPvp.clear();
 			return;
 		}
-		
+
 		for (Player players : this.players) {
 			if (!players.isOnline())
 				this.players.remove(players);
 		}
-		
+
 		firstPlayer = null;
 		secondPlayer = this.players.get(new Random().nextInt(this.players.size()));
-		
+
 		if (playersInPvp.isEmpty()) {
 			firstPlayer = this.players.get(new Random().nextInt(this.players.size()));
 		} else {
 			firstPlayer = playersInPvp.get(0);
 			playersInPvp.clear();
 		}
-		
+
 		while (secondPlayer.getUniqueId().equals(firstPlayer.getUniqueId()))
 			secondPlayer = this.players.get(new Random().nextInt(this.players.size()));
-		
+
 		firstPlayer.teleport(new Location(Bukkit.getWorld("world"), 0, 0, 0));
 		secondPlayer.teleport(new Location(Bukkit.getWorld("world"), 0, 0, 0));
-		
+
 		firstPlayer.closeInventory();
 		secondPlayer.closeInventory();
-		
+
 		send1v1(firstPlayer, secondPlayer);
 	}
-	
+
 	public void broadcast(String message) {
 		for (Player players : this.players) {
 			players.sendMessage(Configuration.PREFIX.getMessage() + message);
 		}
-		
+
 		for (Player players : this.specs) {
 			players.sendMessage(Configuration.PREFIX.getMessage() + message);
 		}
 	}
-	
+
 	public void send1v1(Player firstPlayer, Player secondPlayer) {
 		this.playersInPvp.clear();
 		this.playersInPvp.add(firstPlayer);
 		this.playersInPvp.add(secondPlayer);
-		
+
 		System.out.println("[EVENTO] " + firstPlayer.getName() + " VS " + secondPlayer.getName());
-		
-		broadcast("O jogador §a" + firstPlayer.getName() + "§f irá lutar contra o §c" + secondPlayer.getName() + "§f.");
-		
+
+		broadcast("O jogador ï¿½a" + firstPlayer.getName() + "ï¿½f irï¿½ lutar contra o ï¿½c" + secondPlayer.getName() + "ï¿½f.");
+
 		firstPlayer.setHealth(20D);
 		secondPlayer.setHealth(20D);
-		
+
 		main.getPlayerManager().removeProtection(firstPlayer.getUniqueId());
 		main.getPlayerManager().removeProtection(secondPlayer.getUniqueId());
-		
+
 		firstPlayer.teleport(new Location(Bukkit.getWorld("world"), 3000.5, 62.5, 3018.5));
 		firstPlayer.getEyeLocation().setYaw(180);
-		
+
 		secondPlayer.teleport(new Location(Bukkit.getWorld("world"), 3000.5, 62.5, 2982.5));
 		secondPlayer.getEyeLocation().setYaw(0);
-		
-		firstPlayer.sendMessage(Configuration.PREFIX.getMessage() + "Você irá batalhar contra o §a" + secondPlayer.getName() + "§f.");
-		secondPlayer.sendMessage(Configuration.PREFIX.getMessage() + "Você irá batalhar contra o §a" + firstPlayer.getName() + "§f.");
-		
+
+		firstPlayer.sendMessage(
+				Configuration.PREFIX.getMessage() + "Vocï¿½ irï¿½ batalhar contra o ï¿½a" + secondPlayer.getName() + "ï¿½f.");
+		secondPlayer.sendMessage(
+				Configuration.PREFIX.getMessage() + "Vocï¿½ irï¿½ batalhar contra o ï¿½a" + firstPlayer.getName() + "ï¿½f.");
+
 		for (PotionEffect pot : firstPlayer.getActivePotionEffects())
 			firstPlayer.removePotionEffect(pot.getType());
-		
+
 		for (PotionEffect pot : secondPlayer.getActivePotionEffects())
 			secondPlayer.removePotionEffect(pot.getType());
-		
+
 		firstPlayer.getInventory().clear();
 		firstPlayer.getInventory().setArmorContents(new ItemStack[4]);
 		firstPlayer.closeInventory();
-		
+
 		secondPlayer.getInventory().clear();
 		secondPlayer.getInventory().setArmorContents(new ItemStack[4]);
 		secondPlayer.closeInventory();
-		
-		firstPlayer.getInventory().setItem(0, new ItemManager(Material.DIAMOND_SWORD, "§a§nEspada de diamante!").addEnchantment(Enchantment.DAMAGE_ALL, 1).build());
-		secondPlayer.getInventory().setItem(0, new ItemManager(Material.DIAMOND_SWORD, "§a§nEspada de diamante!").addEnchantment(Enchantment.DAMAGE_ALL, 1).build());
-	
-		firstPlayer.getInventory().setHelmet(new ItemManager(Material.IRON_HELMET, "§a§nCapacete de ferro!").build());
-		firstPlayer.getInventory().setChestplate(new ItemManager(Material.IRON_CHESTPLATE, "§a§nPeitoral de ferro!").build());
-		firstPlayer.getInventory().setLeggings(new ItemManager(Material.IRON_LEGGINGS, "§a§nCalça de ferro!").build());
-		firstPlayer.getInventory().setBoots(new ItemManager(Material.IRON_BOOTS, "§a§nBota de ferro!").build());
-		
-		secondPlayer.getInventory().setHelmet(new ItemManager(Material.IRON_HELMET, "§a§nCapacete de ferro!").build());
-		secondPlayer.getInventory().setChestplate(new ItemManager(Material.IRON_CHESTPLATE, "§a§nPeitoral de ferro!").build());
-		secondPlayer.getInventory().setLeggings(new ItemManager(Material.IRON_LEGGINGS, "§a§nCalça de ferro!").build());
-		secondPlayer.getInventory().setBoots(new ItemManager(Material.IRON_BOOTS, "§a§nBota de ferro!").build());
-		
+
+		firstPlayer.getInventory().setItem(0, new ItemManager(Material.DIAMOND_SWORD, "ï¿½aï¿½nEspada de diamante!")
+				.addEnchantment(Enchantment.DAMAGE_ALL, 1).build());
+		secondPlayer.getInventory().setItem(0, new ItemManager(Material.DIAMOND_SWORD, "ï¿½aï¿½nEspada de diamante!")
+				.addEnchantment(Enchantment.DAMAGE_ALL, 1).build());
+
+		firstPlayer.getInventory().setHelmet(new ItemManager(Material.IRON_HELMET, "ï¿½aï¿½nCapacete de ferro!").build());
+		firstPlayer.getInventory()
+				.setChestplate(new ItemManager(Material.IRON_CHESTPLATE, "ï¿½aï¿½nPeitoral de ferro!").build());
+		firstPlayer.getInventory().setLeggings(new ItemManager(Material.IRON_LEGGINGS, "ï¿½aï¿½nCalï¿½a de ferro!").build());
+		firstPlayer.getInventory().setBoots(new ItemManager(Material.IRON_BOOTS, "ï¿½aï¿½nBota de ferro!").build());
+
+		secondPlayer.getInventory().setHelmet(new ItemManager(Material.IRON_HELMET, "ï¿½aï¿½nCapacete de ferro!").build());
+		secondPlayer.getInventory()
+				.setChestplate(new ItemManager(Material.IRON_CHESTPLATE, "ï¿½aï¿½nPeitoral de ferro!").build());
+		secondPlayer.getInventory().setLeggings(new ItemManager(Material.IRON_LEGGINGS, "ï¿½aï¿½nCalï¿½a de ferro!").build());
+		secondPlayer.getInventory().setBoots(new ItemManager(Material.IRON_BOOTS, "ï¿½aï¿½nBota de ferro!").build());
+
 		for (int x = 0; x < 8; x++) {
 			firstPlayer.getInventory().addItem(new ItemStack(Material.MUSHROOM_SOUP));
 			secondPlayer.getInventory().addItem(new ItemStack(Material.MUSHROOM_SOUP));
 		}
-		
+
 		this.pvp = true;
 	}
-	
+
 	public GameType getGameType() {
 		return gameType;
 	}
-	
+
 	public List<Player> getPlayers() {
 		return players;
 	}
-	
+
 	public List<Player> getPlayersInPvp() {
 		return playersInPvp;
 	}
-	
+
 	public int getMaxPlayers() {
 		return maxPlayers;
 	}
-	
+
 	public void putInEvent(Player player) {
 		if (players.contains(player)) {
-			player.sendMessage(Configuration.PREFIX.getMessage() + "Você já está no evento!");
+			player.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ jï¿½ estï¿½ no evento!");
 			return;
 		}
-		
-		player.sendMessage(Configuration.PREFIX.getMessage() + "Você entrou no evento!");
+
+		player.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ entrou no evento!");
 		players.add(player);
-		
+
 		main.getPlayerManager().setWarp(player.getUniqueId(), main.getWarpManager().getWarp("Spawn"));
 		main.getPlayerManager().addProtection(player.getUniqueId());
 		main.getKitManager().removeAbility(player.getUniqueId());
-		
+
 		player.getInventory().clear();
 		player.getInventory().setArmorContents(new ItemStack[4]);
-		
+
 		for (PotionEffect pot : player.getActivePotionEffects())
 			player.removePotionEffect(pot.getType());
-		
+
 		player.teleport(new Location(Bukkit.getWorld("world"), 3000.5, 61.5, 3048.5));
 	}
-	
+
 	public void leaveEvent(Player player) {
 		if (!players.contains(player)) {
-			player.sendMessage(Configuration.PREFIX.getMessage() + "Você não está no evento!");
+			player.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ nï¿½o estï¿½ no evento!");
 			return;
 		}
-		
+
 		if (isInPvP(player)) {
-			player.sendMessage("Você não pode sair do evento enquanto estiver no pvp!");
+			player.sendMessage("Vocï¿½ nï¿½o pode sair do evento enquanto estiver no pvp!");
 			return;
 		}
-		
+
 		if (getGameType() == GameType.STARTING) {
-			player.sendMessage(Configuration.PREFIX.getMessage() + "Você saiu do evento!");
+			player.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ saiu do evento!");
 		} else {
-			player.sendMessage(Configuration.PREFIX.getMessage() + "Você foi eliminado do evento!");
+			player.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ foi eliminado do evento!");
 		}
-		
+
 		Warp warp = main.getWarpManager().getWarp("Spawn");
-		
+
 		player.teleport(warp.getWarpLocation());
 		main.getPlayerManager().setWarp(player.getUniqueId(), warp);
 		main.getPlayerManager().setProtection(player.getUniqueId(), true);
 		main.getKitManager().removeAbility(player.getUniqueId());
 		PlayerListener.setItem(BukkitMain.getAccountCommon().getAccount(player.getUniqueId()));
-		
+
 		players.remove(player);
 	}
-	
+
 	public boolean isInPvP(Player player) {
 		return playersInPvp.contains(player) && getGameType() == GameType.GAMIMG;
 	}
-	
+
 	public void destroy() {
-		
+
 		for (Player players : getSpecs()) {
 			if (!players.isOnline())
 				continue;
-			
+
 			Account player = BukkitMain.getAccountCommon().getAccount(players.getUniqueId());
-			
+
 			if (player == null)
 				continue;
-			
+
 			player.desmakeVanish();
-			
+
 			Warp warp = main.getWarpManager().getWarp("Spawn");
-			
+
 			players.teleport(warp.getWarpLocation());
 			main.getPlayerManager().setWarp(players.getUniqueId(), warp);
 			main.getPlayerManager().setProtection(players.getUniqueId(), true);
 			main.getKitManager().removeAbility(players.getUniqueId());
 			PlayerListener.setItem(BukkitMain.getAccountCommon().getAccount(players.getUniqueId()));
 		}
-		
+
 		HandlerList.unregisterAll(this.listener);
 		BukkitMain.getInstance().getEventManager().setRdmAutomatic(null);
 	}
-	
+
 	public void setMaxPlayers(int maxPlayers) {
 		this.maxPlayers = maxPlayers;
 	}
-	
+
 	public void setTime(int time) {
 		this.time = time;
 	}
-	
+
 	public int getTime() {
 		return time;
 	}
-	
+
 	public List<Player> getSpecs() {
 		return specs;
 	}
-	
+
 	public boolean isSpec(Player p) {
 		return specs.contains(p);
 	}
-	
+
 	public void setSpec(Account player) {
 		Player p = player.getPlayer();
-		
+
 		if (getSpecs().contains(p)) {
-			player.sendMessage("Você já é um espectador!");
+			player.sendMessage("Vocï¿½ jï¿½ ï¿½ um espectador!");
 			return;
 		}
-		
+
 		if (getPlayers().contains(p)) {
-			player.sendMessage("Você não pode ser um espectador jogando!");
+			player.sendMessage("Vocï¿½ nï¿½o pode ser um espectador jogando!");
 			return;
 		}
-		
+
 		p.teleport(new Location(Bukkit.getWorld("world"), 3000.5, 61.5, 3048.5));
 		p.getInventory().clear();
 		p.getInventory().setArmorContents(new ItemStack[4]);
-		
+
 		p.setAllowFlight(true);
 		player.makeVanish();
-		
-		player.sendMessage("Você entrou no modo espectador!");
-		player.sendMessage("Use §a/evento spec§f para sair do modo spec!");
+
+		player.sendMessage("Vocï¿½ entrou no modo espectador!");
+		player.sendMessage("Use ï¿½a/evento specï¿½f para sair do modo spec!");
 		getSpecs().add(p);
 	}
-	
+
 	public void removeSpec(Account player) {
 		Player p = player.getPlayer();
-		
+
 		if (getSpecs().contains(p)) {
-			player.sendMessage("Você já é um espectador!");
+			player.sendMessage("Vocï¿½ jï¿½ ï¿½ um espectador!");
 			return;
 		}
-		
+
 		getSpecs().remove(p);
-		
+
 		p.setAllowFlight(false);
 		player.desmakeVanish();
-		player.sendMessage("Você saiu do modo espectador!");
-		
+		player.sendMessage("Vocï¿½ saiu do modo espectador!");
+
 		Warp warp = main.getWarpManager().getWarp("Spawn");
-		
+
 		p.teleport(warp.getWarpLocation());
 		main.getPlayerManager().setWarp(p.getUniqueId(), warp);
 		main.getPlayerManager().setProtection(p.getUniqueId(), true);
 		main.getKitManager().removeAbility(p.getUniqueId());
 		PlayerListener.setItem(BukkitMain.getAccountCommon().getAccount(p.getUniqueId()));
 	}
-	
+
 	public enum GameType {
-		
+
 		STARTING, GAMIMG;
-		
+
 	}
 
 }

@@ -22,7 +22,8 @@ public class BukkitCommandLoader {
 					framework.registerCommands(commands);
 				} catch (Exception e) {
 					e.printStackTrace();
-					Bukkit.getLogger().warning("Erro ao carregar comandos da classe " + commandClass.getSimpleName() + "!");
+					Bukkit.getLogger()
+							.warning("Erro ao carregar comandos da classe " + commandClass.getSimpleName() + "!");
 				}
 				i++;
 			}

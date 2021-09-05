@@ -2,6 +2,7 @@ package br.com.yallandev.potepvp.manager;
 
 import java.util.ArrayList;
 import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -9,12 +10,12 @@ import br.com.yallandev.potepvp.BukkitMain;
 import br.com.yallandev.potepvp.utils.Util;
 
 public class PlayerHideManager {
-	
+
 	private BukkitMain main;
 	private ArrayList<UUID> hideAllPlayers;
 
 	public PlayerHideManager() {
-		this.hideAllPlayers = new ArrayList();
+		this.hideAllPlayers = new ArrayList<UUID>();
 		this.main = BukkitMain.getInstance();
 	}
 
@@ -41,7 +42,9 @@ public class PlayerHideManager {
 			this.hideAllPlayers.remove(p.getUniqueId());
 		}
 		for (Player show : Util.getOnlinePlayers()) {
-			if ((!this.hideAllPlayers.contains(show.getUniqueId())) && (!this.main.getVanishMode().isAdmin(show.getUniqueId())) && (show.getUniqueId() != p.getUniqueId())) {
+			if ((!this.hideAllPlayers.contains(show.getUniqueId()))
+					&& (!this.main.getVanishMode().isAdmin(show.getUniqueId()))
+					&& (show.getUniqueId() != p.getUniqueId())) {
 				p.showPlayer(show);
 			}
 		}

@@ -1,9 +1,5 @@
 package br.com.yallandev.potepvp.utils.fake;
 
-import java.io.IOException;
-
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -30,29 +26,30 @@ import net.minecraft.util.com.mojang.authlib.GameProfile;
 import net.minecraft.util.com.mojang.authlib.properties.Property;
 
 public class CustomPlayerAPI {
-	
+
 	public static HashMap<UUID, Skin> playerSkins = new HashMap<>();
-	public static final	Cache<GameProfile, Property> Textures = CacheBuilder.newBuilder().expireAfterWrite(30L, TimeUnit.MINUTES).build(new CacheLoader<GameProfile, Property>() {
-		@Override
-		public Property load(GameProfile key) throws Exception {
-			return loadTextures(key);
-		}
-	});
-	
+	public static final Cache<GameProfile, Property> Textures = CacheBuilder.newBuilder()
+			.expireAfterWrite(30L, TimeUnit.MINUTES).build(new CacheLoader<GameProfile, Property>() {
+				@Override
+				public Property load(GameProfile key) throws Exception {
+					return loadTextures(key);
+				}
+			});
+
 	public static class Skin {
-		
+
 		private String value;
 		private String signature;
-		
+
 		public Skin(String value, String signature) {
 			this.value = value;
 			this.signature = signature;
 		}
-		
+
 		public String getSignature() {
 			return signature;
 		}
-		
+
 		public String getValue() {
 			return value;
 		}
@@ -68,32 +65,32 @@ public class CustomPlayerAPI {
 	public static MinecraftServer getNmsServer() {
 		return nmsServer;
 	}
-	
+
 	public static String[] getFromPlayer(Player playerBukkit) {
 		EntityPlayer playerNMS = ((CraftPlayer) playerBukkit).getHandle();
 		GameProfile profile = playerNMS.getProfile();
 		Property property = profile.getProperties().get("textures").iterator().next();
 		String texture = property.getValue();
 		String signature = property.getSignature();
-		
+
 		return new String[] { texture, signature };
 	}
 
 	public static Skin getFromName(UUID uuid) {
 		if (playerSkins.containsKey(uuid))
 			return playerSkins.get(uuid);
-		
+
 		try {
 			Property property = MojangAPI.getSkinProperty(uuid.toString());
-			
+
 			return new Skin(property.getValue(), property.getSignature());
 		} catch (Exception e) {
 //				Property property = MojangAPI.getSkinProperty(uuid.toString());
 //				
 //				return new Skin(property.getValue(), property.getSignature());
-				System.err.println("Could not get skin data from session servers!");
-				e.printStackTrace();
-				return null;
+			System.err.println("Could not get skin data from session servers!");
+			e.printStackTrace();
+			return null;
 		}
 	}
 

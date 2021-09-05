@@ -3,8 +3,6 @@ package br.com.yallandev.potepvp.version.rewrite;
 import java.nio.charset.Charset;
 import java.util.UUID;
 
-import com.mysql.jdbc.Messages;
-
 import br.com.yallandev.potepvp.utils.Reflection;
 import br.com.yallandev.potepvp.utils.Util;
 import net.minecraft.server.v1_7_R4.EntityPlayer;

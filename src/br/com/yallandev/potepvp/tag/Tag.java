@@ -3,56 +3,44 @@ package br.com.yallandev.potepvp.tag;
 import br.com.yallandev.potepvp.permissions.group.Group;
 
 public enum Tag {
-	
-	DEVELOPER("§3§lDEVELOPER §3", Group.DONO),
-	DONO("§4§lDONO §4", Group.DONO),
-	ADMIN("§c§lADMIN §c", Group.ADMIN),
-	GERENTE("§c§lGERENTE §c", Group.GERENTE),
-	MODPLUS("§5§lMOD+ §5", Group.MODPLUS),
-	MODGC("§5§lMODGC §5", Group.MODGC),
-	MOD("§5§lMOD §5", Group.MOD),
-	TRIAL("§d§lTRIAL §d", Group.TRIAL),
-	YOUTUBERPLUS("§3§lYT+ §3", Group.YOUTUBERPLUS, true),
-	HELPER("§9§lHELPER §9", Group.HELPER),
-	BUILDER("§e§lBUILDER §e", Group.BUILDER),
-	YOUTUBER("§b§lYT §b", Group.YOUTUBER, true),
-	HEIGHT("§2§lHEIGHT §2", Group.HEIGHT),
-	BETA("§1§lBETA §1", Group.BETA),
-	PRO("§6§lPRO §6", Group.PRO),
-	MVP("§9§lMVP §9", Group.MVP),
-	TOP1("§2§lTOP1 §2", null),
-	LOSER("§8§lLOSER §8", null),
-	LIGHT("§a§lLIGHT §a", Group.LIGHT),
-	MEMBRO("§f", Group.MEMBRO);
-	
+
+	DEVELOPER("ï¿½3ï¿½lDEVELOPER ï¿½3", Group.DONO), DONO("ï¿½4ï¿½lDONO ï¿½4", Group.DONO), ADMIN("ï¿½cï¿½lADMIN ï¿½c", Group.ADMIN),
+	GERENTE("ï¿½cï¿½lGERENTE ï¿½c", Group.GERENTE), MODPLUS("ï¿½5ï¿½lMOD+ ï¿½5", Group.MODPLUS), MODGC("ï¿½5ï¿½lMODGC ï¿½5", Group.MODGC),
+	MOD("ï¿½5ï¿½lMOD ï¿½5", Group.MOD), TRIAL("ï¿½dï¿½lTRIAL ï¿½d", Group.TRIAL),
+	YOUTUBERPLUS("ï¿½3ï¿½lYT+ ï¿½3", Group.YOUTUBERPLUS, true), HELPER("ï¿½9ï¿½lHELPER ï¿½9", Group.HELPER),
+	BUILDER("ï¿½eï¿½lBUILDER ï¿½e", Group.BUILDER), YOUTUBER("ï¿½bï¿½lYT ï¿½b", Group.YOUTUBER, true),
+	HEIGHT("ï¿½2ï¿½lHEIGHT ï¿½2", Group.HEIGHT), BETA("ï¿½1ï¿½lBETA ï¿½1", Group.BETA), PRO("ï¿½6ï¿½lPRO ï¿½6", Group.PRO),
+	MVP("ï¿½9ï¿½lMVP ï¿½9", Group.MVP), TOP1("ï¿½2ï¿½lTOP1 ï¿½2", null), LOSER("ï¿½8ï¿½lLOSER ï¿½8", null),
+	LIGHT("ï¿½aï¿½lLIGHT ï¿½a", Group.LIGHT), MEMBRO("ï¿½f", Group.MEMBRO);
+
 	private String prefix;
 	private Group group;
 	private boolean exclusive;
-	
+
 	private Tag(String prefix, Group group, boolean exclusive) {
 		this.prefix = prefix;
 		this.group = group;
 		this.exclusive = exclusive;
 	}
-	
+
 	private Tag(String prefix, Group group) {
 		this.prefix = prefix;
 		this.group = group;
 		this.exclusive = false;
 	}
-	
+
 	private Tag(String prefix) {
 		this(prefix, Group.MEMBRO, false);
 	}
-	
+
 	public Group getGroup() {
 		return group;
 	}
-	
+
 	public String getPrefix() {
 		return prefix;
 	}
-	
+
 	public boolean isExclusive() {
 		return exclusive;
 	}
@@ -60,37 +48,38 @@ public enum Tag {
 	public static Tag getTag(String match) throws Exception {
 		try {
 			return Tag.valueOf(match.toUpperCase());
-		} catch (Exception e) {}
-		
-		if (match.equalsIgnoreCase("normal")||match.equalsIgnoreCase("default")) {
+		} catch (Exception e) {
+		}
+
+		if (match.equalsIgnoreCase("normal") || match.equalsIgnoreCase("default")) {
 			return Tag.MEMBRO;
 		}
-		
+
 		if (match.equalsIgnoreCase("ajudante")) {
 			return Tag.HELPER;
 		}
-		
+
 		if (match.equalsIgnoreCase("mod+")) {
 			return Tag.MODPLUS;
 		}
-		
+
 		if (match.equalsIgnoreCase("yt")) {
 			return Tag.YOUTUBER;
 		}
-		
+
 		if (match.equalsIgnoreCase("yt+") || match.equalsIgnoreCase("youtuber+")) {
 			return Tag.YOUTUBERPLUS;
 		}
-		
+
 		if (match.equalsIgnoreCase("dev")) {
 			return Tag.DEVELOPER;
 		}
-		
+
 		if (match.equalsIgnoreCase("top")) {
 			return Tag.TOP1;
 		}
-		
+
 		throw new Exception();
 	}
-	
+
 }

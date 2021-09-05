@@ -22,19 +22,19 @@ import java.io.Serializable;
  * @since Twitter4J 3.0.4
  */
 public interface SymbolEntity extends TweetEntity, Serializable {
-    /**
-     * Returns the index of the start character of the symbol.
-     *
-     * @return the index of the start character of the symbol
-     */
-    @Override
-    int getStart();
+	/**
+	 * Returns the index of the start character of the symbol.
+	 *
+	 * @return the index of the start character of the symbol
+	 */
+	@Override
+	int getStart();
 
-    /**
-     * Returns the index of the end character of the symbol.
-     *
-     * @return the index of the end character of the symbol
-     */
-    @Override
-    int getEnd();
+	/**
+	 * Returns the index of the end character of the symbol.
+	 *
+	 * @return the index of the end character of the symbol
+	 */
+	@Override
+	int getEnd();
 }

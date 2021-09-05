@@ -8,7 +8,7 @@ import br.com.yallandev.potepvp.ban.constructor.Kick;
 import br.com.yallandev.potepvp.ban.constructor.Mute;
 
 public class PunishmentHistory {
-	
+
 	private List<Ban> banHistory;
 	private List<Mute> muteHistory;
 	private List<Kick> kickHistory;
@@ -40,7 +40,7 @@ public class PunishmentHistory {
 		}
 		return null;
 	}
-	
+
 	public List<Kick> getKickHistory() {
 		return kickHistory;
 	}

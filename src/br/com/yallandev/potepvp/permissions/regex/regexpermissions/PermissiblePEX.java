@@ -25,9 +25,11 @@ import br.com.yallandev.potepvp.permissions.regex.FieldReplacer;
 import br.com.yallandev.potepvp.permissions.regex.PermissionCheckResult;
 
 public class PermissiblePEX extends PermissibleBase {
-	
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private static final FieldReplacer<PermissibleBase, Map> PERMISSIONS_FIELD = new FieldReplacer(
 			PermissibleBase.class, "permissions", Map.class);
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private static final FieldReplacer<PermissibleBase, List> ATTACHMENTS_FIELD = new FieldReplacer(
 			PermissibleBase.class, "attachments", List.class);
 	private static final Method CALC_CHILD_PERMS_METH;
@@ -48,24 +50,15 @@ public class PermissiblePEX extends PermissibleBase {
 	protected final Player player;
 	protected final BukkitMain plugin;
 	private Permissible previousPermissible = null;
-	protected final Map<String, PermissionCheckResult> cache = new ConcurrentHashMap();
+	protected final Map<String, PermissionCheckResult> cache = new ConcurrentHashMap<String, PermissionCheckResult>();
 	private final Object permissionsLock = new Object();
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public PermissiblePEX(Player player, BukkitMain plugin) {
 		super(player);
 		this.player = player;
 		this.plugin = plugin;
-		this.permissions = new LinkedHashMap() {
-			private static final long serialVersionUID = 1L;
-
-			public PermissionAttachmentInfo put(String k, PermissionAttachmentInfo v) {
-				PermissionAttachmentInfo existing = (PermissionAttachmentInfo) get(k);
-				if (existing != null) {
-					return existing;
-				}
-				return (PermissionAttachmentInfo) super.put(k, v);
-			}
-		};
+		this.permissions = new LinkedHashMap();
 		PERMISSIONS_FIELD.set(this, this.permissions);
 		this.attachments = ((List) ATTACHMENTS_FIELD.get(this));
 		recalculatePermissions();
@@ -85,6 +78,8 @@ public class PermissiblePEX extends PermissibleBase {
 		case TRUE:
 		case UNDEFINED:
 			return res.toBoolean();
+		default:
+			break;
 		}
 		if (super.isPermissionSet(permission)) {
 			boolean ret = super.hasPermission(permission);
@@ -101,6 +96,8 @@ public class PermissiblePEX extends PermissibleBase {
 		case TRUE:
 		case UNDEFINED:
 			return res.toBoolean();
+		default:
+			break;
 		}
 		if (super.isPermissionSet(permission.getName())) {
 			boolean ret = super.hasPermission(permission);
@@ -144,7 +141,7 @@ public class PermissiblePEX extends PermissibleBase {
 
 	public Set<PermissionAttachmentInfo> getEffectivePermissions() {
 		synchronized (this.permissionsLock) {
-			return new LinkedHashSet(this.permissions.values());
+			return new LinkedHashSet<PermissionAttachmentInfo>(this.permissions.values());
 		}
 	}
 
@@ -167,7 +164,7 @@ public class PermissiblePEX extends PermissibleBase {
 			res = PermissionCheckResult.UNDEFINED;
 			PermissionAttachmentInfo pai;
 			synchronized (this.permissionsLock) {
-				for (Iterator localIterator = this.permissions.values().iterator(); localIterator.hasNext();) {
+				for (Iterator<PermissionAttachmentInfo> localIterator = this.permissions.values().iterator(); localIterator.hasNext();) {
 					pai = (PermissionAttachmentInfo) localIterator.next();
 					if ((res = checkSingle(pai.getPermission(), permission,
 							pai.getValue())) != PermissionCheckResult.UNDEFINED) {

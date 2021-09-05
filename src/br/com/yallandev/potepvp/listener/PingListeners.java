@@ -10,25 +10,26 @@ import com.skionz.pingapi.PingListener;
 import com.skionz.pingapi.PingReply;
 
 import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
 import br.com.yallandev.potepvp.utils.string.CenterChat;
-import net.md_5.bungee.api.ChatColor;
 
 public class PingListeners implements PingListener {
 
 	@Override
 	public void onPing(PingEvent event) {
 		PingReply reply = event.getReply();
-		reply.setOnlinePlayers(reply.getOnlinePlayers() - BukkitMain.getInstance().getVanishMode().getAdmin().size() < 0 ? 0 :  reply.getOnlinePlayers() - BukkitMain.getInstance().getVanishMode().getAdmin().size());
+		reply.setOnlinePlayers(
+				reply.getOnlinePlayers() - BukkitMain.getInstance().getVanishMode().getAdmin().size() < 0 ? 0
+						: reply.getOnlinePlayers() - BukkitMain.getInstance().getVanishMode().getAdmin().size());
 		reply.setMaxPlayers(reply.getOnlinePlayers() + 1);
-		reply.setProtocolName("§7" + reply.getOnlinePlayers() + "§a/§7" + reply.getMaxPlayers());
-		reply.setMOTD(CenterChat.centered("§6§lKitPvP §7[1.7 - 1.8]", 127) + "\n" + CenterChat.centered((Bukkit.hasWhitelist() ? "§c§nServidor está em manutenção!" : "§e§nVagas na staff!"), 127));
-		
+		reply.setProtocolName("ï¿½7" + reply.getOnlinePlayers() + "ï¿½a/ï¿½7" + reply.getMaxPlayers());
+		reply.setMOTD(CenterChat.centered("ï¿½6ï¿½lKitPvP ï¿½7[1.7 - 1.8]", 127) + "\n" + CenterChat
+				.centered((Bukkit.hasWhitelist() ? "ï¿½cï¿½nServidor estï¿½ em manutenï¿½ï¿½o!" : "ï¿½eï¿½nVagas na staff!"), 127));
+
 		List<String> list = new ArrayList<>();
-		list.add("       §6§lKitPvP");
-		list.add(" §f");
-		list.add("§fVersão: §a1.7 até 1.8");
+		list.add("       ï¿½6ï¿½lKitPvP");
+		list.add(" ï¿½f");
+		list.add("ï¿½fVersï¿½o: ï¿½a1.7 atï¿½ 1.8");
 		reply.setPlayerSample(list);
 	}
-	
+
 }

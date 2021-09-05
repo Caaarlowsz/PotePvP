@@ -21,18 +21,18 @@ package twitter4j;
  * @since Twitter4J 2.1.7
  */
 public interface ConnectionLifeCycleListener {
-    /**
-     * called after connection was established
-     */
-    void onConnect();
+	/**
+	 * called after connection was established
+	 */
+	void onConnect();
 
-    /**
-     * called after connection was disconnected
-     */
-    void onDisconnect();
+	/**
+	 * called after connection was disconnected
+	 */
+	void onDisconnect();
 
-    /**
-     * called before thread gets cleaned up
-     */
-    void onCleanUp();
+	/**
+	 * called before thread gets cleaned up
+	 */
+	void onCleanUp();
 }

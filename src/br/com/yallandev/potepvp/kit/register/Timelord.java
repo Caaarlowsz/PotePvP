@@ -18,13 +18,14 @@ import br.com.yallandev.potepvp.BukkitMain;
 import br.com.yallandev.potepvp.kit.Kit;
 
 public class Timelord extends Kit {
-	
+
 	public Timelord() {
-		super("Timelord", Material.WATCH, 18000, true, Arrays.asList("Use seu timelord para", "congelar todos os inimigos", "proximos de você."));
+		super("Timelord", Material.WATCH, 18000, true,
+				Arrays.asList("Use seu timelord para", "congelar todos os inimigos", "proximos de vocï¿½."));
 	}
-	
+
 	public static HashMap<UUID, UUID> freeze = new HashMap<>();
-	
+
 	@EventHandler
 	public void asd(PlayerInteractEvent e) {
 		Player player = e.getPlayer();
@@ -40,7 +41,7 @@ public class Timelord extends Kit {
 					cooldownMessage(player);
 					return;
 				}
-				sendMessage(player, "Você usou o §aTimelord§f.");
+				sendMessage(player, "Vocï¿½ usou o ï¿½aTimelordï¿½f.");
 				addCooldown(player, 25);
 				for (Entity entity : player.getNearbyEntities(6.0, 7.0, 6.0)) {
 					if (entity instanceof Player) {
@@ -48,20 +49,20 @@ public class Timelord extends Kit {
 						freeze.put(p.getUniqueId(), player.getUniqueId());
 						UUID uuid = p.getUniqueId();
 						new BukkitRunnable() {
-							
+
 							@Override
 							public void run() {
 								if (freeze.containsKey(uuid)) {
 									freeze.remove(uuid);
 								}
 							}
-						}.runTaskLater(BukkitMain.getPlugin(), 20*5);
+						}.runTaskLater(BukkitMain.getPlugin(), 20 * 5);
 					}
 				}
 			}
 		}
 	}
-	
+
 	@EventHandler
 	public void asd(EntityDamageByEntityEvent e) {
 		if (e.getEntity() instanceof Player) {
@@ -69,15 +70,14 @@ public class Timelord extends Kit {
 				Player entity = (Player) e.getEntity();
 				if (freeze.containsKey(entity.getUniqueId())) {
 					Player damager = (Player) e.getDamager();
-					if (freeze.get(entity.getUniqueId())
-							== damager.getUniqueId()) {
+					if (freeze.get(entity.getUniqueId()) == damager.getUniqueId()) {
 						freeze.remove(entity.getUniqueId());
 					}
 				}
 			}
 		}
 	}
-	
+
 	@EventHandler
 	public void asd(PlayerDeathEvent e) {
 		if (e.getEntity() instanceof Player) {
@@ -89,7 +89,7 @@ public class Timelord extends Kit {
 			}
 		}
 	}
-	
+
 	@EventHandler
 	public void asd(PlayerMoveEvent e) {
 		Player player = e.getPlayer();

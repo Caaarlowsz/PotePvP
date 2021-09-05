@@ -16,9 +16,9 @@
 
 package twitter4j.auth;
 
-import twitter4j.HttpRequest;
-
 import java.io.ObjectStreamException;
+
+import twitter4j.HttpRequest;
 
 /**
  * An interface represents credentials.
@@ -26,39 +26,39 @@ import java.io.ObjectStreamException;
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
 public class NullAuthorization implements Authorization, java.io.Serializable {
-    private static final long serialVersionUID = -7704668493278727510L;
-    private static final NullAuthorization SINGLETON = new NullAuthorization();
+	private static final long serialVersionUID = -7704668493278727510L;
+	private static final NullAuthorization SINGLETON = new NullAuthorization();
 
-    private NullAuthorization() {
+	private NullAuthorization() {
 
-    }
+	}
 
-    public static NullAuthorization getInstance() {
-        return SINGLETON;
-    }
+	public static NullAuthorization getInstance() {
+		return SINGLETON;
+	}
 
-    @Override
-    public String getAuthorizationHeader(HttpRequest req) {
-        return null;
-    }
+	@Override
+	public String getAuthorizationHeader(HttpRequest req) {
+		return null;
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
+	@Override
+	public boolean isEnabled() {
+		return false;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        return SINGLETON == o;
-    }
+	@Override
+	public boolean equals(Object o) {
+		return SINGLETON == o;
+	}
 
-    @Override
-    public String toString() {
-        return "NullAuthentication{SINGLETON}";
-    }
+	@Override
+	public String toString() {
+		return "NullAuthentication{SINGLETON}";
+	}
 
-    private Object readResolve() throws ObjectStreamException {
-        return SINGLETON;
-    }
+	private Object readResolve() throws ObjectStreamException {
+		return SINGLETON;
+	}
 
 }

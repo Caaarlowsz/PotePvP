@@ -5,29 +5,29 @@ package twitter4j;
  * @since Twitter4J 2.1.1
  */
 public interface Place extends TwitterResponse, Comparable<Place>, java.io.Serializable {
-    String getName();
+	String getName();
 
-    String getStreetAddress();
+	String getStreetAddress();
 
-    String getCountryCode();
+	String getCountryCode();
 
-    String getId();
+	String getId();
 
-    String getCountry();
+	String getCountry();
 
-    String getPlaceType();
+	String getPlaceType();
 
-    String getURL();
+	String getURL();
 
-    String getFullName();
+	String getFullName();
 
-    String getBoundingBoxType();
+	String getBoundingBoxType();
 
-    GeoLocation[][] getBoundingBoxCoordinates();
+	GeoLocation[][] getBoundingBoxCoordinates();
 
-    String getGeometryType();
+	String getGeometryType();
 
-    GeoLocation[][] getGeometryCoordinates();
+	GeoLocation[][] getGeometryCoordinates();
 
-    Place[] getContainedWithIn();
+	Place[] getContainedWithIn();
 }

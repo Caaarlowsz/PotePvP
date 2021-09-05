@@ -15,11 +15,12 @@ import br.com.yallandev.potepvp.BukkitMain;
 import br.com.yallandev.potepvp.kit.Kit;
 
 public class Forcefield extends Kit {
-	
+
 	public Forcefield() {
-		super("Forcefield", Material.FENCE, 18000, true, Arrays.asList("Use seu forcefield para", "gerar um compo de força", "que se alguem entrar", "irá tomar dano."));
+		super("Forcefield", Material.FENCE, 18000, true, Arrays.asList("Use seu forcefield para",
+				"gerar um compo de forï¿½a", "que se alguem entrar", "irï¿½ tomar dano."));
 	}
-	
+
 	@EventHandler
 	public void asd(PlayerInteractEvent e) {
 		Player player = e.getPlayer();
@@ -32,17 +33,17 @@ public class Forcefield extends Kit {
 		if (hasKit(player)) {
 			if (player.getItemInHand().getType() == Material.FENCE) {
 				e.setCancelled(true);
-				
+
 				if (isCooldown(player)) {
 					cooldownMessage(player);
 					return;
 				}
 				addCooldown(player, 45);
 				player.getWorld().playSound(player.getLocation(), Sound.MAGMACUBE_WALK2, 5.0f, -5.0f);
-				sendAction(player, "Você §a§lATIVOU§f seu forcefield.");
-				
+				sendAction(player, "Vocï¿½ ï¿½aï¿½lATIVOUï¿½f seu forcefield.");
+
 				new BukkitRunnable() {
-					
+
 					@Override
 					public void run() {
 						if (!hasKit(player)) {
@@ -56,9 +57,9 @@ public class Forcefield extends Kit {
 						}
 					}
 				}.runTaskLater(BukkitMain.getPlugin(), 0);
-				
+
 				new BukkitRunnable() {
-					
+
 					@Override
 					public void run() {
 						if (!hasKit(player)) {
@@ -72,9 +73,9 @@ public class Forcefield extends Kit {
 						}
 					}
 				}.runTaskLater(BukkitMain.getPlugin(), 10);
-				
+
 				new BukkitRunnable() {
-					
+
 					@Override
 					public void run() {
 						if (!hasKit(player)) {
@@ -88,9 +89,9 @@ public class Forcefield extends Kit {
 						}
 					}
 				}.runTaskLater(BukkitMain.getPlugin(), 20);
-				
+
 				new BukkitRunnable() {
-					
+
 					@Override
 					public void run() {
 						if (!hasKit(player)) {
@@ -104,9 +105,9 @@ public class Forcefield extends Kit {
 						}
 					}
 				}.runTaskLater(BukkitMain.getPlugin(), 30);
-				
+
 				new BukkitRunnable() {
-					
+
 					@Override
 					public void run() {
 						if (!hasKit(player)) {
@@ -120,9 +121,9 @@ public class Forcefield extends Kit {
 						}
 					}
 				}.runTaskLater(BukkitMain.getPlugin(), 40);
-				
+
 				new BukkitRunnable() {
-					
+
 					@Override
 					public void run() {
 						if (!hasKit(player)) {
@@ -136,9 +137,9 @@ public class Forcefield extends Kit {
 						}
 					}
 				}.runTaskLater(BukkitMain.getPlugin(), 50);
-				
+
 				new BukkitRunnable() {
-					
+
 					@Override
 					public void run() {
 						if (!hasKit(player)) {
@@ -152,9 +153,9 @@ public class Forcefield extends Kit {
 						}
 					}
 				}.runTaskLater(BukkitMain.getPlugin(), 60);
-				
+
 				new BukkitRunnable() {
-					
+
 					@Override
 					public void run() {
 						if (!hasKit(player)) {
@@ -168,9 +169,9 @@ public class Forcefield extends Kit {
 						}
 					}
 				}.runTaskLater(BukkitMain.getPlugin(), 70);
-				
+
 				new BukkitRunnable() {
-					
+
 					@Override
 					public void run() {
 						if (!hasKit(player)) {
@@ -184,9 +185,9 @@ public class Forcefield extends Kit {
 						}
 					}
 				}.runTaskLater(BukkitMain.getPlugin(), 80);
-				
+
 				new BukkitRunnable() {
-					
+
 					@Override
 					public void run() {
 						if (!hasKit(player)) {
@@ -200,9 +201,9 @@ public class Forcefield extends Kit {
 						}
 					}
 				}.runTaskLater(BukkitMain.getPlugin(), 90);
-				
+
 				new BukkitRunnable() {
-					
+
 					@Override
 					public void run() {
 						if (!hasKit(player)) {

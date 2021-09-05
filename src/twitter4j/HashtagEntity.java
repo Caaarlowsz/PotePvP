@@ -23,27 +23,27 @@ package twitter4j;
  * @since Twitter4J 2.1.9
  */
 public interface HashtagEntity extends TweetEntity, java.io.Serializable {
-    /**
-     * Returns the text of the hashtag without #.
-     *
-     * @return the text of the hashtag
-     */
-    @Override
-    String getText();
+	/**
+	 * Returns the text of the hashtag without #.
+	 *
+	 * @return the text of the hashtag
+	 */
+	@Override
+	String getText();
 
-    /**
-     * Returns the index of the start character of the hashtag.
-     *
-     * @return the index of the start character of the hashtag
-     */
-    @Override
-    int getStart();
+	/**
+	 * Returns the index of the start character of the hashtag.
+	 *
+	 * @return the index of the start character of the hashtag
+	 */
+	@Override
+	int getStart();
 
-    /**
-     * Returns the index of the end character of the hashtag.
-     *
-     * @return the index of the end character of the hashtag
-     */
-    @Override
-    int getEnd();
+	/**
+	 * Returns the index of the end character of the hashtag.
+	 *
+	 * @return the index of the end character of the hashtag
+	 */
+	@Override
+	int getEnd();
 }

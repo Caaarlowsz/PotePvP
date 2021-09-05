@@ -9,5 +9,5 @@ public class SimpleGroup extends GroupInterface {
 	public List<String> getPermissions() {
 		return new ArrayList<>();
 	}
-	
+
 }

@@ -20,9 +20,11 @@ import br.com.yallandev.potepvp.kit.Kit;
 import br.com.yallandev.potepvp.utils.ItemManager;
 
 public class Kangaroo extends Kit {
-	
+
 	public Kangaroo() {
-		super("Kangaroo", Material.FIREWORK, 15000, Arrays.asList(new ItemManager(Material.FIREWORK, "§aKangaroo").build()), Arrays.asList("§fUse seu kangaroo para", "§fse movimentar mais rapidamente", "§fpelo mapa."));
+		super("Kangaroo", Material.FIREWORK, 15000,
+				Arrays.asList(new ItemManager(Material.FIREWORK, "ï¿½aKangaroo").build()),
+				Arrays.asList("ï¿½fUse seu kangaroo para", "ï¿½fse movimentar mais rapidamente", "ï¿½fpelo mapa."));
 		this.kanga = new ArrayList<>();
 	}
 

@@ -20,7 +20,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -30,11 +29,8 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -43,13 +39,12 @@ import br.com.yallandev.potepvp.BukkitMain;
 import br.com.yallandev.potepvp.BukkitMain.Configuration;
 import br.com.yallandev.potepvp.commands.register.WarpCommand;
 import br.com.yallandev.potepvp.event.account.PlayerDeathInWarpEvent;
-import br.com.yallandev.potepvp.event.account.PlayerJoinWarpEvent;
 import br.com.yallandev.potepvp.scoreboard.Scoreboarding;
 import br.com.yallandev.potepvp.utils.DateUtils;
 import br.com.yallandev.potepvp.utils.ItemManager;
 
 public class Warp1v1 implements Listener {
-	
+
 	private BukkitMain main;
 	public static List<Player> playersIn1v1 = new ArrayList<>();
 	public static HashMap<Player, String> duel = new HashMap<>();
@@ -60,56 +55,60 @@ public class Warp1v1 implements Listener {
 
 	public Warp1v1() {
 		this.main = BukkitMain.getInstance();
-		playersIn1v1 = new ArrayList();
-		this.playerDesafios = new HashMap();
-		this.playersInQueue = new ArrayList();
+		playersIn1v1 = new ArrayList<>();
+		this.playerDesafios = new HashMap<>();
+		this.playersInQueue = new ArrayList<>();
 	}
-	
+
 	@EventHandler
 	public void onPlayerCommandPreProcess(PlayerCommandPreprocessEvent e) {
 		Player p = e.getPlayer();
-		
+
 		if (isOnWarp(p)) {
 			if (isIn1v1(p)) {
-				if (!e.getMessage().toLowerCase().startsWith("/report") || !e.getMessage().toLowerCase().startsWith("/tag") || !e.getMessage().toLowerCase().startsWith("/ban") || !e.getMessage().toLowerCase().startsWith("/kick") || !e.getMessage().toLowerCase().startsWith("/tell")) {
+				if (!e.getMessage().toLowerCase().startsWith("/report")
+						|| !e.getMessage().toLowerCase().startsWith("/tag")
+						|| !e.getMessage().toLowerCase().startsWith("/ban")
+						|| !e.getMessage().toLowerCase().startsWith("/kick")
+						|| !e.getMessage().toLowerCase().startsWith("/tell")) {
 					e.setCancelled(true);
-					p.sendMessage("§cVocê não pode executar comandos em pvp!");
+					p.sendMessage("ï¿½cVocï¿½ nï¿½o pode executar comandos em pvp!");
 					return;
 				}
 			}
 		}
 	}
-	
+
 	public boolean isOnWarp(Player p) {
 		return this.getMain().getPlayerManager().getWarp(p.getUniqueId()).getWarpName().equalsIgnoreCase("1v1");
 	}
-	
+
 	public static void set1v1(Player p) {
 		p.getInventory().clear();
 		p.getInventory().setArmorContents(new ItemStack[4]);
-		
+
 		for (PotionEffect pot : p.getActivePotionEffects())
 			p.removePotionEffect(pot.getType());
-		
+
 		if (p.getGameMode() == GameMode.CREATIVE)
-			p.sendMessage(Configuration.PREFIX.getMessage() + "Você está no modo §aCriativo§f!");
-		
-		ItemManager item = new ItemManager(Material.BLAZE_ROD, "§aDesafiar alguém §7(Clique)");
-		
+			p.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ estï¿½ no modo ï¿½aCriativoï¿½f!");
+
+		ItemManager item = new ItemManager(Material.BLAZE_ROD, "ï¿½aDesafiar alguï¿½m ï¿½7(Clique)");
+
 		item.addLore("");
 		item.addLore("Use esse item para");
-		item.addLore("desafiar alguém.");
-		
+		item.addLore("desafiar alguï¿½m.");
+
 		p.getInventory().setItem(3, item.build());
-		
-		item = new ItemManager(Material.INK_SACK, "§a1v1 rápido §7(Clique)");
-		
+
+		item = new ItemManager(Material.INK_SACK, "ï¿½a1v1 rï¿½pido ï¿½7(Clique)");
+
 		item.setDurability(8);
 		item.addLore("");
 		item.addLore("Use esse item para");
 		item.addLore("ir para a fila de");
 		item.addLore("1v1.");
-		
+
 		p.getInventory().setItem(5, item.build());
 	}
 
@@ -117,53 +116,55 @@ public class Warp1v1 implements Listener {
 	public void onInteract(PlayerInteractEvent event) {
 		Player p = event.getPlayer();
 		ItemStack item = event.getItem();
-		
+
 		if (!isOnWarp(p))
 			return;
-		
+
 		if (!getMain().getKitManager().hasAbility(p.getUniqueId(), "Nenhum"))
 			return;
-		
+
 		if (item == null)
 			return;
-		
+
 		if (!event.getAction().toString().contains("RIGHT"))
 			return;
-		
+
 		if (item.getType() != Material.INK_SACK)
 			return;
-		
+
 		if (WarpCommand.teleport.contains(p.getUniqueId()))
 			return;
-		
+
 		if (item.getDurability() == 8) {
 			if (this.playersInQueue.contains(p)) {
 				item.setDurability((short) 10);
-				p.sendMessage(Configuration.PREFIX.getMessage() + "Você já está na lista de espera da 1v1.");
+				p.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ jï¿½ estï¿½ na lista de espera da 1v1.");
 				return;
 			}
-			
+
 			if (this.playersInQueue.size() > 0) {
 				Player player = (Player) this.playersInQueue.get(0);
 				if (player != null) {
-					player.sendMessage(Configuration.PREFIX.getMessage() + "Você irá lutar contra o player §a" +  p.getName());
-					p.sendMessage(Configuration.PREFIX.getMessage() + "Você irá lutar contra o player §a"+ ChatColor.YELLOW + player.getName());
+					player.sendMessage(
+							Configuration.PREFIX.getMessage() + "Vocï¿½ irï¿½ lutar contra o player ï¿½a" + p.getName());
+					p.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ irï¿½ lutar contra o player ï¿½a"
+							+ ChatColor.YELLOW + player.getName());
 					setIn1v1(new Desafio(player, p));
 					return;
 				}
 			}
-			
+
 			item.setDurability((short) 10);
-			p.sendMessage(Configuration.PREFIX.getMessage() + "Você entrou na fila de espera de 1v1 rapido!");
+			p.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ entrou na fila de espera de 1v1 rapido!");
 			this.playersInQueue.add(p);
 		} else {
 			if (!this.playersInQueue.contains(p)) {
-				p.sendMessage(Configuration.PREFIX.getMessage() + "Você não está na lista de espera de 1v1 rapido!");
+				p.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ nï¿½o estï¿½ na lista de espera de 1v1 rapido!");
 				item.setDurability((short) 8);
 				return;
 			}
 			item.setDurability((short) 8);
-			p.sendMessage(Configuration.PREFIX.getMessage() + "Você saiu da lista de espera de 1v1 rapido!");
+			p.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ saiu da lista de espera de 1v1 rapido!");
 			this.playersInQueue.remove(p);
 		}
 	}
@@ -173,34 +174,35 @@ public class Warp1v1 implements Listener {
 		Player p = event.getPlayer();
 		Entity e = event.getRightClicked();
 		ItemStack item = p.getItemInHand();
-		
+
 		if (!isOnWarp(p))
 			return;
-		
+
 		if (!getMain().getKitManager().hasAbility(p.getUniqueId(), "Nenhum"))
 			return;
-		
+
 		if (!(e instanceof Player))
 			return;
-		
+
 		if (item == null)
 			return;
-		
+
 		if ((item.getType() != Material.BLAZE_ROD) && (item.getType() != Material.IRON_FENCE))
 			return;
-		
+
 		if (WarpCommand.teleport.contains(p.getUniqueId()))
 			return;
-		
+
 		Player clicado = (Player) e;
-		
+
 		if (isIn1v1(clicado)) {
-			p.sendMessage(Configuration.PREFIX.getMessage() + "O jogador §a\"" + clicado.getName() + "\"§f já está 1v1!");
+			p.sendMessage(
+					Configuration.PREFIX.getMessage() + "O jogador ï¿½a\"" + clicado.getName() + "\"ï¿½f jï¿½ estï¿½ 1v1!");
 			return;
 		}
-		
+
 		ChanllengeType type = null;
-		
+
 		switch (item.getType()) {
 		case FEATHER:
 			type = ChanllengeType.CUSTOM;
@@ -208,7 +210,7 @@ public class Warp1v1 implements Listener {
 		default:
 			type = ChanllengeType.DEFAULT;
 		}
-		
+
 		if (hasDesafio(p, clicado, type)) {
 			Desafio desafio = getDesafio(p, clicado, type);
 			if (type == ChanllengeType.CUSTOM) {
@@ -216,36 +218,41 @@ public class Warp1v1 implements Listener {
 					openAccept(p, desafio);
 				}
 			} else if (!desafio.hasExpire()) {
-				p.sendMessage(Configuration.PREFIX.getMessage() + "Você aceitou o desafio de §a" + clicado.getName());
-				clicado.sendMessage(Configuration.PREFIX.getMessage() + "O jogador" + p.getName() + ChatColor.GREEN + " aceitou seu desafio.");
+				p.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ aceitou o desafio de ï¿½a" + clicado.getName());
+				clicado.sendMessage(Configuration.PREFIX.getMessage() + "O jogador" + p.getName() + ChatColor.GREEN
+						+ " aceitou seu desafio.");
 				setIn1v1(desafio);
 				return;
 			}
 		}
-		
+
 		if ((hasDesafio(clicado, p, type)) && (!getDesafio(clicado, p, type).hasExpire())) {
-			p.sendMessage(Configuration.PREFIX.getMessage() + "Você já enviou um desafio para o jogador §a\"" + clicado.getName() +"\"§f, aguarde §a" + DateUtils.getTime(getDesafio(clicado, p, type).getExpire()) + "§f!");
+			p.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ jï¿½ enviou um desafio para o jogador ï¿½a\""
+					+ clicado.getName() + "\"ï¿½f, aguarde ï¿½a"
+					+ DateUtils.getTime(getDesafio(clicado, p, type).getExpire()) + "ï¿½f!");
 			return;
 		}
-		
+
 		if (type == ChanllengeType.DEFAULT) {
 			HashMap<ChanllengeType, HashMap<String, Desafio>> hash;
 			if (this.playerDesafios.containsKey(clicado.getName())) {
-				hash = (HashMap) this.playerDesafios.get(clicado.getName());
+				hash = (HashMap<ChanllengeType, HashMap<String, Desafio>>) this.playerDesafios.get(clicado.getName());
 			} else {
-				hash = new HashMap();
+				hash = new HashMap<ChanllengeType, HashMap<String, Desafio>>();
 			}
 			HashMap<String, Desafio> hashDesa;
 			if (hash.containsKey(type)) {
-				hashDesa = (HashMap) hash.get(type);
+				hashDesa = (HashMap<String, Desafio>) hash.get(type);
 			} else {
-				hashDesa = new HashMap();
+				hashDesa = new HashMap<String, Desafio>();
 			}
 			hashDesa.put(p.getName(), new Desafio(p, clicado));
 			hash.put(type, hashDesa);
 			this.playerDesafios.put(clicado.getName(), hash);
-			p.sendMessage(Configuration.PREFIX.getMessage() + "Você enviou um desafio para 1v1 normal para §a" + clicado.getName() + "§f.");
-			clicado.sendMessage(Configuration.PREFIX.getMessage() + "Você recebeu desafio para 1v1 normal de §a" + p.getName() + "§f.");
+			p.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ enviou um desafio para 1v1 normal para ï¿½a"
+					+ clicado.getName() + "ï¿½f.");
+			clicado.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ recebeu desafio para 1v1 normal de ï¿½a"
+					+ p.getName() + "ï¿½f.");
 		} else {
 			openChallange(p, clicado);
 		}
@@ -263,13 +270,13 @@ public class Warp1v1 implements Listener {
 
 	public boolean hasDesafio(Player desafiado, Player desafiante, ChanllengeType type) {
 		return (this.playerDesafios.containsKey(desafiado.getName()))
-				&& (((HashMap) this.playerDesafios.get(desafiado.getName())).containsKey(type))
-				&& (((HashMap) ((HashMap) this.playerDesafios.get(desafiado.getName())).get(type))
+				&& (((HashMap<?, ?>) this.playerDesafios.get(desafiado.getName())).containsKey(type))
+				&& (((HashMap<?, ?>) ((HashMap<?, ?>) this.playerDesafios.get(desafiado.getName())).get(type))
 						.containsKey(desafiante.getName()));
 	}
 
 	public Desafio getDesafio(Player desafiado, Player desafiante, ChanllengeType type) {
-		return (Desafio) ((HashMap) ((HashMap) this.playerDesafios.get(desafiado.getName())).get(type))
+		return (Desafio) ((HashMap<?, ?>) ((HashMap<?, ?>) this.playerDesafios.get(desafiado.getName())).get(type))
 				.get(desafiante.getName());
 	}
 
@@ -279,8 +286,7 @@ public class Warp1v1 implements Listener {
 
 	public static void openChallange(Player p, Player desafiador) {
 		ItemStack nullitem = getItem(Material.STAINED_GLASS_PANE, " ", new String[0]);
-		ItemStack enviar = getItem(new ItemStack(Material.WOOL, 1, (short) 5), "§aEnviar!",
-				new String[0]);
+		ItemStack enviar = getItem(new ItemStack(Material.WOOL, 1, (short) 5), "ï¿½aEnviar!", new String[0]);
 		ItemStack sword = getItem(Material.WOOD_SWORD, ChatColor.GOLD + "Espada de Madeira", new String[] {
 				ChatColor.DARK_AQUA + "Clique aqui para mudar", ChatColor.DARK_AQUA + "o tipo da espada!" });
 		ItemStack armor = getItem(Material.GLASS, ChatColor.RED + "Sem Armadura", new String[] {
@@ -429,16 +435,18 @@ public class Warp1v1 implements Listener {
 		this.main.getPlayerHideManager().hideAllPlayers(desafiado);
 		p.showPlayer(desafiado);
 		desafiado.showPlayer(p);
-		
+
 		if (this.firstLoction == null)
-			this.firstLoction = ((br.com.yallandev.potepvp.manager.WarpManager.Warp1v1) main.getWarpManager().getWarp("1v1")).getFirstLocation();
-		
+			this.firstLoction = ((br.com.yallandev.potepvp.manager.WarpManager.Warp1v1) main.getWarpManager()
+					.getWarp("1v1")).getFirstLocation();
+
 		if (this.secondLoction == null)
-			this.secondLoction = ((br.com.yallandev.potepvp.manager.WarpManager.Warp1v1) main.getWarpManager().getWarp("1v1")).getSecondLocation();
-		
+			this.secondLoction = ((br.com.yallandev.potepvp.manager.WarpManager.Warp1v1) main.getWarpManager()
+					.getWarp("1v1")).getSecondLocation();
+
 		desafiado.teleport(this.secondLoction);
 		p.teleport(this.firstLoction);
-		
+
 //		String dname1 = "";
 //		String dname2 = "";
 //		
@@ -448,7 +456,7 @@ public class Warp1v1 implements Listener {
 //			dname1 = desafiado.getName().substring(0, 14);
 //			dname2 = desafiado.getName().substring(14, desafiado.getName().length());
 //		}
-		
+
 //		String pname1 = "";
 //		String pname2 = "";
 //		pname1 = p.getName();
@@ -457,16 +465,16 @@ public class Warp1v1 implements Listener {
 //			pname1 = p.getName().substring(0, 14);
 //			pname2 = p.getName().substring(14, p.getName().length());
 //		}
-		
+
 		duel.put(p, desafiado.getName());
 		duel.put(desafiado, p.getName());
-		
-//		this.scoreboard.updateScoreName(p, "battleplayer", "§3" + dname1);
-//		this.scoreboard.updateScoreValue(p, "battleplayer", "§3" + dname2);
-//		this.scoreboard.updateScoreName(desafiado, "battleplayer", "§3" + pname1);
-//		this.scoreboard.updateScoreValue(desafiado, "battleplayer", "§3" + pname2);
+
+//		this.scoreboard.updateScoreName(p, "battleplayer", "ï¿½3" + dname1);
+//		this.scoreboard.updateScoreValue(p, "battleplayer", "ï¿½3" + dname2);
+//		this.scoreboard.updateScoreName(desafiado, "battleplayer", "ï¿½3" + pname1);
+//		this.scoreboard.updateScoreValue(desafiado, "battleplayer", "ï¿½3" + pname2);
 		new Fight(this, p, desafiado);
-		
+
 		Scoreboarding.setScoreboard(p);
 		Scoreboarding.setScoreboard(desafiado);
 	}
@@ -532,36 +540,36 @@ public class Warp1v1 implements Listener {
 	@EventHandler
 	public void on1v1(InventoryClickEvent event) {
 		ItemStack item = event.getCurrentItem();
-		
+
 		if (!(event.getWhoClicked() instanceof Player))
 			return;
-		
+
 		if (item == null)
 			return;
-		
+
 		if (!item.hasItemMeta())
 			return;
-		
+
 		if (!item.getItemMeta().hasDisplayName())
 			return;
-		
+
 		Player p = (Player) event.getWhoClicked();
 		String inv = p.getOpenInventory().getTitle();
-		
+
 		if (!isOnWarp(p))
 			return;
-		
+
 		if (!inv.contains(ChatColor.RED + "1v1 contra "))
 			return;
-		
+
 		event.setCancelled(true);
 		p.setItemOnCursor(new ItemStack(0));
 		p.updateInventory();
-		
+
 		if ((event.isShiftClick()) || (event.isRightClick()))
 			return;
-		
-		if (item.getItemMeta().getDisplayName().contains("§aEnviar!")) {
+
+		if (item.getItemMeta().getDisplayName().contains("ï¿½aEnviar!")) {
 			String sword = p.getOpenInventory().getItem(20).getType().toString();
 			String armor = p.getOpenInventory().getItem(21).getType().toString();
 			String b = p.getOpenInventory().getItem(22).getType().toString();
@@ -585,41 +593,44 @@ public class Warp1v1 implements Listener {
 				sharpness = false;
 			}
 			Player desafiado = Bukkit.getPlayer(inv.replace(ChatColor.RED + "1v1 contra ", ""));
-			
+
 			if (desafiado == null) {
-				p.sendMessage(Configuration.PREFIX.getMessage() + "O jogador §ac\"" + inv.replace(ChatColor.RED + "1v1 contra ", "") + "\"§f não está mais online!");
+				p.sendMessage(Configuration.PREFIX.getMessage() + "O jogador ï¿½ac\""
+						+ inv.replace(ChatColor.RED + "1v1 contra ", "") + "\"ï¿½f nï¿½o estï¿½ mais online!");
 				p.closeInventory();
 				return;
 			}
-			
+
 			if (isIn1v1(desafiado)) {
-				p.sendMessage(Configuration.PREFIX.getMessage() + "O player já está em 1v1 com outra pessoa!");
+				p.sendMessage(Configuration.PREFIX.getMessage() + "O player jï¿½ estï¿½ em 1v1 com outra pessoa!");
 				p.closeInventory();
 				return;
 			}
-			
+
 			Desafio desafio = new Desafio(p, desafiado, sword, armor, sopa, speed, forca, sharpness);
 			HashMap<ChanllengeType, HashMap<String, Desafio>> hash;
-			
+
 			if (this.playerDesafios.containsKey(desafiado.getName())) {
-				hash = (HashMap) this.playerDesafios.get(desafiado.getName());
+				hash = (HashMap<ChanllengeType, HashMap<String, Desafio>>) this.playerDesafios.get(desafiado.getName());
 			} else {
-				hash = new HashMap();
+				hash = new HashMap<ChanllengeType, HashMap<String, Desafio>>();
 			}
-			
+
 			HashMap<String, Desafio> hashDesa;
-			
+
 			if (hash.containsKey(ChanllengeType.CUSTOM)) {
-				hashDesa = (HashMap) hash.get(ChanllengeType.CUSTOM);
+				hashDesa = (HashMap<String, Desafio>) hash.get(ChanllengeType.CUSTOM);
 			} else {
-				hashDesa = new HashMap();
+				hashDesa = new HashMap<String, Desafio>();
 			}
-			
+
 			hashDesa.put(p.getName(), desafio);
 			hash.put(ChanllengeType.CUSTOM, hashDesa);
 			this.playerDesafios.put(desafiado.getName(), hash);
-			p.sendMessage(Configuration.PREFIX.getMessage() + "Você convidou o §a" + desafiado.getName() + "§f para 1v1 custom!");
-			desafiado.sendMessage(Configuration.PREFIX.getMessage() + "O jogador §a" + p.getName() + "§f convidou você para 1v1 custom.");
+			p.sendMessage(Configuration.PREFIX.getMessage() + "Vocï¿½ convidou o ï¿½a" + desafiado.getName()
+					+ "ï¿½f para 1v1 custom!");
+			desafiado.sendMessage(Configuration.PREFIX.getMessage() + "O jogador ï¿½a" + p.getName()
+					+ "ï¿½f convidou vocï¿½ para 1v1 custom.");
 			p.closeInventory();
 		} else if (item.getType().toString().contains("_SWORD")) {
 			String swordName = String.valueOf(getNextSwordLevel(item.getType().toString().replace("_SWORD", "")))
@@ -627,40 +638,53 @@ public class Warp1v1 implements Listener {
 			ItemStack sword2 = getItem(Material.valueOf(swordName), new Name().getName(swordName), new String[] {
 					ChatColor.DARK_AQUA + "Clique aqui para mudar", ChatColor.DARK_AQUA + "o tipo da espada!" });
 			p.getOpenInventory().setItem(event.getSlot(), sword2);
-		} else if ((item.getType().toString().equalsIgnoreCase("GLASS")) || (item.getType().toString().contains("_CHESTPLATE"))) {
+		} else if ((item.getType().toString().equalsIgnoreCase("GLASS"))
+				|| (item.getType().toString().contains("_CHESTPLATE"))) {
 			String materialName;
-			
+
 			if (item.getType().toString().equalsIgnoreCase("DIAMOND_CHESTPLATE")) {
 				materialName = getNextArmorLevel(item.getType().toString().replace("_CHESTPLATE", ""));
 			} else {
-				materialName = String.valueOf(getNextArmorLevel(item.getType().toString().replace("_CHESTPLATE", ""))) + "_CHESTPLATE";
+				materialName = String.valueOf(getNextArmorLevel(item.getType().toString().replace("_CHESTPLATE", "")))
+						+ "_CHESTPLATE";
 			}
-			
-			ItemStack armor2 = getItem(Material.valueOf(materialName), new Name().getName(materialName), new String[] { ChatColor.DARK_AQUA + "Clique aqui para mudar", ChatColor.DARK_AQUA + "o tipo de armadura!" });
+
+			ItemStack armor2 = getItem(Material.valueOf(materialName), new Name().getName(materialName), new String[] {
+					ChatColor.DARK_AQUA + "Clique aqui para mudar", ChatColor.DARK_AQUA + "o tipo de armadura!" });
 			p.getOpenInventory().setItem(event.getSlot(), armor2);
 		} else if ((event.getSlot() == 22) && (item.getType().toString().equalsIgnoreCase("GLASS_BOTTLE"))) {
-			ItemStack speed2 = getItem(new ItemStack(Material.POTION, 1, (short) 2), ChatColor.GREEN + "Com Velocidade", new String[] { ChatColor.DARK_AQUA + "Clique aqui para remover", ChatColor.DARK_AQUA + "a pocao de velocidade!" });
+			ItemStack speed2 = getItem(new ItemStack(Material.POTION, 1, (short) 2), ChatColor.GREEN + "Com Velocidade",
+					new String[] { ChatColor.DARK_AQUA + "Clique aqui para remover",
+							ChatColor.DARK_AQUA + "a pocao de velocidade!" });
 			p.getOpenInventory().setItem(event.getSlot(), speed2);
 		} else if ((event.getSlot() == 22) && (item.getType().toString().equalsIgnoreCase("POTION"))) {
-			ItemStack speed2 = getItem(Material.GLASS_BOTTLE, ChatColor.RED + "Sem Velocidade", new String[] { ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "pocao de velocidade!" });
+			ItemStack speed2 = getItem(Material.GLASS_BOTTLE, ChatColor.RED + "Sem Velocidade", new String[] {
+					ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "pocao de velocidade!" });
 			p.getOpenInventory().setItem(event.getSlot(), speed2);
 		} else if ((event.getSlot() == 23) && (item.getType().toString().equalsIgnoreCase("GLASS_BOTTLE"))) {
-			ItemStack speed2 = getItem(new ItemStack(Material.POTION, 1, (short) 9), ChatColor.GREEN + "Com Forca", new String[] { ChatColor.DARK_AQUA + "Clique aqui para remover", ChatColor.DARK_AQUA + "a pocao de forca!" });
+			ItemStack speed2 = getItem(new ItemStack(Material.POTION, 1, (short) 9), ChatColor.GREEN + "Com Forca",
+					new String[] { ChatColor.DARK_AQUA + "Clique aqui para remover",
+							ChatColor.DARK_AQUA + "a pocao de forca!" });
 			p.getOpenInventory().setItem(event.getSlot(), speed2);
 		} else if ((event.getSlot() == 23) && (item.getType().toString().equalsIgnoreCase("POTION"))) {
-			ItemStack speed2 = getItem(Material.GLASS_BOTTLE, ChatColor.RED + "Sem Forca", new String[] { ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "pocao de forca!" });
+			ItemStack speed2 = getItem(Material.GLASS_BOTTLE, ChatColor.RED + "Sem Forca", new String[] {
+					ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "pocao de forca!" });
 			p.getOpenInventory().setItem(event.getSlot(), speed2);
 		} else if (item.getType().toString().equalsIgnoreCase("BOWL")) {
-			ItemStack sopa2 = getItem(Material.MUSHROOM_SOUP, ChatColor.AQUA + "Full Sopa", new String[] { ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "1 HotBar!" });
+			ItemStack sopa2 = getItem(Material.MUSHROOM_SOUP, ChatColor.AQUA + "Full Sopa",
+					new String[] { ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "1 HotBar!" });
 			p.getOpenInventory().setItem(event.getSlot(), sopa2);
 		} else if (item.getType().toString().equalsIgnoreCase("MUSHROOM_SOUP")) {
-			ItemStack sopa2 = getItem(Material.BOWL, ChatColor.GREEN + "1 HotBar", new String[] { ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "FullSopa!" });
+			ItemStack sopa2 = getItem(Material.BOWL, ChatColor.GREEN + "1 HotBar",
+					new String[] { ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "FullSopa!" });
 			p.getOpenInventory().setItem(event.getSlot(), sopa2);
 		} else if (item.getType().toString().equalsIgnoreCase("ENCHANTED_BOOK")) {
-			ItemStack sharp = getItem(Material.BOOK, ChatColor.GRAY + "Sem Afiada", new String[] { ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "Afiada I" });
+			ItemStack sharp = getItem(Material.BOOK, ChatColor.GRAY + "Sem Afiada",
+					new String[] { ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "Afiada I" });
 			p.getOpenInventory().setItem(event.getSlot(), sharp);
 		} else if (item.getType().toString().equalsIgnoreCase("BOOK")) {
-			ItemStack sharp = getItem(Material.ENCHANTED_BOOK, ChatColor.AQUA + "Com Afiada", new String[] { ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "sem Afiada I" });
+			ItemStack sharp = getItem(Material.ENCHANTED_BOOK, ChatColor.AQUA + "Com Afiada", new String[] {
+					ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "sem Afiada I" });
 			p.getOpenInventory().setItem(event.getSlot(), sharp);
 		}
 	}
@@ -711,38 +735,38 @@ public class Warp1v1 implements Listener {
 	@EventHandler
 	public void on1v1Accept(InventoryClickEvent event) {
 		ItemStack item = event.getCurrentItem();
-		
+
 		if (!(event.getWhoClicked() instanceof Player))
 			return;
-		
+
 		if (item == null)
 			return;
-		
+
 		if (!item.hasItemMeta())
 			return;
-		
+
 		if (!item.getItemMeta().hasDisplayName())
 			return;
-		
+
 		Player p = (Player) event.getWhoClicked();
 		String inv = p.getOpenInventory().getTitle();
-		
+
 		if (!isOnWarp(p))
 			return;
-		
+
 		if (!inv.contains(ChatColor.RED + "1v1 contra "))
 			return;
-		
+
 		event.setCancelled(true);
 		p.setItemOnCursor(new ItemStack(0));
 		p.updateInventory();
-		
+
 		if ((event.isShiftClick()) || (event.isRightClick()))
 			return;
-		
+
 		Player desafiante = Bukkit.getPlayer(inv.replace(ChatColor.RED + "1v1 contra ", ""));
 		Player desafiado = p;
-		
+
 		if (item.getItemMeta().getDisplayName().contains("Aceitar Desafio!")) {
 			if (desafiante == null) {
 				p.sendMessage(ChatColor.RED + "O player nao esta mais online!");
@@ -755,10 +779,10 @@ public class Warp1v1 implements Listener {
 				return;
 			}
 			if (this.playerDesafios.containsKey(desafiado.getName())) {
-				HashMap<ChanllengeType, HashMap<String, Desafio>> hash = (HashMap) this.playerDesafios
+				HashMap<ChanllengeType, HashMap<String, Desafio>> hash = (HashMap<ChanllengeType, HashMap<String, Desafio>>) this.playerDesafios
 						.get(desafiado.getName());
 				if (hash.containsKey(ChanllengeType.CUSTOM)) {
-					HashMap<String, Desafio> hashDesa = (HashMap) hash.get(ChanllengeType.CUSTOM);
+					HashMap<String, Desafio> hashDesa = (HashMap<String, Desafio>) hash.get(ChanllengeType.CUSTOM);
 					if (hashDesa.containsKey(desafiante.getName())) {
 						Desafio desafio = (Desafio) hashDesa.get(desafiante.getName());
 						setIn1v1(desafio);
@@ -784,10 +808,10 @@ public class Warp1v1 implements Listener {
 				return;
 			}
 			if (this.playerDesafios.containsKey(desafiado.getName())) {
-				HashMap<ChanllengeType, HashMap<String, Desafio>> hash = (HashMap) this.playerDesafios
+				HashMap<ChanllengeType, HashMap<String, Desafio>> hash = (HashMap<ChanllengeType, HashMap<String, Desafio>>) this.playerDesafios
 						.get(desafiado.getName());
 				if (hash.containsKey(ChanllengeType.CUSTOM)) {
-					HashMap<String, Desafio> hashDesa = (HashMap) hash.get(ChanllengeType.CUSTOM);
+					HashMap<String, Desafio> hashDesa = (HashMap<String, Desafio>) hash.get(ChanllengeType.CUSTOM);
 					if (hashDesa.containsKey(desafiante.getName())) {
 						hashDesa.remove(desafiante.getName());
 					}
@@ -823,19 +847,20 @@ public class Warp1v1 implements Listener {
 		getMain().getKitManager().removeAbility(p.getUniqueId());
 		getMain().getPlayerManager().setProtection(p.getUniqueId(), true);
 		p.teleport(getMain().getWarpManager().getWarp("1v1").getWarpLocation());
-		
+
 		for (PotionEffect potion : p.getActivePotionEffects())
 			p.removePotionEffect(potion.getType());
-		
+
 		set1v1(p);
 	}
 
 	public static enum ChanllengeType {
-		
+
 		DEFAULT("DEFAULT", 0), CUSTOM("CUSTOM", 1), FAST("FAST", 2);
 
-		private ChanllengeType(String s, int n) {}
-		
+		private ChanllengeType(String s, int n) {
+		}
+
 	}
 
 	private class Fight {
@@ -846,18 +871,18 @@ public class Warp1v1 implements Listener {
 				@EventHandler(priority = EventPriority.LOWEST)
 				public void onDeathStatus(PlayerDeathInWarpEvent e) {
 					Player p = e.getPlayer();
-					
+
 					if (!isInPvP(p))
 						return;
-					
+
 					Player killer = null;
-					
-					if (p == player1) 
+
+					if (p == player1)
 						killer = player2;
-					
-					if (p == player2) 
+
+					if (p == player2)
 						killer = player1;
-					
+
 					int i = 0;
 					for (ItemStack sopa : killer.getInventory().getContents()) {
 						if ((sopa != null) && (sopa.getType() != Material.AIR)
@@ -865,41 +890,45 @@ public class Warp1v1 implements Listener {
 							i += sopa.getAmount();
 						}
 					}
-					
+
 					p.getInventory().clear();
 					p.getInventory().setArmorContents(null);
 					killer.getInventory().clear();
 					killer.getInventory().setArmorContents(null);
-					
+
 					DecimalFormat dm = new DecimalFormat("##.#");
-					p.sendMessage(Configuration.PREFIX.getMessage() + "O jogador §a" + killer.getName() + "§f venceu o 1v1 com " + dm.format(((Damageable)killer).getHealth() / 2.0D) + " corações e com " + i + " sopas.");
-					killer.sendMessage(Configuration.PREFIX.getMessage() + "Voce venceu o 1v1 contra " + p.getName() + " com " + dm.format(((Damageable)killer).getHealth() / 2.0D) + " corações e com " + i + " sopas.");
-					
+					p.sendMessage(Configuration.PREFIX.getMessage() + "O jogador ï¿½a" + killer.getName()
+							+ "ï¿½f venceu o 1v1 com " + dm.format(((Damageable) killer).getHealth() / 2.0D)
+							+ " coraï¿½ï¿½es e com " + i + " sopas.");
+					killer.sendMessage(Configuration.PREFIX.getMessage() + "Voce venceu o 1v1 contra " + p.getName()
+							+ " com " + dm.format(((Damageable) killer).getHealth() / 2.0D) + " coraï¿½ï¿½es e com " + i
+							+ " sopas.");
+
 					Warp1v1.this.main.getPlayerHideManager().showAllPlayers(killer);
 					Warp1v1.this.main.getPlayerHideManager().showAllPlayers(p);
-					
+
 					killer.setHealth(20.0D);
 					killer.updateInventory();
 					p.setHealth(20.0D);
 					p.updateInventory();
-					
+
 					l.teleport1v1(killer);
-					
+
 					new BukkitRunnable() {
-						
+
 						@Override
 						public void run() {
 							l.teleport1v1(p);
 						}
 					}.runTaskLater(BukkitMain.getInstance(), 10);
-					
+
 					Warp1v1.playersIn1v1.remove(p);
 					Warp1v1.playersIn1v1.remove(killer);
-					
+
 					Scoreboarding.setScoreboard(killer);
 					Scoreboarding.setScoreboard(p);
 					Warp1v1.Fight.this.destroy();
-					
+
 					BukkitMain.getAccountCommon().getAccount(killer.getUniqueId()).updateVanished();
 					BukkitMain.getAccountCommon().getAccount(p.getUniqueId()).updateVanished();
 				}
@@ -909,10 +938,10 @@ public class Warp1v1 implements Listener {
 					if (((event.getEntity() instanceof Player)) && ((event.getDamager() instanceof Player))) {
 						Player recebe = (Player) event.getEntity();
 						Player faz = (Player) event.getDamager();
-						
+
 						if ((isInPvP(faz)) && (isInPvP(recebe)))
 							return;
-						
+
 						if ((isInPvP(faz)) && (!isInPvP(recebe)))
 							event.setCancelled(true);
 						else if ((!isInPvP(faz)) && (isInPvP(recebe)))
@@ -933,39 +962,40 @@ public class Warp1v1 implements Listener {
 				public void handleQuit(Player p) {
 					if (!isInPvP(p))
 						return;
-					
+
 					Player killer = null;
-					
+
 					if (p == player1)
 						killer = player2;
-					
+
 					if (p == player2)
 						killer = player1;
-					
-					killer.sendMessage(Configuration.PREFIX.getMessage() + "O jogador §c\"" + p.getName() + "\"§f §2§lDESISTIU§f e §4§lSAIU§f do servidor!");
-					
+
+					killer.sendMessage(Configuration.PREFIX.getMessage() + "O jogador ï¿½c\"" + p.getName()
+							+ "\"ï¿½f ï¿½2ï¿½lDESISTIUï¿½f e ï¿½4ï¿½lSAIUï¿½f do servidor!");
+
 					killer.setHealth(20.0D);
 					killer.updateInventory();
 					l.teleport1v1(killer);
-					
+
 					Warp1v1.playersIn1v1.remove(p);
 					Warp1v1.playersIn1v1.remove(killer);
-					
+
 					Warp1v1.this.main.getPlayerHideManager().showAllPlayers(killer);
 					Warp1v1.this.main.getPlayerHideManager().showAllPlayers(p);
-					
+
 					Scoreboarding.setScoreboard(p);
-					
+
 					p.damage(2000D, killer);
 					Warp1v1.Fight.this.destroy();
-					
+
 					BukkitMain.getAccountCommon().getAccount(killer.getUniqueId()).updateVanished();
 				}
 
 				public boolean isInPvP(Player player) {
 					return (player == player1) || (player == player2);
 				}
-				
+
 			};
 			Bukkit.getPluginManager().registerEvents(this.listener, l.getMain());
 		}
@@ -974,25 +1004,25 @@ public class Warp1v1 implements Listener {
 			HandlerList.unregisterAll(this.listener);
 		}
 	}
-	
+
 	public BukkitMain getMain() {
 		return main;
 	}
 
 	public static class Name {
-		
+
 		private HashMap<String, String> NAMES;
 
 		public Name() {
-			(this.NAMES = new HashMap()).put("WOOD_SWORD", "§aEspada de madeira!");
-			this.NAMES.put("STONE_SWORD", "§aEspada de pedra!");
-			this.NAMES.put("IRON_SWORD", "§aEspada de ferro!");
-			this.NAMES.put("DIAMOND_SWORD", "§aEspada de diamante!");
-			this.NAMES.put("GLASS", "§aSem armadura!");
-			this.NAMES.put("LEATHER_CHESTPLATE", "§aArmadura de couro!");
-			this.NAMES.put("CHAINMAIL_CHESTPLATE", "§aArmadura de malha!");
-			this.NAMES.put("IRON_CHESTPLATE", "§aArmadura de ferro!");
-			this.NAMES.put("DIAMOND_CHESTPLATE", "§aArmadura de diamante!");
+			(this.NAMES = new HashMap<String, String>()).put("WOOD_SWORD", "ï¿½aEspada de madeira!");
+			this.NAMES.put("STONE_SWORD", "ï¿½aEspada de pedra!");
+			this.NAMES.put("IRON_SWORD", "ï¿½aEspada de ferro!");
+			this.NAMES.put("DIAMOND_SWORD", "ï¿½aEspada de diamante!");
+			this.NAMES.put("GLASS", "ï¿½aSem armadura!");
+			this.NAMES.put("LEATHER_CHESTPLATE", "ï¿½aArmadura de couro!");
+			this.NAMES.put("CHAINMAIL_CHESTPLATE", "ï¿½aArmadura de malha!");
+			this.NAMES.put("IRON_CHESTPLATE", "ï¿½aArmadura de ferro!");
+			this.NAMES.put("DIAMOND_CHESTPLATE", "ï¿½aArmadura de diamante!");
 		}
 
 		public String getEnchantName(Enchantment enchant) {
@@ -1002,26 +1032,26 @@ public class Warp1v1 implements Listener {
 		public String getItemName(ItemStack item) {
 			if (item == null)
 				item = new ItemStack(0);
-			
+
 			if (this.NAMES.containsKey(item.getType().name()))
 				return (String) this.NAMES.get(item.getType().name());
-			
+
 			return getName(item.getType().name());
 		}
 
 		public String getName(String string) {
 			if (this.NAMES.containsValue(string))
 				return (String) this.NAMES.get(string);
-			
+
 			return toReadable(string);
 		}
 
 		public String toReadable(String string) {
 			String[] names = string.split("_");
-			
+
 			for (int i = 0; i < names.length; i++)
 				names[i] = (String.valueOf(names[i].substring(0, 1)) + names[i].substring(1).toLowerCase());
-			
+
 			return StringUtils.join(names, " ");
 		}
 	}

@@ -12,45 +12,44 @@ import br.com.yallandev.potepvp.utils.ChatAPI.ChatState;
 import br.com.yallandev.potepvp.utils.string.CenterChat;
 
 public class ChatCommand extends CommandClass {
-	
+
 	@Command(name = "clearchat", aliases = { "cc" }, groupToUse = Group.HELPER)
 	public void onClearchat(CommandArgs cmdArgs) {
 		CommandSender s = cmdArgs.getSender();
-		String[] a = cmdArgs.getArgs();
-		
+
 		for (int x = 0; x < 100; x++)
 			Bukkit.broadcastMessage("");
-		
-		Bukkit.broadcastMessage(CenterChat.centered("§aO chat foi limpo!"));
-		broadcast("O chat foi limpo pelo §a" + s.getName() + "§f.", Group.HELPER);
+
+		Bukkit.broadcastMessage(CenterChat.centered("ï¿½aO chat foi limpo!"));
+		broadcast("O chat foi limpo pelo ï¿½a" + s.getName() + "ï¿½f.", Group.HELPER);
 	}
-	
+
 	@Command(name = "chat", groupToUse = Group.TRIAL)
 	public void onChat(CommandArgs args) {
 		String[] a = args.getArgs();
 		CommandSender sender = args.getSender();
-		
+
 		if (a.length == 0) {
-			send(sender, "Use §a/chat [on/off]§f para ativar ou desativar o chat!");
+			send(sender, "Use ï¿½a/chat [on/off]ï¿½f para ativar ou desativar o chat!");
 		} else {
 			if (a[0].equalsIgnoreCase("on")) {
 				if (BukkitMain.getInstance().getChatAPI().getChatState() == ChatState.ENABLED) {
-					send(sender, "O chat já está ativado.");
+					send(sender, "O chat jï¿½ estï¿½ ativado.");
 				} else {
 					BukkitMain.getInstance().getChatAPI().setChatState(ChatState.ENABLED);
-					send(sender, "Você §a§lATIVOU§f o chat!");
-					broadcast("O §a" + sender.getName() + "§f ativou o chat!", getPosteriorGroup(sender, 2));
+					send(sender, "Vocï¿½ ï¿½aï¿½lATIVOUï¿½f o chat!");
+					broadcast("O ï¿½a" + sender.getName() + "ï¿½f ativou o chat!", getPosteriorGroup(sender, 2));
 				}
 			} else if (a[0].equalsIgnoreCase("off")) {
 				if (BukkitMain.getInstance().getChatAPI().getChatState() == ChatState.DISABLED) {
-					send(sender, "O chat já está desativado.");
+					send(sender, "O chat jï¿½ estï¿½ desativado.");
 				} else {
 					BukkitMain.getInstance().getChatAPI().setChatState(ChatState.DISABLED);
-					send(sender, "Você §4§lDESATIVOU§f o chat!");
-					broadcast("O §a" + sender.getName() + "§f desativou o chat!", getPosteriorGroup(sender, 2));
+					send(sender, "Vocï¿½ ï¿½4ï¿½lDESATIVOUï¿½f o chat!");
+					broadcast("O ï¿½a" + sender.getName() + "ï¿½f desativou o chat!", getPosteriorGroup(sender, 2));
 				}
 			} else {
-				send(sender, "Use §a/chat [on/off]§f para ativar ou desativar o chat!");
+				send(sender, "Use ï¿½a/chat [on/off]ï¿½f para ativar ou desativar o chat!");
 			}
 		}
 	}

@@ -1,6 +1,5 @@
 package br.com.yallandev.potepvp.commands.register;
 
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import br.com.yallandev.potepvp.BukkitMain.Configuration;
@@ -15,74 +14,75 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 
 public class KitCommand extends CommandClass {
-	
+
 	@Command(name = "kit", onlyPlayers = true)
 	public void onKit(CommandArgs cmdArgs) {
-		CommandSender sender = cmdArgs.getSender();
 		String[] a = cmdArgs.getArgs();
 		Player p = cmdArgs.getPlayer();
 		Account player = getAccountCommon().getAccount(p.getUniqueId());
-		
+
 		if (player == null)
 			return;
-		
+
 		if (a.length == 0) {
-			player.sendMessage("Use §a/kit [Kit]§f para selecionar um kit!");
-			
-			TextComponent kitContains = new TextComponent("§fKits que você possui: §a");
-			
+			player.sendMessage("Use ï¿½a/kit [Kit]ï¿½f para selecionar um kit!");
+
+			TextComponent kitContains = new TextComponent("ï¿½fKits que vocï¿½ possui: ï¿½a");
+
 			for (Kit kits : main.getKitManager().getKits()) {
 				if (kits.canUse(player)) {
 					TextComponent kit = new TextComponent(kits.getKitName() + ", ");
-					
-					kit.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§aVocê possui esse kit!").create()));
+
+					kit.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+							new ComponentBuilder("ï¿½aVocï¿½ possui esse kit!").create()));
 					kit.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/kit " + kits.getKitName()));
-					
+
 					kitContains.addExtra(kit);
 				}
 			}
-			
-			kitContains = new TextComponent("§fKits que você não possui: §c");
-			
+
+			kitContains = new TextComponent("ï¿½fKits que vocï¿½ nï¿½o possui: ï¿½c");
+
 			for (Kit kits : main.getKitManager().getKits()) {
 				if (!kits.canUse(player)) {
 					TextComponent kit = new TextComponent(kits.getKitName() + ", ");
-					
-					kit.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§aVocê possui esse kit!").create()));
+
+					kit.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+							new ComponentBuilder("ï¿½aVocï¿½ possui esse kit!").create()));
 					kit.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, Configuration.SITE.getMessage()));
-					
+
 					kitContains.addExtra(kit);
 				}
 			}
 			return;
 		}
-		
+
 		if (!main.getKitManager().hasAbility(p.getUniqueId(), "Nenhum")) {
-			player.sendMessage("Você já está com um kit selecionado!");
+			player.sendMessage("Vocï¿½ jï¿½ estï¿½ com um kit selecionado!");
 			return;
 		}
-		
+
 		if (!main.getPlayerManager().getWarp(p.getUniqueId()).getWarpName().equalsIgnoreCase("Spawn")) {
-			player.sendMessage("Os kits só podem ser selecionados no spawn!");
+			player.sendMessage("Os kits sï¿½ podem ser selecionados no spawn!");
 			return;
 		}
-		
+
 		Kit kit = main.getKitManager().getKit(a[0]);
-		
+
 		if (kit == null) {
-			player.sendMessage("O kit §a\"" + a[0] + "\"§f não existe!");
+			player.sendMessage("O kit ï¿½a\"" + a[0] + "\"ï¿½f nï¿½o existe!");
 			return;
 		}
-		
+
 		if (!kit.canUse(player)) {
-			player.sendMessage("Você não tem esse kit!");
-			player.sendMessage("Compre em §a§n" + Configuration.SITE.getMessage() + "§f.");
+			player.sendMessage("Vocï¿½ nï¿½o tem esse kit!");
+			player.sendMessage("Compre em ï¿½aï¿½n" + Configuration.SITE.getMessage() + "ï¿½f.");
 			return;
 		}
-		
+
 		main.getKitManager().setAbility(p.getUniqueId(), kit);
 		main.getKitManager().applyKit(p);
-		player.sendMessage("Você selecionou o kit §a" + kit.getKitName() + "§f.");
+		player.sendMessage("Vocï¿½ selecionou o kit ï¿½a" + kit.getKitName() + "ï¿½f.");
 	}
 
 }

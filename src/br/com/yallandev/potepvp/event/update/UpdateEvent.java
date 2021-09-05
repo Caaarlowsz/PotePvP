@@ -3,7 +3,7 @@ package br.com.yallandev.potepvp.event.update;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class UpdateEvent extends Event{
+public class UpdateEvent extends Event {
 
 	public static final HandlerList handlers = new HandlerList();
 	private UpdateType type;

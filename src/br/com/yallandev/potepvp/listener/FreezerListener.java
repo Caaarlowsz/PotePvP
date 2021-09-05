@@ -7,16 +7,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import br.com.yallandev.potepvp.event.account.RealMoveEvent;
-
 public class FreezerListener implements Listener {
-	
+
 	public static HashMap<UUID, Long> freezer = new HashMap<>();
-	
+
 	@EventHandler
 	public void onRealMove(PlayerMoveEvent e) {
 		UUID uuid = e.getPlayer().getUniqueId();
-		
+
 		if (freezer.containsKey(uuid))
 			if (freezer.get(uuid) < System.currentTimeMillis()) {
 				freezer.remove(uuid);
