@@ -1,0 +1,78 @@
+Twitter:
+  Using: true
+  Bans:
+    ConsumerKey: 00000
+    ConsumerSecret: 00000
+    AcessToken: 0000-0000
+    AcessSecret: 0000
+  Oficial:
+    ConsumerKey: 00000
+    ConsumerSecret: 0000
+    AcessToken: 0000
+    AcessSecret: 0000
+
+MySQL:
+  UserName: root
+  HostName: 127.0.0.1
+  Password: 'g4vJ1l72zV'
+  Database: potepvp
+  
+## Ponha true antes da virgula para deixar a mensagem centralizada  ##
+## Ponha false para deixar a mensagem normal                        ##
+
+JoinMessages:
+- 'true, &fVocê entrou no &aKitPvP&f.'
+- 'true, &fAcesse: &a&n{site}'
+- 'false, &f'
+
+ServerAddress: kitpvp.com.br
+MaxPlayers: 80
+
+Aplicar:
+  Trial: www.trial.com.br
+  ModGC: www.modgc.com.br
+  Helper: www.helper.com.br
+
+Prefix:
+  Chat: '&6&lKit&f&lPvP &a{seta} &f'
+  Kick: '&c&lKIT PVP'
+
+Site: 'buy.kitpvp.com.br'
+ScoreboardSite: 'buy.kitpvp.com.br'
+
+## Bote null para não aparecer nenhuma mensagem.  ##
+
+Messages:
+  Join: 'null'
+  Quit: 'null'
+  SemPerm: '{prefix} &fVocê não tem permissão para usar esse comando!'
+
+Kits:
+  Vip:
+  - 'kangaroo'
+  - 'forcefield'
+  - 'surprise'
+  - 'firebender'
+  - 'waterbender'
+  - 'sonic'
+  - 'anchor'
+  - 'snail'
+  - 'ninja'
+  - 'viper'
+  - 'anchor'
+  - 'grappler'
+  Master:
+  - 'ninja'
+  - 'thor'
+  - 'stomper'
+  - 'gladiator'
+  - 'exploder'
+  Membro:
+  - 'kangaroo'
+  - 'timelord'
+  - 'deshfire'
+  - 'phantom'
+  - 'reaper'
+  - 'deshfire'
+  - 'fisherman'
+  - 'magma'

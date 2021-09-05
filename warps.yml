@@ -1,0 +1,107 @@
+1v1:
+  Spawn:
+    World: world
+    X: 3
+    Y: 5
+    Z: 5
+    Pitch: 9994.5
+    Yaw: 9994.5
+  Posicao1:
+    World: world
+    X: 3
+    Y: 5
+    Z: 5
+    Pitch: 9994.5
+    Yaw: 9994.5
+  Posicao2:
+    World: world
+    X: 3
+    Y: 5
+    Z: 5
+    Pitch: 9994.5
+    Yaw: 9994.5
+
+Sumo:
+  Spawn:
+    World: world
+    X: 3
+    Y: 5
+    Z: 5
+    Pitch: 9994.5
+    Yaw: 9994.5
+  Posicao1:
+    World: world
+    X: 3
+    Y: 5
+    Z: 5
+    Pitch: 9994.5
+    Yaw: 9994.5
+  Posicao2:
+    World: world
+    X: 3
+    Y: 5
+    Z: 5
+    Pitch: 9994.5
+    Yaw: 9994.5
+
+ss:
+  World: world
+  X: 3
+  Y: 5
+  Z: 5
+
+warps:
+  fps:
+    World: world
+    X: 3
+    Y: 5
+    Z: 5
+    Pitch: 9994.5
+    Yaw: 9994.5
+    Item: 20
+    Protection: 7.0
+  spawn:
+    World: world
+    X: 3
+    Y: 5
+    Z: 5
+    Pitch: 9994.5
+    Yaw: 9994.5
+    Item: 0
+    Protection: 99.0
+  lava:
+    World: world
+    X: 3
+    Y: 5
+    Z: 5
+    Pitch: 9994.5
+    Yaw: 9994.5
+    Item: 327
+    Protection: 9999.0
+  potion:
+    World: world
+    X: 3
+    Y: 5
+    Z: 5
+    Pitch: 9994.5
+    Yaw: 9994
+    Item: 373
+    Protection: 7.0
+  fisherman:
+    World: world
+    X: 3
+    Y: 5
+    Z: 5
+    Pitch: 9994.5
+    Yaw: 9994.5
+    Item: 346
+    Protection: 7.0
+  arena:
+    World: world
+    X: 3
+    Y: 5
+    Z: 5
+    Pitch: 9994.5
+    Yaw: 9994.5
+    Item: 346
+    Protection: 7.0
