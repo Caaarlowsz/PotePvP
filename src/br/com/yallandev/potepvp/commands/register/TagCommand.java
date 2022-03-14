@@ -6,8 +6,8 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.Command;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.CommandArgs;
@@ -41,7 +41,7 @@ public class TagCommand extends CommandClass {
 
 		Player p = args.getPlayer();
 		String[] a = args.getArgs();
-		Account player = (Account) BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = (Account) PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 		if (a.length == 0) {
 			send(p, "Use �a/tag [tag]�f para alterar sua tag!");
@@ -108,7 +108,7 @@ public class TagCommand extends CommandClass {
 			if (tag == Tag.TOP1) {
 				if (player.getStatus().getRank() == 1) {
 					for (Player players : Bukkit.getOnlinePlayers()) {
-						Account account = BukkitMain.getAccountCommon().getAccount(players.getUniqueId());
+						Account account = PotePvP.getAccountCommon().getAccount(players.getUniqueId());
 
 						if (account == null)
 							continue;
@@ -128,7 +128,7 @@ public class TagCommand extends CommandClass {
 			if (tag == Tag.LOSER) {
 				if (player.getStatus().getRankDeath() == 1) {
 					for (Player players : Bukkit.getOnlinePlayers()) {
-						Account account = BukkitMain.getAccountCommon().getAccount(players.getUniqueId());
+						Account account = PotePvP.getAccountCommon().getAccount(players.getUniqueId());
 
 						if (account == null)
 							continue;
@@ -188,7 +188,7 @@ public class TagCommand extends CommandClass {
 			String[] args = cmdArgs.getArgs();
 			if (args.length == 1) {
 				Player p = cmdArgs.getPlayer();
-				Account player = (Account) BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+				Account player = (Account) PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 				String s = args[0].toUpperCase();
 				for (Tag t : Tag.values()) {
 					if (t.name().startsWith(s)) {

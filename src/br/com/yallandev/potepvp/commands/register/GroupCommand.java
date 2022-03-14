@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import org.bukkit.command.CommandSender;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.Command;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.CommandArgs;
@@ -117,10 +117,10 @@ public class GroupCommand extends CommandClass {
 		}
 
 		if (!player.isOnline()) {
-			BukkitMain.getAccountCommon().saveAccount(player);
+			PotePvP.getAccountCommon().saveAccount(player);
 		} else {
-			BukkitMain.getInstance().superms.removeAttachment(player.getPlayer());
-			BukkitMain.getInstance().superms.updateAttachment(player.getPlayer(), player);
+			PotePvP.getInstance().superms.removeAttachment(player.getPlayer());
+			PotePvP.getInstance().superms.updateAttachment(player.getPlayer(), player);
 		}
 
 		send(sender, "Voc� alterou o grupo do �a\"" + player.getUserName() + "\"�f para �a�l" + group.name() + "�f.");
@@ -189,7 +189,7 @@ public class GroupCommand extends CommandClass {
 		player.sendMessage("Voc� ganhou �a" + group.name() + "�f por �a" + DateUtils.getTime(expire) + "�f.");
 
 		if (!player.isOnline()) {
-			BukkitMain.getAccountCommon().saveAccount(player);
+			PotePvP.getAccountCommon().saveAccount(player);
 		}
 
 		send(sender, "Voc� deu setou temporariamente o grupo �a" + group.name() + "�f para o jogador �a"
@@ -254,7 +254,7 @@ public class GroupCommand extends CommandClass {
 		player.sendMessage("O seu grupo �a" + Tag.valueOf(a[0]).getPrefix().replace(" ", "") + "�f foi retirado!");
 
 		if (!player.isOnline())
-			BukkitMain.getAccountCommon().saveAccount(player);
+			PotePvP.getAccountCommon().saveAccount(player);
 
 		send(sender, "O grupo " + Tag.valueOf(a[0]).getPrefix().replace(" ", "") + "�f do jogador �a"
 				+ player.getUserName() + "�f foi retirado!");

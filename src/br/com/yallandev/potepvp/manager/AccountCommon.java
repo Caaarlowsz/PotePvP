@@ -11,7 +11,7 @@ import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.permissions.group.Group;
 
@@ -24,17 +24,17 @@ public class AccountCommon {
 	}
 
 	public Account loadAccount(UUID uuid) {
-		if (!BukkitMain.getConnection().isConnected()) {
-			BukkitMain.getConnection().tryConnection();
+		if (!PotePvP.getConnection().isConnected()) {
+			PotePvP.getConnection().tryConnection();
 		}
 
 		try {
-			Connection connection = BukkitMain.getConnection().getConnection();
+			Connection connection = PotePvP.getConnection().getConnection();
 			PreparedStatement stmt = connection
 					.prepareStatement("SELECT * FROM `account` WHERE `Uuid`='" + uuid.toString() + "';");
 			ResultSet result = stmt.executeQuery();
 			if (result.next()) {
-				Account player = BukkitMain.getInstance().getGson().fromJson(result.getString("json"), Account.class);
+				Account player = PotePvP.getInstance().getGson().fromJson(result.getString("json"), Account.class);
 				loadAccount(uuid, player);
 			}
 			result.close();
@@ -47,18 +47,18 @@ public class AccountCommon {
 	}
 
 	public Account loadAccount(UUID uuid, boolean value) {
-		if (!BukkitMain.getConnection().isConnected()) {
-			BukkitMain.getConnection().tryConnection();
+		if (!PotePvP.getConnection().isConnected()) {
+			PotePvP.getConnection().tryConnection();
 		}
 
 		Account player = null;
 		try {
-			Connection connection = BukkitMain.getConnection().getConnection();
+			Connection connection = PotePvP.getConnection().getConnection();
 			PreparedStatement stmt = connection
 					.prepareStatement("SELECT * FROM `account` WHERE `Uuid`='" + uuid.toString() + "';");
 			ResultSet result = stmt.executeQuery();
 			if (result.next()) {
-				player = BukkitMain.getInstance().getGson().fromJson(result.getString("json"), Account.class);
+				player = PotePvP.getInstance().getGson().fromJson(result.getString("json"), Account.class);
 			}
 			result.close();
 			result = null;
@@ -70,13 +70,13 @@ public class AccountCommon {
 	}
 
 	public UUID getUUID(String userName) {
-		if (!BukkitMain.getConnection().isConnected()) {
-			BukkitMain.getConnection().tryConnection();
+		if (!PotePvP.getConnection().isConnected()) {
+			PotePvP.getConnection().tryConnection();
 		}
 
 		System.out.println("Pegando o uuid do " + userName);
 		try {
-			Connection connection = BukkitMain.getConnection().getConnection();
+			Connection connection = PotePvP.getConnection().getConnection();
 			PreparedStatement stmt = connection
 					.prepareStatement("SELECT * FROM `players` WHERE `Name`='" + userName.toLowerCase() + "';");
 			ResultSet result = stmt.executeQuery();
@@ -121,10 +121,10 @@ public class AccountCommon {
 	}
 
 	public void saveAccount(Account player) {
-		String json = BukkitMain.getInstance().getGson().toJson(player);
+		String json = PotePvP.getInstance().getGson().toJson(player);
 
 		try {
-			PreparedStatement stmt = BukkitMain.getConnection().prepareStatment(
+			PreparedStatement stmt = PotePvP.getConnection().prepareStatment(
 					"INSERT INTO `account`(`uuid`, `json`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `json` = ?;");
 			stmt.setString(1, player.getUuid().toString());
 			stmt.setString(2, json);
@@ -135,7 +135,7 @@ public class AccountCommon {
 		}
 
 		try {
-			PreparedStatement stmt = BukkitMain.getConnection().prepareStatment(
+			PreparedStatement stmt = PotePvP.getConnection().prepareStatment(
 					"INSERT INTO `players`(`name`, `uuid`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `uuid` = ?;");
 			stmt.setString(1, player.getUserName().toLowerCase());
 			stmt.setString(2, player.getUuid().toString());

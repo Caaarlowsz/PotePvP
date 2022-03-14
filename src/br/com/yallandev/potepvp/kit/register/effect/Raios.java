@@ -3,7 +3,7 @@ package br.com.yallandev.potepvp.kit.register.effect;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 
 public class Raios {
 
@@ -38,7 +38,7 @@ public class Raios {
 					cancel();
 				}
 			}
-		}.runTaskTimer(BukkitMain.getInstance(), 0L, 3L);
+		}.runTaskTimer(PotePvP.getInstance(), 0L, 3L);
 	}
 
 	public static void onWaterbender(Location loc) {
@@ -61,7 +61,7 @@ public class Raios {
 					cancel();
 				}
 			}
-		}.runTaskTimer(BukkitMain.getInstance(), 0L, 1L);
+		}.runTaskTimer(PotePvP.getInstance(), 0L, 1L);
 	}
 
 	public static void onFirebender(Location loc) {
@@ -84,6 +84,6 @@ public class Raios {
 					cancel();
 				}
 			}
-		}.runTaskTimer(BukkitMain.getInstance(), 0L, 1L);
+		}.runTaskTimer(PotePvP.getInstance(), 0L, 1L);
 	}
 }

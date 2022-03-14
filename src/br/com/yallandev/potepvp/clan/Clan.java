@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.account.Account;
 
 public class Clan {
@@ -110,7 +110,7 @@ public class Clan {
 	public String getOwnerName() {
 		UUID uuid = getOwner();
 
-		Account owner = BukkitMain.getAccountCommon().loadAccount(uuid, false);
+		Account owner = PotePvP.getAccountCommon().loadAccount(uuid, false);
 
 		return owner.getUserName();
 	}
@@ -122,7 +122,7 @@ public class Clan {
 			if (this.participants.get(uuids) == MemberType.ADMININISTRATOR) {
 				UUID uuid = getOwner();
 
-				Account admins = BukkitMain.getAccountCommon().loadAccount(uuid, false);
+				Account admins = PotePvP.getAccountCommon().loadAccount(uuid, false);
 
 				if (admins == null)
 					continue;
@@ -139,7 +139,7 @@ public class Clan {
 
 		for (UUID uuids : this.participants.keySet()) {
 			if (this.participants.get(uuids) == MemberType.ADMININISTRATOR) {
-				Account admins = BukkitMain.getAccountCommon().loadAccount(uuids, false);
+				Account admins = PotePvP.getAccountCommon().loadAccount(uuids, false);
 
 				if (admins == null)
 					continue;
@@ -156,7 +156,7 @@ public class Clan {
 
 		for (UUID uuids : this.participants.keySet()) {
 			if (this.participants.get(uuids) == MemberType.MEMBER) {
-				Account admins = BukkitMain.getAccountCommon().loadAccount(uuids, false);
+				Account admins = PotePvP.getAccountCommon().loadAccount(uuids, false);
 
 				if (admins == null)
 					continue;

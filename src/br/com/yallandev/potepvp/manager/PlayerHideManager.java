@@ -6,17 +6,17 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.utils.Util;
 
 public class PlayerHideManager {
 
-	private BukkitMain main;
+	private PotePvP main;
 	private ArrayList<UUID> hideAllPlayers;
 
 	public PlayerHideManager() {
 		this.hideAllPlayers = new ArrayList<UUID>();
-		this.main = BukkitMain.getInstance();
+		this.main = PotePvP.getInstance();
 	}
 
 	public void playerJoin(Player p) {

@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import org.bukkit.command.CommandSender;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.clan.Clan;
 import br.com.yallandev.potepvp.clan.ClanStatus;
@@ -196,14 +196,14 @@ public class ClanCommand extends CommandClass {
 					return;
 				}
 
-				UUID uuid = BukkitMain.getAccountCommon().getUUID(a[1]);
+				UUID uuid = PotePvP.getAccountCommon().getUUID(a[1]);
 
 				if (uuid == null) {
 					send(s, "O jogador �a" + a[0] + "�f n�o existe em nosso banco de dados!");
 					return;
 				}
 
-				Account target = BukkitMain.getAccountCommon().getAccount(uuid);
+				Account target = PotePvP.getAccountCommon().getAccount(uuid);
 
 				if (target == null) {
 					send(s, "O jogador �a" + a[0] + "�f n�o est� online!");
@@ -223,7 +223,7 @@ public class ClanCommand extends CommandClass {
 					return;
 				}
 
-				UUID uuid = BukkitMain.getAccountCommon().getUUID(a[1]);
+				UUID uuid = PotePvP.getAccountCommon().getUUID(a[1]);
 
 				main.getClanCommon().acceptInvite(player, uuid);
 			} else if (a[0].equalsIgnoreCase("expulsar")) {
@@ -237,7 +237,7 @@ public class ClanCommand extends CommandClass {
 					return;
 				}
 
-				UUID uuid = BukkitMain.getAccountCommon().getUUID(a[1]);
+				UUID uuid = PotePvP.getAccountCommon().getUUID(a[1]);
 
 				Account target = getAccountCommon().getAccount(uuid);
 
@@ -279,7 +279,7 @@ public class ClanCommand extends CommandClass {
 					return;
 				}
 
-				UUID uuid = BukkitMain.getAccountCommon().getUUID(a[1]);
+				UUID uuid = PotePvP.getAccountCommon().getUUID(a[1]);
 
 				if (uuid == null) {
 					player.sendMessage("Esse jogador n�o existe!");

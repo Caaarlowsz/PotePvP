@@ -3,7 +3,7 @@ package br.com.yallandev.potepvp.commands.register;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.check.Check;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.Command;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.CommandArgs;
@@ -29,7 +29,7 @@ public class LoginCommand extends CommandClass {
 			e.printStackTrace();
 		}
 
-		if (!BukkitMain.getSqlManager().hasOnDatabase(s.getName())) {
+		if (!PotePvP.getSqlManager().hasOnDatabase(s.getName())) {
 			s.sendMessage("Voc� n�o est� registrado!");
 			return;
 		}
@@ -37,9 +37,9 @@ public class LoginCommand extends CommandClass {
 		if (a.length == 0) {
 			send(s, "Use �a/login [Senha]�f para se logar!");
 		} else {
-			if (Util.decode(BukkitMain.getSqlManager().getPassword(s.getName())).equals(a[0])) {
-				while (BukkitMain.getStorage().needLogin(s.getName()))
-					BukkitMain.getStorage().removeNeedLogin(s.getName());
+			if (Util.decode(PotePvP.getSqlManager().getPassword(s.getName())).equals(a[0])) {
+				while (PotePvP.getStorage().needLogin(s.getName()))
+					PotePvP.getStorage().removeNeedLogin(s.getName());
 
 				send(s, "Logado com sucesso!");
 			} else {
@@ -63,7 +63,7 @@ public class LoginCommand extends CommandClass {
 			e.printStackTrace();
 		}
 
-		if (BukkitMain.getSqlManager().hasOnDatabase(s.getName())) {
+		if (PotePvP.getSqlManager().hasOnDatabase(s.getName())) {
 			s.sendMessage("Voc� j� est� registrado!");
 			return;
 		}
@@ -78,10 +78,10 @@ public class LoginCommand extends CommandClass {
 				return;
 			}
 
-			while (BukkitMain.getStorage().needLogin(s.getName()))
-				BukkitMain.getStorage().removeNeedLogin(s.getName());
+			while (PotePvP.getStorage().needLogin(s.getName()))
+				PotePvP.getStorage().removeNeedLogin(s.getName());
 
-			BukkitMain.getSqlManager().setPasswordAndStatus(s.getName(), Status.CRACKED, new String(Util.encode(a[0])));
+			PotePvP.getSqlManager().setPasswordAndStatus(s.getName(), Status.CRACKED, new String(Util.encode(a[0])));
 			send(s, "Voc� se registrou com sucesso!");
 		}
 	}

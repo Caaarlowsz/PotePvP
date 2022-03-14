@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.kit.Kit;
 import br.com.yallandev.potepvp.kit.register.effect.Raios;
 
@@ -43,7 +43,7 @@ public class Waterbender extends Kit {
 				Raios.onWaterbender(ent.getLocation());
 				addCooldown(p, 20);
 				ent.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 20 * 10, 200));
-				Bukkit.getScheduler().scheduleAsyncDelayedTask(BukkitMain.getPlugin(), new Runnable() {
+				Bukkit.getScheduler().scheduleAsyncDelayedTask(PotePvP.getPlugin(), new Runnable() {
 					@Override
 					public void run() {
 						wateratack.remove(ent.getName());

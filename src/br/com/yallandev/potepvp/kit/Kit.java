@@ -11,8 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.permissions.group.Group;
 import br.com.yallandev.potepvp.utils.DateUtils;
@@ -23,7 +23,7 @@ import net.minecraft.server.v1_7_R4.PacketPlayOutChat;
 
 public class Kit implements Listener {
 
-	public BukkitMain main = BukkitMain.getInstance();
+	public PotePvP main = PotePvP.getInstance();
 	private String kitName;
 	private ItemStack kitIcon;
 	private List<ItemStack> kitItens;
@@ -31,7 +31,7 @@ public class Kit implements Listener {
 	private boolean active = true;
 
 	public Kit(String kitName, ItemStack kitIcon, List<ItemStack> kitItens, int price) {
-		this.main = BukkitMain.getInstance();
+		this.main = PotePvP.getInstance();
 		this.kitName = kitName;
 		this.kitIcon = kitIcon;
 
@@ -165,7 +165,7 @@ public class Kit implements Listener {
 		((CraftPlayer) player).getHandle().playerConnection.sendPacket(bar);
 	}
 
-	public BukkitMain getMain() {
+	public PotePvP getMain() {
 		return main;
 	}
 

@@ -3,7 +3,7 @@ package br.com.yallandev.potepvp.commands.register;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.Command;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.CommandArgs;
 import br.com.yallandev.potepvp.manager.CommandClass;
@@ -33,18 +33,18 @@ public class ChatCommand extends CommandClass {
 			send(sender, "Use �a/chat [on/off]�f para ativar ou desativar o chat!");
 		} else {
 			if (a[0].equalsIgnoreCase("on")) {
-				if (BukkitMain.getInstance().getChatAPI().getChatState() == ChatState.ENABLED) {
+				if (PotePvP.getInstance().getChatAPI().getChatState() == ChatState.ENABLED) {
 					send(sender, "O chat j� est� ativado.");
 				} else {
-					BukkitMain.getInstance().getChatAPI().setChatState(ChatState.ENABLED);
+					PotePvP.getInstance().getChatAPI().setChatState(ChatState.ENABLED);
 					send(sender, "Voc� �a�lATIVOU�f o chat!");
 					broadcast("O �a" + sender.getName() + "�f ativou o chat!", getPosteriorGroup(sender, 2));
 				}
 			} else if (a[0].equalsIgnoreCase("off")) {
-				if (BukkitMain.getInstance().getChatAPI().getChatState() == ChatState.DISABLED) {
+				if (PotePvP.getInstance().getChatAPI().getChatState() == ChatState.DISABLED) {
 					send(sender, "O chat j� est� desativado.");
 				} else {
-					BukkitMain.getInstance().getChatAPI().setChatState(ChatState.DISABLED);
+					PotePvP.getInstance().getChatAPI().setChatState(ChatState.DISABLED);
 					send(sender, "Voc� �4�lDESATIVOU�f o chat!");
 					broadcast("O �a" + sender.getName() + "�f desativou o chat!", getPosteriorGroup(sender, 2));
 				}

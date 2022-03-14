@@ -32,8 +32,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.commands.register.WarpCommand;
 import br.com.yallandev.potepvp.event.account.PlayerDeathInWarpEvent;
 import br.com.yallandev.potepvp.listener.FreezerListener;
@@ -43,14 +43,14 @@ import br.com.yallandev.potepvp.utils.ItemManager;
 
 public class WarpSumo implements Listener {
 
-	private BukkitMain main;
+	private PotePvP main;
 	public static List<Player> playersIn1v1 = new ArrayList<>();
 	public static HashMap<Player, String> duel = new HashMap<>();
 	private HashMap<String, HashMap<ChanllengeType, HashMap<String, Desafio>>> playerDesafios;
 	private List<Player> playersInQueue;
 
 	public WarpSumo() {
-		this.main = BukkitMain.getInstance();
+		this.main = PotePvP.getInstance();
 		playersIn1v1 = new ArrayList<>();
 		this.playerDesafios = new HashMap<>();
 		this.playersInQueue = new ArrayList<>();
@@ -849,7 +849,7 @@ public class WarpSumo implements Listener {
 						public void run() {
 							l.teleport1v1(p);
 						}
-					}.runTaskLater(BukkitMain.getInstance(), 10);
+					}.runTaskLater(PotePvP.getInstance(), 10);
 
 					WarpSumo.playersIn1v1.remove(p);
 					WarpSumo.playersIn1v1.remove(killer);
@@ -858,8 +858,8 @@ public class WarpSumo implements Listener {
 					Scoreboarding.setScoreboard(p);
 					WarpSumo.Fight.this.destroy();
 
-					BukkitMain.getAccountCommon().getAccount(killer.getUniqueId()).updateVanished();
-					BukkitMain.getAccountCommon().getAccount(p.getUniqueId()).updateVanished();
+					PotePvP.getAccountCommon().getAccount(killer.getUniqueId()).updateVanished();
+					PotePvP.getAccountCommon().getAccount(p.getUniqueId()).updateVanished();
 				}
 
 				@EventHandler
@@ -918,7 +918,7 @@ public class WarpSumo implements Listener {
 					p.damage(2000D, killer);
 					WarpSumo.Fight.this.destroy();
 
-					BukkitMain.getAccountCommon().getAccount(killer.getUniqueId()).updateVanished();
+					PotePvP.getAccountCommon().getAccount(killer.getUniqueId()).updateVanished();
 				}
 
 				public boolean isInPvP(Player player) {
@@ -934,7 +934,7 @@ public class WarpSumo implements Listener {
 		}
 	}
 
-	public BukkitMain getMain() {
+	public PotePvP getMain() {
 		return main;
 	}
 

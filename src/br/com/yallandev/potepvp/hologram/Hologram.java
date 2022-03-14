@@ -12,7 +12,7 @@ import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.utils.ReflectionUtils;
 import net.minecraft.server.v1_7_R4.DataWatcher;
 import net.minecraft.server.v1_7_R4.EntityHorse;
@@ -316,7 +316,7 @@ public class Hologram {
 			public void run() {
 				lock.remove(player.getUniqueId());
 			}
-		}.runTaskLater(BukkitMain.getInstance(), ticks);
+		}.runTaskLater(PotePvP.getInstance(), ticks);
 	}
 
 	public boolean isLocked(Player player) {

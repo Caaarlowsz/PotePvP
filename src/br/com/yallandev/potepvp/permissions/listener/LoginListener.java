@@ -17,16 +17,16 @@ import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.utils.Util;
 
 public class LoginListener implements Listener {
 
-	private BukkitMain main;
+	private PotePvP main;
 	private final Map<UUID, PermissionAttachment> attachments;
 
-	public LoginListener(BukkitMain main) {
+	public LoginListener(PotePvP main) {
 		this.attachments = new HashMap<UUID, PermissionAttachment>();
 		this.main = main;
 		new BukkitRunnable() {
@@ -34,7 +34,7 @@ public class LoginListener implements Listener {
 			@Override
 			public void run() {
 				for (Player player : Util.getOnlinePlayers()) {
-					Account account = BukkitMain.getAccountCommon().getAccount(player.getUniqueId());
+					Account account = PotePvP.getAccountCommon().getAccount(player.getUniqueId());
 
 					updateAttachment(player, account);
 				}
@@ -46,7 +46,7 @@ public class LoginListener implements Listener {
 	public void asd(PlayerJoinEvent e) {
 		Player player = e.getPlayer();
 
-		Account acc = BukkitMain.getAccountCommon().getAccount(player.getUniqueId());
+		Account acc = PotePvP.getAccountCommon().getAccount(player.getUniqueId());
 
 		removeAttachment(player);
 		updateAttachment(player, acc);

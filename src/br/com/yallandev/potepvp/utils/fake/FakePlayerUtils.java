@@ -13,7 +13,7 @@ import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import net.minecraft.server.v1_7_R4.EntityPlayer;
 import net.minecraft.server.v1_7_R4.EnumGamemode;
 import net.minecraft.server.v1_7_R4.PacketPlayOutEntityDestroy;
@@ -167,7 +167,7 @@ public class FakePlayerUtils {
 						pOnline.setOp(true);
 					}
 
-					Bukkit.getScheduler().runTask(BukkitMain.getInstance(), new Runnable() {
+					Bukkit.getScheduler().runTask(PotePvP.getInstance(), new Runnable() {
 
 						@Override
 						public void run() {

@@ -9,8 +9,8 @@ import java.util.concurrent.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.tag.Tag;
 
 public class Status {
@@ -140,7 +140,7 @@ public class Status {
 		time = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(30);
 
 		try {
-			Statement e = BukkitMain.getConnection().getConnection().createStatement();
+			Statement e = PotePvP.getConnection().getConnection().createStatement();
 			ResultSet rs = e.executeQuery("SELECT COUNT(*) from `kitpvp_status` WHERE `Kills` > " + this.kills);
 			rs.next();
 
@@ -156,8 +156,8 @@ public class Status {
 					if (getPlayer() != null) {
 						getPlayer().sendMessage(Configuration.PREFIX.getMessage() + "Voc� n�o � mais �2�lTOP 1�f!");
 
-						BukkitMain.getAccountCommon().getAccount(uuid).setTag(
-								Tag.valueOf(BukkitMain.getAccountCommon().getAccount(uuid).getServerGroup().name()));
+						PotePvP.getAccountCommon().getAccount(uuid).setTag(
+								Tag.valueOf(PotePvP.getAccountCommon().getAccount(uuid).getServerGroup().name()));
 					}
 				}
 			}
@@ -177,7 +177,7 @@ public class Status {
 		timedeaths = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(30);
 
 		try {
-			Statement e = BukkitMain.getConnection().getConnection().createStatement();
+			Statement e = PotePvP.getConnection().getConnection().createStatement();
 			ResultSet rs = e.executeQuery("SELECT COUNT(*) from `kitpvp_status` WHERE `Deaths` > " + this.deaths);
 			rs.next();
 
@@ -194,8 +194,8 @@ public class Status {
 						getPlayer().sendMessage(
 								Configuration.PREFIX.getMessage() + "Voc� n�o � mais o �8�lTOP 1�f de deaths!");
 
-						BukkitMain.getAccountCommon().getAccount(uuid).setTag(
-								Tag.valueOf(BukkitMain.getAccountCommon().getAccount(uuid).getServerGroup().name()));
+						PotePvP.getAccountCommon().getAccount(uuid).setTag(
+								Tag.valueOf(PotePvP.getAccountCommon().getAccount(uuid).getServerGroup().name()));
 					}
 				}
 			}

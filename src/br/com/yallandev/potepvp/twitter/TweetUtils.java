@@ -1,6 +1,6 @@
 package br.com.yallandev.potepvp.twitter;
 
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;

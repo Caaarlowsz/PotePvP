@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scoreboard.Team;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.event.account.PlayerChangeTagEvent;
 import br.com.yallandev.potepvp.ranking.Ranking;
@@ -22,7 +22,7 @@ public class AccountListener implements Listener {
 
 		for (Player players : Bukkit.getOnlinePlayers()) {
 			if (player.getUniqueId() != players.getUniqueId()) {
-				Account account = BukkitMain.getAccountCommon().getAccount(players.getUniqueId());
+				Account account = PotePvP.getAccountCommon().getAccount(players.getUniqueId());
 				if (account == null)
 					continue;
 				String id = getTeamname(account.getTag(), account.getRanking());
@@ -34,7 +34,7 @@ public class AccountListener implements Listener {
 			}
 		}
 
-		Account account = BukkitMain.getAccountCommon().getAccount(player.getUniqueId());
+		Account account = PotePvP.getAccountCommon().getAccount(player.getUniqueId());
 
 		account.setTag(account.getTag());
 	}
@@ -52,7 +52,7 @@ public class AccountListener implements Listener {
 
 		Player player = e.getPlayer();
 
-		Account acc = BukkitMain.getAccountCommon().getAccount(player.getUniqueId());
+		Account acc = PotePvP.getAccountCommon().getAccount(player.getUniqueId());
 
 		if (acc == null) {
 			return;

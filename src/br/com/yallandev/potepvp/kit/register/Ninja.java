@@ -10,7 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.kit.Kit;
 
 public class Ninja extends Kit {
@@ -53,8 +53,8 @@ public class Ninja extends Kit {
 							sendMessage(p, "Jogador muito distante.");
 							return;
 						}
-						if (BukkitMain.getInstance().getGladiatorFightController().isInFight(p)) {
-							if (!BukkitMain.getInstance().getGladiatorFightController().isInFight(pninjado)) {
+						if (PotePvP.getInstance().getGladiatorFightController().isInFight(p)) {
+							if (!PotePvP.getInstance().getGladiatorFightController().isInFight(pninjado)) {
 								sendMessage(p, "Voc� est� no gladiator!");
 								return;
 							}

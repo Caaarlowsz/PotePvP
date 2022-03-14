@@ -10,7 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.kit.Kit;
 import br.com.yallandev.potepvp.kit.register.effect.Raios;
 
@@ -18,7 +18,7 @@ public class Firebender extends Kit {
 
 	public Firebender() {
 		super("Firebender", Material.REDSTONE_BLOCK, 18000, true, Arrays.asList("Use seu firebender para",
-				"prender alguem em uma", "bola de fogo e deixa-ló", "pegando fogo."));
+				"prender alguem em uma", "bola de fogo e deixa-lï¿½", "pegando fogo."));
 	}
 
 	public static ArrayList<String> fireattack = new ArrayList<String>();
@@ -41,7 +41,7 @@ public class Firebender extends Kit {
 				Raios.onFirebender(ent.getLocation());
 				addCooldown(p, 20);
 				ent.setFireTicks(20 * 6);
-				Bukkit.getScheduler().scheduleAsyncDelayedTask(BukkitMain.getPlugin(), new Runnable() {
+				Bukkit.getScheduler().scheduleAsyncDelayedTask(PotePvP.getPlugin(), new Runnable() {
 					@Override
 					public void run() {
 						fireattack.remove(ent.getName());

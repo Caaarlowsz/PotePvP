@@ -9,16 +9,16 @@ import java.io.OutputStream;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 
 public class Config {
 
-	public BukkitMain main;
+	public PotePvP main;
 	private String configurationName;
 	private FileConfiguration fConfig;
 	private File config;
 
-	public Config(String configurationName, BukkitMain main) {
+	public Config(String configurationName, PotePvP main) {
 		this.configurationName = configurationName;
 		this.main = main;
 
@@ -27,7 +27,7 @@ public class Config {
 
 	public Config(String configurationName) {
 		this.configurationName = configurationName;
-		this.main = BukkitMain.getInstance();
+		this.main = PotePvP.getInstance();
 
 		loadConfig();
 	}

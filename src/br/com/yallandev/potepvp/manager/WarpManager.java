@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.utils.Config;
 
 public class WarpManager extends Config {
@@ -114,7 +114,7 @@ public class WarpManager extends Config {
 			return;
 
 		warps.put(warpName.toLowerCase(), new Warp(warpName, warpLocation, Material.getMaterial(icon), protection));
-		BukkitMain.getInstance().debug("A warp " + warpName + " foi carregada!");
+		PotePvP.getInstance().debug("A warp " + warpName + " foi carregada!");
 	}
 
 	public void addWarp(String warpName) {

@@ -20,11 +20,11 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 
 public class GladiatorFight {
 
-	private BukkitMain main;
+	private PotePvP main;
 	private Player gladiator;
 	private Player target;
 	private Location tpLocGladiator;
@@ -36,7 +36,7 @@ public class GladiatorFight {
 	private String type;
 	private boolean ended;
 
-	public GladiatorFight(final Player gladiator, final Player target, BukkitMain bc) {
+	public GladiatorFight(final Player gladiator, final Player target, PotePvP bc) {
 		this.main = bc;
 		this.gladiator = gladiator;
 		this.target = target;
@@ -52,13 +52,13 @@ public class GladiatorFight {
 						if ((GladiatorFight.this.isIn1v1(e.getEntity())) && (!GladiatorFight.this.ended)) {
 							GladiatorFight.this.ended = true;
 							if (e.getEntity() == gladiator) {
-								target.sendMessage(BukkitMain.getPrefix() + "Voc� ganhou o gladiator.");
+								target.sendMessage(PotePvP.getPrefix() + "Voc� ganhou o gladiator.");
 								target.addPotionEffect(
 										new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 100000));
 								GladiatorFight.this.teleportBack(target, gladiator);
 								return;
 							}
-							gladiator.sendMessage(BukkitMain.getPrefix() + "Voc� ganhou o gladiator.");
+							gladiator.sendMessage(PotePvP.getPrefix() + "Voc� ganhou o gladiator.");
 							gladiator
 									.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 100000));
 							GladiatorFight.this.teleportBack(gladiator, target);
@@ -82,12 +82,12 @@ public class GladiatorFight {
 				if (!GladiatorFight.this.ended) {
 					GladiatorFight.this.ended = true;
 					if (p == gladiator) {
-						target.sendMessage(BukkitMain.getPrefix() + "Voc� ganhou o gladiator.");
+						target.sendMessage(PotePvP.getPrefix() + "Voc� ganhou o gladiator.");
 						target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 100000));
 						GladiatorFight.this.teleportBack(target, gladiator);
 						return;
 					}
-					gladiator.sendMessage(BukkitMain.getPrefix() + "Voc� ganhou o gladiator.");
+					gladiator.sendMessage(PotePvP.getPrefix() + "Voc� ganhou o gladiator.");
 					gladiator.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 100000));
 					GladiatorFight.this.teleportBack(gladiator, target);
 				}
@@ -105,12 +105,12 @@ public class GladiatorFight {
 				if (!GladiatorFight.this.ended) {
 					GladiatorFight.this.ended = true;
 					if (p == gladiator) {
-						target.sendMessage(BukkitMain.getPrefix() + "Voc� ganhou o gladiator.");
+						target.sendMessage(PotePvP.getPrefix() + "Voc� ganhou o gladiator.");
 						target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 100000));
 						GladiatorFight.this.teleportBack(target, gladiator);
 						return;
 					}
-					gladiator.sendMessage(BukkitMain.getPrefix() + "Voc� ganhou o gladiator.");
+					gladiator.sendMessage(PotePvP.getPrefix() + "Voc� ganhou o gladiator.");
 					gladiator.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 100000));
 					GladiatorFight.this.teleportBack(gladiator, target);
 				}
@@ -119,7 +119,7 @@ public class GladiatorFight {
 		this.main.getServer().getPluginManager().registerEvents(this.listener, this.main);
 	}
 
-	public GladiatorFight(final Player gladiator, final Player target, String type, BukkitMain bc) {
+	public GladiatorFight(final Player gladiator, final Player target, String type, PotePvP bc) {
 		this.main = bc;
 		this.type = type;
 		this.gladiator = gladiator;
@@ -136,13 +136,13 @@ public class GladiatorFight {
 						if ((GladiatorFight.this.isIn1v1(e.getEntity())) && (!GladiatorFight.this.ended)) {
 							GladiatorFight.this.ended = true;
 							if (e.getEntity() == gladiator) {
-								target.sendMessage(BukkitMain.getPrefix() + "Voc� ganhou o gladiator.");
+								target.sendMessage(PotePvP.getPrefix() + "Voc� ganhou o gladiator.");
 								target.addPotionEffect(
 										new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 100000));
 								GladiatorFight.this.teleportBack(target, gladiator);
 								return;
 							}
-							gladiator.sendMessage(BukkitMain.getPrefix() + "Voc� ganhou o gladiator.");
+							gladiator.sendMessage(PotePvP.getPrefix() + "Voc� ganhou o gladiator.");
 							gladiator
 									.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 100000));
 							dropItems(e.getEntity(), GladiatorFight.this.tpLocTarget);
@@ -167,12 +167,12 @@ public class GladiatorFight {
 				if (!GladiatorFight.this.ended) {
 					GladiatorFight.this.ended = true;
 					if (p == gladiator) {
-						target.sendMessage(BukkitMain.getPrefix() + "Voc� ganhou o gladiator.");
+						target.sendMessage(PotePvP.getPrefix() + "Voc� ganhou o gladiator.");
 						target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 100000));
 						GladiatorFight.this.teleportBack(target, gladiator);
 						return;
 					}
-					gladiator.sendMessage(BukkitMain.getPrefix() + "Voc� ganhou o gladiator.");
+					gladiator.sendMessage(PotePvP.getPrefix() + "Voc� ganhou o gladiator.");
 					gladiator.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 100000));
 					dropItems(p, GladiatorFight.this.tpLocTarget);
 					GladiatorFight.this.teleportBack(gladiator, target);
@@ -191,12 +191,12 @@ public class GladiatorFight {
 				if (!GladiatorFight.this.ended) {
 					GladiatorFight.this.ended = true;
 					if (p == gladiator) {
-						target.sendMessage(BukkitMain.getPrefix() + "Voc� ganhou o gladiator.");
+						target.sendMessage(PotePvP.getPrefix() + "Voc� ganhou o gladiator.");
 						target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 100000));
 						GladiatorFight.this.teleportBack(target, gladiator);
 						return;
 					}
-					gladiator.sendMessage(BukkitMain.getPrefix() + "Voc� ganhou o gladiator.");
+					gladiator.sendMessage(PotePvP.getPrefix() + "Voc� ganhou o gladiator.");
 					gladiator.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 100000));
 					dropItems(p, GladiatorFight.this.tpLocTarget);
 					GladiatorFight.this.teleportBack(gladiator, target);
@@ -254,11 +254,11 @@ public class GladiatorFight {
 		this.tpLocGladiator = this.gladiator.getLocation().clone();
 		this.tpLocTarget = this.target.getLocation().clone();
 		this.gladiator.sendMessage(
-				BukkitMain.getPrefix() + "�fVoc� puxou �c" + this.target.getName() + " �fpara o gladiator!");
-		this.gladiator.sendMessage(BukkitMain.getPrefix() + "�fVoc� tem �a5 segundos �fde invencibilidade.");
+				PotePvP.getPrefix() + "�fVoc� puxou �c" + this.target.getName() + " �fpara o gladiator!");
+		this.gladiator.sendMessage(PotePvP.getPrefix() + "�fVoc� tem �a5 segundos �fde invencibilidade.");
 		this.target.sendMessage(
-				BukkitMain.getPrefix() + "�fVoc� foi puxado �9�l" + this.gladiator.getName() + " �fpara o gladiator!");
-		this.target.sendMessage(BukkitMain.getPrefix() + "�fVoc� tem �a5 segundos �fde invencibilidade.");
+				PotePvP.getPrefix() + "�fVoc� foi puxado �9�l" + this.gladiator.getName() + " �fpara o gladiator!");
+		this.target.sendMessage(PotePvP.getPrefix() + "�fVoc� tem �a5 segundos �fde invencibilidade.");
 		Location l2 = new Location(mainBlock.getWorld(), mainBlock.getX() + 6.5D, 121.0D, mainBlock.getZ() + 6.5D);
 		l2.setYaw(135.0F);
 		Location l3 = new Location(mainBlock.getWorld(), mainBlock.getX() - 5.5D, 121.0D, mainBlock.getZ() - 5.5D);

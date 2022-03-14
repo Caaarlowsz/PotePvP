@@ -20,8 +20,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.event.update.UpdateEvent;
 import br.com.yallandev.potepvp.event.update.UpdateEvent.UpdateType;
@@ -31,7 +31,7 @@ import br.com.yallandev.potepvp.utils.ItemManager;
 
 public class RDMAutomatic {
 
-	private BukkitMain main;
+	private PotePvP main;
 
 	private int time;
 	private GameType gameType;
@@ -46,7 +46,7 @@ public class RDMAutomatic {
 	private List<Player> specs;
 
 	public RDMAutomatic() {
-		this.main = BukkitMain.getInstance();
+		this.main = PotePvP.getInstance();
 		this.time = 300;
 		this.players = new ArrayList<>();
 		this.gameType = GameType.STARTING;
@@ -55,8 +55,8 @@ public class RDMAutomatic {
 		this.pvp = false;
 		this.specs = new ArrayList<>();
 		this.playersInPvp = new ArrayList<>();
-		BukkitMain.broadcast("O evento �aRei da Mesa�f ir� iniciar em �a5 minutos�f.");
-		BukkitMain.broadcast("Use �a/evento entrar�f para entrar no evento!");
+		PotePvP.broadcast("O evento �aRei da Mesa�f ir� iniciar em �a5 minutos�f.");
+		PotePvP.broadcast("Use �a/evento entrar�f para entrar no evento!");
 
 		Bukkit.getPluginManager().registerEvents(listener = new Listener() {
 
@@ -67,57 +67,57 @@ public class RDMAutomatic {
 
 				if (getGameType() == GameType.STARTING) {
 					if (time == 240) {
-						BukkitMain.broadcast("O evento �aRei da Mesa�f ir� iniciar em �a4 minutos�f.");
-						BukkitMain.broadcast("Use �a/evento entrar�f para entrar no evento!");
-						BukkitMain.broadcast("�e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
+						PotePvP.broadcast("O evento �aRei da Mesa�f ir� iniciar em �a4 minutos�f.");
+						PotePvP.broadcast("Use �a/evento entrar�f para entrar no evento!");
+						PotePvP.broadcast("�e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
 					}
 					if (time == 180) {
-						BukkitMain.broadcast("O evento �aRei da Mesa�f ir� iniciar em �a3 minutos�f.");
-						BukkitMain.broadcast("Use �a/evento entrar�f para entrar no evento!");
-						BukkitMain.broadcast("�e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
+						PotePvP.broadcast("O evento �aRei da Mesa�f ir� iniciar em �a3 minutos�f.");
+						PotePvP.broadcast("Use �a/evento entrar�f para entrar no evento!");
+						PotePvP.broadcast("�e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
 					}
 					if (time == 120) {
-						BukkitMain.broadcast("O evento �aRei da Mesa�f ir� iniciar em �a2 minutos�f.");
-						BukkitMain.broadcast("Use �a/evento entrar�f para entrar no evento!");
-						BukkitMain.broadcast("�e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
+						PotePvP.broadcast("O evento �aRei da Mesa�f ir� iniciar em �a2 minutos�f.");
+						PotePvP.broadcast("Use �a/evento entrar�f para entrar no evento!");
+						PotePvP.broadcast("�e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
 					}
 					if (time == 90) {
-						BukkitMain.broadcast("O evento �aRei da Mesa�f ir� iniciar em �a2 minutos e 30 segundos�f.");
-						BukkitMain.broadcast("Use �a/evento entrar�f para entrar no evento!");
-						BukkitMain.broadcast("�e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
+						PotePvP.broadcast("O evento �aRei da Mesa�f ir� iniciar em �a2 minutos e 30 segundos�f.");
+						PotePvP.broadcast("Use �a/evento entrar�f para entrar no evento!");
+						PotePvP.broadcast("�e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
 					}
 					if (time == 60) {
-						BukkitMain.broadcast("O evento �aRei da Mesa�f ir� iniciar em �a1 minuto�f.");
-						BukkitMain.broadcast("Use �a/evento entrar�f para entrar no evento!");
-						BukkitMain.broadcast("�e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
+						PotePvP.broadcast("O evento �aRei da Mesa�f ir� iniciar em �a1 minuto�f.");
+						PotePvP.broadcast("Use �a/evento entrar�f para entrar no evento!");
+						PotePvP.broadcast("�e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
 					}
 					if (time == 30) {
-						BukkitMain.broadcast("O evento �aRei da Mesa�f ir� iniciar em �a30 segundos�f.");
-						BukkitMain.broadcast("Use �a/evento entrar�f para entrar no evento!");
-						BukkitMain.broadcast("�e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
+						PotePvP.broadcast("O evento �aRei da Mesa�f ir� iniciar em �a30 segundos�f.");
+						PotePvP.broadcast("Use �a/evento entrar�f para entrar no evento!");
+						PotePvP.broadcast("�e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
 					}
 					if (time == 15) {
-						BukkitMain.broadcast("O evento �aRei da Mesa�f ir� iniciar em �a15 segundos�f.");
-						BukkitMain.broadcast("Use �a/evento entrar�f para entrar no evento!");
-						BukkitMain.broadcast("�e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
+						PotePvP.broadcast("O evento �aRei da Mesa�f ir� iniciar em �a15 segundos�f.");
+						PotePvP.broadcast("Use �a/evento entrar�f para entrar no evento!");
+						PotePvP.broadcast("�e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
 					}
 
 					if (time == 10) {
-						BukkitMain.broadcast("O evento �aRei da Mesa�f ir� iniciar em �a10 segundos�f.");
-						BukkitMain.broadcast("Use �a/evento entrar�f para entrar no evento!");
-						BukkitMain.broadcast("�e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
+						PotePvP.broadcast("O evento �aRei da Mesa�f ir� iniciar em �a10 segundos�f.");
+						PotePvP.broadcast("Use �a/evento entrar�f para entrar no evento!");
+						PotePvP.broadcast("�e" + players.size() + " jogadores de " + maxPlayers + " no evento.");
 					}
 
 					if (players.size() == (10 - maxPlayers) && time >= 50 && !full) {
 						time = 30;
-						BukkitMain.broadcast(
+						PotePvP.broadcast(
 								"O tempo foi alterado para �a30 segundos�f, porque o evento est� quase cheio!");
 						full = true;
 					}
 
 					if (time <= 0) {
 						gameType = GameType.GAMIMG;
-						BukkitMain.broadcast("O evento �aRei da Mesa�f iniciou!");
+						PotePvP.broadcast("O evento �aRei da Mesa�f iniciou!");
 					}
 
 					time--;
@@ -225,9 +225,9 @@ public class RDMAutomatic {
 		if (players.size() == 1) {
 			Player winner = players.get(0);
 			this.playersInPvp.clear();
-			BukkitMain.broadcast("O jogador �a" + winner.getName() + "�f ganhou o evento!");
+			PotePvP.broadcast("O jogador �a" + winner.getName() + "�f ganhou o evento!");
 
-			Account player = BukkitMain.getAccountCommon().getAccount(winner.getUniqueId());
+			Account player = PotePvP.getAccountCommon().getAccount(winner.getUniqueId());
 
 			player.sendMessage("Voc� ganhou �a50 de xp�f!");
 			player.sendMessage("Voc� ganhou �a1500 de coins�f!");
@@ -241,7 +241,7 @@ public class RDMAutomatic {
 		}
 
 		if (players.size() == 0) {
-			BukkitMain.broadcast("N�o houve nenhum ganhador!");
+			PotePvP.broadcast("N�o houve nenhum ganhador!");
 			this.playersInPvp.clear();
 			return;
 		}
@@ -409,7 +409,7 @@ public class RDMAutomatic {
 		main.getPlayerManager().setWarp(player.getUniqueId(), warp);
 		main.getPlayerManager().setProtection(player.getUniqueId(), true);
 		main.getKitManager().removeAbility(player.getUniqueId());
-		PlayerListener.setItem(BukkitMain.getAccountCommon().getAccount(player.getUniqueId()));
+		PlayerListener.setItem(PotePvP.getAccountCommon().getAccount(player.getUniqueId()));
 
 		players.remove(player);
 	}
@@ -424,7 +424,7 @@ public class RDMAutomatic {
 			if (!players.isOnline())
 				continue;
 
-			Account player = BukkitMain.getAccountCommon().getAccount(players.getUniqueId());
+			Account player = PotePvP.getAccountCommon().getAccount(players.getUniqueId());
 
 			if (player == null)
 				continue;
@@ -437,11 +437,11 @@ public class RDMAutomatic {
 			main.getPlayerManager().setWarp(players.getUniqueId(), warp);
 			main.getPlayerManager().setProtection(players.getUniqueId(), true);
 			main.getKitManager().removeAbility(players.getUniqueId());
-			PlayerListener.setItem(BukkitMain.getAccountCommon().getAccount(players.getUniqueId()));
+			PlayerListener.setItem(PotePvP.getAccountCommon().getAccount(players.getUniqueId()));
 		}
 
 		HandlerList.unregisterAll(this.listener);
-		BukkitMain.getInstance().getEventManager().setRdmAutomatic(null);
+		PotePvP.getInstance().getEventManager().setRdmAutomatic(null);
 	}
 
 	public void setMaxPlayers(int maxPlayers) {
@@ -509,7 +509,7 @@ public class RDMAutomatic {
 		main.getPlayerManager().setWarp(p.getUniqueId(), warp);
 		main.getPlayerManager().setProtection(p.getUniqueId(), true);
 		main.getKitManager().removeAbility(p.getUniqueId());
-		PlayerListener.setItem(BukkitMain.getAccountCommon().getAccount(p.getUniqueId()));
+		PlayerListener.setItem(PotePvP.getAccountCommon().getAccount(p.getUniqueId()));
 	}
 
 	public enum GameType {

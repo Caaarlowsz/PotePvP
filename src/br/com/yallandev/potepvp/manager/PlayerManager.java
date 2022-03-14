@@ -12,14 +12,14 @@ import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.manager.WarpManager.Warp;
 import br.com.yallandev.potepvp.status.Status;
 
 public class PlayerManager {
 
-	private BukkitMain main;
+	private PotePvP main;
 	private HashMap<UUID, Warp> playerWarp;
 //	private HashMap<String, Kit> playerKit;
 	private HashMap<UUID, Status> playerStatus;
@@ -29,7 +29,7 @@ public class PlayerManager {
 	private HashMap<UUID, UUID> screenshare;
 
 	public PlayerManager() {
-		this.main = BukkitMain.getInstance();
+		this.main = PotePvP.getInstance();
 		this.playerWarp = new HashMap<>();
 		this.playerStatus = new HashMap<>();
 		this.playerCombatLog = new HashMap<>();
@@ -91,11 +91,11 @@ public class PlayerManager {
 	}
 
 	public Status loadStatus(UUID uuid) {
-		if (!BukkitMain.getConnection().isConnected()) {
-			BukkitMain.getConnection().tryConnection();
+		if (!PotePvP.getConnection().isConnected()) {
+			PotePvP.getConnection().tryConnection();
 		}
 		try {
-			Connection connection = BukkitMain.getConnection().getConnection();
+			Connection connection = PotePvP.getConnection().getConnection();
 			PreparedStatement stmt = connection
 					.prepareStatement("SELECT * FROM `kitpvp_status` WHERE `Uuid`='" + uuid.toString() + "';");
 			ResultSet result = stmt.executeQuery();
@@ -121,7 +121,7 @@ public class PlayerManager {
 		Status status = null;
 
 		try {
-			Connection connection = BukkitMain.getConnection().getConnection();
+			Connection connection = PotePvP.getConnection().getConnection();
 			PreparedStatement stmt = connection
 					.prepareStatement("SELECT * FROM `kitpvp_status` WHERE `Uuid`='" + uuid.toString() + "';");
 			ResultSet result = stmt.executeQuery();
@@ -156,12 +156,12 @@ public class PlayerManager {
 	}
 
 	public void saveStatus(UUID uuid, Status status) {
-		if (!BukkitMain.getConnection().isConnected()) {
-			BukkitMain.getConnection().tryConnection();
+		if (!PotePvP.getConnection().isConnected()) {
+			PotePvP.getConnection().tryConnection();
 		}
 
 		try {
-			PreparedStatement stmt = BukkitMain.getConnection().prepareStatment(
+			PreparedStatement stmt = PotePvP.getConnection().prepareStatment(
 					"INSERT INTO `kitpvp_status`(`Uuid`, `kills`, `deaths`, `killstreak`, `money`, `xp`, `highestKS`) VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `kills`=VALUES(`kills`), `deaths`=VALUES(`deaths`), `killstreak`=VALUES(`killstreak`), `money`=VALUES(`money`), `xp`=VALUES(`xp`), `highestKS`=VALUES(`highestKS`);");
 			stmt.setString(1, uuid.toString());
 			stmt.setInt(2, status.getKills());

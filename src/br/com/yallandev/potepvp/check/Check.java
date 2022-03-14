@@ -3,7 +3,7 @@ package br.com.yallandev.potepvp.check;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.check.api.MCAPICA;
 import br.com.yallandev.potepvp.check.api.MCUUID;
 import br.com.yallandev.potepvp.check.api.MineTools;
@@ -18,8 +18,8 @@ public class Check {
 
 	public static boolean fastCheck(String playerName) throws InvalidCheckException {
 		if (Util.hasClass("org.bukkit.Bukkit")) {
-			if (BukkitMain.getStorage().getPremiumMap().containsKey(playerName)) {
-				return BukkitMain.getStorage().getPremiumMap().get(playerName);
+			if (PotePvP.getStorage().getPremiumMap().containsKey(playerName)) {
+				return PotePvP.getStorage().getPremiumMap().get(playerName);
 			}
 		}
 		for (Verify verify : Check.VERIFY_LIST) {

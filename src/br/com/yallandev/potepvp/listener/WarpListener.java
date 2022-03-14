@@ -14,8 +14,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.event.account.PlayerJoinWarpEvent;
 import br.com.yallandev.potepvp.event.account.PlayerRespawnWarpEvent;
 import br.com.yallandev.potepvp.listener.umvum.Warp1v1;
@@ -29,9 +29,9 @@ import net.minecraft.server.v1_7_R4.PacketPlayOutChat;
 
 public class WarpListener implements Listener {
 
-	private BukkitMain main;
+	private PotePvP main;
 
-	public WarpListener(BukkitMain main) {
+	public WarpListener(PotePvP main) {
 		this.main = main;
 	}
 
@@ -185,7 +185,7 @@ public class WarpListener implements Listener {
 
 		Player p = e.getPlayer();
 
-		BukkitMain.getInstance().getPlayerManager().addProtection(p.getUniqueId());
+		PotePvP.getInstance().getPlayerManager().addProtection(p.getUniqueId());
 
 		if (e.getWarp().getWarpName().equalsIgnoreCase("1v1")) {
 			Warp1v1.set1v1(p);
@@ -267,7 +267,7 @@ public class WarpListener implements Listener {
 					p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20 * 9999, 0));
 					p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 9999, 0));
 				}
-			}.runTaskLater(BukkitMain.getInstance(), 20);
+			}.runTaskLater(PotePvP.getInstance(), 20);
 
 			e.setRespawnLocation(e.getWarp().getWarpLocation());
 			p.updateInventory();
@@ -299,7 +299,7 @@ public class WarpListener implements Listener {
 				public void run() {
 					p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 9999, 1));
 				}
-			}.runTaskLater(BukkitMain.getInstance(), 20);
+			}.runTaskLater(PotePvP.getInstance(), 20);
 			p.updateInventory();
 			return;
 		}

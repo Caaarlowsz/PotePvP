@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.Command;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.CommandArgs;
@@ -22,7 +22,7 @@ public class SkitCommand extends CommandClass {
 		String[] a = cmdArgs.getArgs();
 		Player p = (Player) s;
 
-		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 		if (player == null)
 			return;
@@ -36,7 +36,7 @@ public class SkitCommand extends CommandClass {
 			if (a[0].equalsIgnoreCase("list")) {
 				List<String> list = new ArrayList<>();
 
-				for (String l : BukkitMain.getInstance().getSimpleKitManager().values()) {
+				for (String l : PotePvP.getInstance().getSimpleKitManager().values()) {
 					list.add(l);
 				}
 
@@ -61,9 +61,9 @@ public class SkitCommand extends CommandClass {
 			}
 		} else if (a.length == 2) {
 			if (a[0].equalsIgnoreCase("create") || a[0].equalsIgnoreCase("criar")) {
-				BukkitMain.getInstance().getSimpleKitManager().createSkit(p, a[1]);
+				PotePvP.getInstance().getSimpleKitManager().createSkit(p, a[1]);
 			} else if (a[0].equalsIgnoreCase("update")) {
-				BukkitMain.getInstance().getSimpleKitManager().updateSkit(p, a[1]);
+				PotePvP.getInstance().getSimpleKitManager().updateSkit(p, a[1]);
 			} else {
 				send(p, "Use �a/skit [criar/create] [Name]�f para criar um skit.");
 				send(p, "Use �a/skit [aplicar/apply] [Name] [Raio/All/Jogador/Warp]�f para aplicar um skit em um raio determinado, em todos do servidor ou em um player s�.");
@@ -72,10 +72,10 @@ public class SkitCommand extends CommandClass {
 		} else {
 			if (a[0].equalsIgnoreCase("aplicar") || a[0].equalsIgnoreCase("apply")) {
 				if (a[2].equalsIgnoreCase("all")) {
-					BukkitMain.getInstance().getSimpleKitManager().applyInAll(p, a[1]);
-				} else if (BukkitMain.getInstance().getWarpManager().getWarp(a[2]) != null) {
+					PotePvP.getInstance().getSimpleKitManager().applyInAll(p, a[1]);
+				} else if (PotePvP.getInstance().getWarpManager().getWarp(a[2]) != null) {
 				} else if (Bukkit.getPlayer(a[2]) != null) {
-					BukkitMain.getInstance().getSimpleKitManager().applyInPlayer(p, Bukkit.getPlayer(a[2]), a[1]);
+					PotePvP.getInstance().getSimpleKitManager().applyInPlayer(p, Bukkit.getPlayer(a[2]), a[1]);
 				} else {
 					Integer raio = null;
 
@@ -86,7 +86,7 @@ public class SkitCommand extends CommandClass {
 						return;
 					}
 
-					BukkitMain.getInstance().getSimpleKitManager().applySkit(p, raio, a[1]);
+					PotePvP.getInstance().getSimpleKitManager().applySkit(p, raio, a[1]);
 				}
 			}
 		}

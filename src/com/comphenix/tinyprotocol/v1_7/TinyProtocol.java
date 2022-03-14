@@ -24,7 +24,7 @@ import com.comphenix.tinyprotocol.NMSReflection;
 import com.comphenix.tinyprotocol.NMSReflection.FieldAccessor;
 import com.comphenix.tinyprotocol.NMSReflection.MethodInvoker;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.utils.Util;
 import net.minecraft.util.com.google.common.collect.Lists;
 import net.minecraft.util.com.google.common.collect.MapMaker;
@@ -89,7 +89,7 @@ public abstract class TinyProtocol {
 	protected Plugin plugin;
 
 	public TinyProtocol() {
-		this.plugin = BukkitMain.getPlugin();
+		this.plugin = PotePvP.getPlugin();
 
 		this.handlerName = this.getHandlerName();
 

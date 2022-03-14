@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.kit.Kit;
 
 public class Forcefield extends Kit {
@@ -56,7 +56,7 @@ public class Forcefield extends Kit {
 							}
 						}
 					}
-				}.runTaskLater(BukkitMain.getPlugin(), 0);
+				}.runTaskLater(PotePvP.getPlugin(), 0);
 
 				new BukkitRunnable() {
 
@@ -72,7 +72,7 @@ public class Forcefield extends Kit {
 							}
 						}
 					}
-				}.runTaskLater(BukkitMain.getPlugin(), 10);
+				}.runTaskLater(PotePvP.getPlugin(), 10);
 
 				new BukkitRunnable() {
 
@@ -88,7 +88,7 @@ public class Forcefield extends Kit {
 							}
 						}
 					}
-				}.runTaskLater(BukkitMain.getPlugin(), 20);
+				}.runTaskLater(PotePvP.getPlugin(), 20);
 
 				new BukkitRunnable() {
 
@@ -104,7 +104,7 @@ public class Forcefield extends Kit {
 							}
 						}
 					}
-				}.runTaskLater(BukkitMain.getPlugin(), 30);
+				}.runTaskLater(PotePvP.getPlugin(), 30);
 
 				new BukkitRunnable() {
 
@@ -120,7 +120,7 @@ public class Forcefield extends Kit {
 							}
 						}
 					}
-				}.runTaskLater(BukkitMain.getPlugin(), 40);
+				}.runTaskLater(PotePvP.getPlugin(), 40);
 
 				new BukkitRunnable() {
 
@@ -136,7 +136,7 @@ public class Forcefield extends Kit {
 							}
 						}
 					}
-				}.runTaskLater(BukkitMain.getPlugin(), 50);
+				}.runTaskLater(PotePvP.getPlugin(), 50);
 
 				new BukkitRunnable() {
 
@@ -152,7 +152,7 @@ public class Forcefield extends Kit {
 							}
 						}
 					}
-				}.runTaskLater(BukkitMain.getPlugin(), 60);
+				}.runTaskLater(PotePvP.getPlugin(), 60);
 
 				new BukkitRunnable() {
 
@@ -168,7 +168,7 @@ public class Forcefield extends Kit {
 							}
 						}
 					}
-				}.runTaskLater(BukkitMain.getPlugin(), 70);
+				}.runTaskLater(PotePvP.getPlugin(), 70);
 
 				new BukkitRunnable() {
 
@@ -184,7 +184,7 @@ public class Forcefield extends Kit {
 							}
 						}
 					}
-				}.runTaskLater(BukkitMain.getPlugin(), 80);
+				}.runTaskLater(PotePvP.getPlugin(), 80);
 
 				new BukkitRunnable() {
 
@@ -200,7 +200,7 @@ public class Forcefield extends Kit {
 							}
 						}
 					}
-				}.runTaskLater(BukkitMain.getPlugin(), 90);
+				}.runTaskLater(PotePvP.getPlugin(), 90);
 
 				new BukkitRunnable() {
 
@@ -216,7 +216,7 @@ public class Forcefield extends Kit {
 							}
 						}
 					}
-				}.runTaskLater(BukkitMain.getPlugin(), 100);
+				}.runTaskLater(PotePvP.getPlugin(), 100);
 			}
 		}
 	}

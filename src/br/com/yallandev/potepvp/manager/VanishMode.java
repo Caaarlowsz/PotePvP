@@ -10,7 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.permissions.group.Group;
 import br.com.yallandev.potepvp.utils.ItemManager;
@@ -41,7 +41,7 @@ public class VanishMode {
 		if (!admin.contains(p.getUniqueId()))
 			admin.add(p.getUniqueId());
 
-		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 		player.makeVanish();
 		player.updateVanished();
@@ -73,7 +73,7 @@ public class VanishMode {
 		while (admin.contains(p.getUniqueId()))
 			admin.remove(p.getUniqueId());
 
-		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 		if (player == null)
 			return;
@@ -90,7 +90,7 @@ public class VanishMode {
 		armor.put(p.getUniqueId(), p.getInventory().getArmorContents());
 		contents.put(p.getUniqueId(), p.getInventory().getContents());
 
-		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 		if (player == null)
 			return;

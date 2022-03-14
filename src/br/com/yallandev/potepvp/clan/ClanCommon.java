@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.account.Account;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -22,12 +22,12 @@ import net.md_5.bungee.api.chat.TextComponent;
 
 public class ClanCommon {
 
-	private BukkitMain main;
+	private PotePvP main;
 	private HashMap<String, Clan> clan;
 	private HashMap<UUID, Map<UUID, Invite>> invite;
 
 	public ClanCommon() {
-		this.main = BukkitMain.getInstance();
+		this.main = PotePvP.getInstance();
 		this.clan = new HashMap<>();
 		this.invite = new HashMap<>();
 	}
@@ -157,7 +157,7 @@ public class ClanCommon {
 
 	public void broadcastClan(Clan clan, String message) {
 		for (Player players : Bukkit.getOnlinePlayers()) {
-			Account player = BukkitMain.getAccountCommon().getAccount(players.getUniqueId());
+			Account player = PotePvP.getAccountCommon().getAccount(players.getUniqueId());
 
 			if (player == null)
 				continue;
@@ -184,13 +184,13 @@ public class ClanCommon {
 		}
 
 		try {
-			Connection connection = BukkitMain.getConnection().getConnection();
+			Connection connection = PotePvP.getConnection().getConnection();
 			PreparedStatement stmt = connection
 					.prepareStatement("SELECT * FROM `clan` WHERE `ClanTag`='" + clanTag.toLowerCase() + "';");
 			ResultSet result = stmt.executeQuery();
 
 			if (result.next()) {
-				Clan clan = BukkitMain.getInstance().getGson().fromJson(result.getString("json"), Clan.class);
+				Clan clan = PotePvP.getInstance().getGson().fromJson(result.getString("json"), Clan.class);
 				return clan;
 			}
 
@@ -207,13 +207,13 @@ public class ClanCommon {
 
 	public Clan loadClan(String clanName) {
 		try {
-			Connection connection = BukkitMain.getConnection().getConnection();
+			Connection connection = PotePvP.getConnection().getConnection();
 			PreparedStatement stmt = connection
 					.prepareStatement("SELECT * FROM `clan` WHERE `ClanName`='" + clanName.toLowerCase() + "';");
 			ResultSet result = stmt.executeQuery();
 
 			if (result.next()) {
-				Clan clan = BukkitMain.getInstance().getGson().fromJson(result.getString("json"), Clan.class);
+				Clan clan = PotePvP.getInstance().getGson().fromJson(result.getString("json"), Clan.class);
 				loadClan(clan.getClanName(), clan);
 				loadStatus(clan);
 			}
@@ -233,13 +233,13 @@ public class ClanCommon {
 		Clan clan = null;
 
 		try {
-			Connection connection = BukkitMain.getConnection().getConnection();
+			Connection connection = PotePvP.getConnection().getConnection();
 			PreparedStatement stmt = connection
 					.prepareStatement("SELECT * FROM `clan` WHERE `ClanName`='" + clanName.toLowerCase() + "';");
 			ResultSet result = stmt.executeQuery();
 
 			if (result.next()) {
-				clan = BukkitMain.getInstance().getGson().fromJson(result.getString("json"), Clan.class);
+				clan = PotePvP.getInstance().getGson().fromJson(result.getString("json"), Clan.class);
 				loadStatus(clan);
 
 				if (value)
@@ -259,13 +259,13 @@ public class ClanCommon {
 
 	public Clan loadClanIfExistOrCreateClanIfNotExist(String clanName, String clanTag) {
 		try {
-			Connection connection = BukkitMain.getConnection().getConnection();
+			Connection connection = PotePvP.getConnection().getConnection();
 			PreparedStatement stmt = connection
 					.prepareStatement("SELECT * FROM `clan` WHERE `ClanName`='" + clanName.toLowerCase() + "';");
 			ResultSet result = stmt.executeQuery();
 
 			if (result.next()) {
-				Clan clan = BukkitMain.getInstance().getGson().fromJson(result.getString("json"), Clan.class);
+				Clan clan = PotePvP.getInstance().getGson().fromJson(result.getString("json"), Clan.class);
 				loadClan(clan.getClanName(), clan);
 				loadStatus(clan);
 			} else {
@@ -285,7 +285,7 @@ public class ClanCommon {
 
 	public void loadStatus(Clan clan) {
 		try {
-			Connection connection = BukkitMain.getConnection().getConnection();
+			Connection connection = PotePvP.getConnection().getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
 					"SELECT * FROM `clan_status` WHERE `ClanName`='" + clan.getClanName().toLowerCase() + "';");
 			ResultSet result = stmt.executeQuery();
@@ -313,11 +313,11 @@ public class ClanCommon {
 
 	public void deleteClan(Clan clan) {
 		try {
-			PreparedStatement stmt = BukkitMain.getConnection().prepareStatment(
+			PreparedStatement stmt = PotePvP.getConnection().prepareStatment(
 					"DELETE FROM `clan` WHERE `ClanName` = '" + clan.getClanName().toLowerCase() + "';");
 			stmt.executeUpdate();
 
-			stmt = BukkitMain.getConnection().prepareStatment(
+			stmt = PotePvP.getConnection().prepareStatment(
 					"DELETE FROM `clan_status` WHERE `ClanName` = '" + clan.getClanName().toLowerCase() + "';");
 			stmt.executeUpdate();
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
@@ -325,7 +325,7 @@ public class ClanCommon {
 		}
 
 		for (Player players : Bukkit.getOnlinePlayers()) {
-			Account player = BukkitMain.getAccountCommon().getAccount(players.getUniqueId());
+			Account player = PotePvP.getAccountCommon().getAccount(players.getUniqueId());
 
 			if (player == null)
 				continue;
@@ -341,10 +341,10 @@ public class ClanCommon {
 	}
 
 	public void saveClan(Clan clan) {
-		String json = BukkitMain.getInstance().getGson().toJson(clan);
+		String json = PotePvP.getInstance().getGson().toJson(clan);
 
 		try {
-			PreparedStatement stmt = BukkitMain.getConnection().prepareStatment(
+			PreparedStatement stmt = PotePvP.getConnection().prepareStatment(
 					"INSERT INTO `clan` (`ClanName`, `ClanTag`, `json`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `ClanTag`=VALUES(`ClanTag`), `json`=VALUES(`json`);");
 			stmt.setString(1, clan.getClanName().toLowerCase());
 			stmt.setString(2, clan.getClanTag().toLowerCase());
@@ -355,7 +355,7 @@ public class ClanCommon {
 		}
 
 		for (Player players : Bukkit.getOnlinePlayers()) {
-			Account player = BukkitMain.getAccountCommon().getAccount(players.getUniqueId());
+			Account player = PotePvP.getAccountCommon().getAccount(players.getUniqueId());
 
 			if (player == null)
 				continue;
@@ -370,7 +370,7 @@ public class ClanCommon {
 		this.clan.put(clan.getClanName(), clan);
 
 		try {
-			PreparedStatement stmt = BukkitMain.getConnection().prepareStatment(
+			PreparedStatement stmt = PotePvP.getConnection().prepareStatment(
 					"INSERT INTO `clan_status` (`ClanName`, `kills`, `deaths`, `xp`) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE `kills`=VALUES(`kills`), `deaths`=VALUES(`deaths`), `xp`=VALUES(`xp`);");
 			stmt.setString(1, clan.getClanName().toLowerCase());
 			stmt.setInt(2, clan.getClanStatus().getKills());

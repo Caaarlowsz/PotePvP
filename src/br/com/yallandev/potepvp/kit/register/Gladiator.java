@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.kit.Kit;
 import br.com.yallandev.potepvp.kit.register.gladiator.GladiatorFight;
 
@@ -33,9 +33,9 @@ public class Gladiator extends Kit {
 				&& (hasKit(player)) && ((e.getRightClicked() instanceof Player))) {
 			Player t = (Player) e.getRightClicked();
 			e.setCancelled(true);
-			if (!BukkitMain.getInstance().getGladiatorFightController().isInFight(e.getPlayer())) {
-				if (!BukkitMain.getInstance().getGladiatorFightController().isInFight(t)) {
-					new GladiatorFight(e.getPlayer(), t, BukkitMain.getInstance());
+			if (!PotePvP.getInstance().getGladiatorFightController().isInFight(e.getPlayer())) {
+				if (!PotePvP.getInstance().getGladiatorFightController().isInFight(t)) {
+					new GladiatorFight(e.getPlayer(), t, PotePvP.getInstance());
 				} else {
 					e.getPlayer().sendMessage(getPrefix() + "�fEste jogador j� est� em �aBATALHA�f.");
 				}
@@ -57,7 +57,7 @@ public class Gladiator extends Kit {
 
 	@EventHandler
 	public void onPlayerCommandPreProcess(PlayerCommandPreprocessEvent e) {
-		if (BukkitMain.getInstance().getGladiatorFightController().isInFight(e.getPlayer())) {
+		if (PotePvP.getInstance().getGladiatorFightController().isInFight(e.getPlayer())) {
 			if (!e.getMessage().toLowerCase().startsWith("/report")) {
 				e.setCancelled(true);
 			}
@@ -66,7 +66,7 @@ public class Gladiator extends Kit {
 
 	@EventHandler
 	public void onBlock(BlockDamageEvent event) {
-		if (BukkitMain.getInstance().getGladiatorFightController().isFightBlock(event.getBlock())) {
+		if (PotePvP.getInstance().getGladiatorFightController().isFightBlock(event.getBlock())) {
 			Block b = event.getBlock();
 			if (b.getType() == Material.GLASS) {
 				Player p = event.getPlayer();
@@ -85,7 +85,7 @@ public class Gladiator extends Kit {
 
 	@EventHandler
 	public void onBreak(BlockBreakEvent event) {
-		if (BukkitMain.getInstance().getGladiatorFightController().isFightBlock(event.getBlock())) {
+		if (PotePvP.getInstance().getGladiatorFightController().isFightBlock(event.getBlock())) {
 			if (event.getBlock().getType() == Material.GLASS) {
 				event.setCancelled(true);
 			}

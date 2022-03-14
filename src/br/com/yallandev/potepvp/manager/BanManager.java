@@ -11,7 +11,7 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.ban.constructor.Ban;
 import br.com.yallandev.potepvp.ban.constructor.Mute;
@@ -36,7 +36,7 @@ public class BanManager {
 		player.getBanHistory().add(ban);
 
 		for (Player pPlayer : Bukkit.getOnlinePlayers()) {
-			Account account = BukkitMain.getAccountCommon().getAccount(pPlayer.getUniqueId());
+			Account account = PotePvP.getAccountCommon().getAccount(pPlayer.getUniqueId());
 
 			if (account == null)
 				continue;
@@ -78,7 +78,7 @@ public class BanManager {
 		}
 
 		if (!player.isOnline()) {
-			BukkitMain.getAccountCommon().saveAccount(player);
+			PotePvP.getAccountCommon().saveAccount(player);
 		} else {
 			player.getPlayer().kickPlayer(ban.getMessage());
 		}
@@ -88,7 +88,7 @@ public class BanManager {
 		player.getMuteHistory().add(mute);
 
 		for (Player pPlayer : Bukkit.getOnlinePlayers()) {
-			Account account = BukkitMain.getAccountCommon().getAccount(pPlayer.getUniqueId());
+			Account account = PotePvP.getAccountCommon().getAccount(pPlayer.getUniqueId());
 
 			if (account == null)
 				continue;
@@ -116,14 +116,14 @@ public class BanManager {
 		}
 
 		if (!player.isOnline())
-			BukkitMain.getAccountCommon().saveAccount(player);
+			PotePvP.getAccountCommon().saveAccount(player);
 	}
 
 	public void unban(Account player, String commandSender) {
 		player.getPunishmentHistory().getActualBan().unban(commandSender);
 
 		for (Player pPlayer : Bukkit.getOnlinePlayers()) {
-			Account account = BukkitMain.getAccountCommon().getAccount(pPlayer.getUniqueId());
+			Account account = PotePvP.getAccountCommon().getAccount(pPlayer.getUniqueId());
 
 			if (account == null)
 				continue;
@@ -146,14 +146,14 @@ public class BanManager {
 		}
 
 		if (!player.isOnline())
-			BukkitMain.getAccountCommon().saveAccount(player);
+			PotePvP.getAccountCommon().saveAccount(player);
 	}
 
 	public void unmute(Account player, String commandSender) {
 		player.getPunishmentHistory().getActualMute().unmute(commandSender);
 
 		for (Player pPlayer : Bukkit.getOnlinePlayers()) {
-			Account account = BukkitMain.getAccountCommon().getAccount(pPlayer.getUniqueId());
+			Account account = PotePvP.getAccountCommon().getAccount(pPlayer.getUniqueId());
 
 			if (account == null)
 				continue;
@@ -168,7 +168,7 @@ public class BanManager {
 		}
 
 		if (!player.isOnline())
-			BukkitMain.getAccountCommon().saveAccount(player);
+			PotePvP.getAccountCommon().saveAccount(player);
 	}
 
 	public Entry<String, Ban> getIpBan(String address) {

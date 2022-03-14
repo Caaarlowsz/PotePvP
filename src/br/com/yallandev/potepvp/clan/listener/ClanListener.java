@@ -4,20 +4,20 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.account.Account;
 
 public class ClanListener implements Listener {
 
-	private BukkitMain main;
+	private PotePvP main;
 
 	public ClanListener() {
-		this.main = BukkitMain.getInstance();
+		this.main = PotePvP.getInstance();
 	}
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
-		Account player = BukkitMain.getAccountCommon().getAccount(e.getPlayer().getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(e.getPlayer().getUniqueId());
 
 		if (player == null)
 			return;

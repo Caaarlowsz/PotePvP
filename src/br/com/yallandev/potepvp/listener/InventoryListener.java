@@ -7,8 +7,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.inventory.ServerInventory;
 import br.com.yallandev.potepvp.kit.Kit;
@@ -23,7 +23,7 @@ public class InventoryListener implements Listener {
 		}
 
 		Player p = (Player) e.getWhoClicked();
-		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 		if (player == null) {
 			e.setCancelled(true);
@@ -33,7 +33,7 @@ public class InventoryListener implements Listener {
 		Inventory inv = e.getInventory();
 		ItemStack item = e.getCurrentItem();
 
-		if (inv.getTitle().equalsIgnoreCase("§8Status")) {
+		if (inv.getTitle().equalsIgnoreCase("ï¿½8Status")) {
 			if (item == null)
 				return;
 
@@ -41,7 +41,7 @@ public class InventoryListener implements Listener {
 			return;
 		}
 
-		if (inv.getTitle().equalsIgnoreCase("§8Kit Selector")) {
+		if (inv.getTitle().equalsIgnoreCase("ï¿½8Kit Selector")) {
 			if (item == null)
 				return;
 
@@ -50,15 +50,15 @@ public class InventoryListener implements Listener {
 			if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName())
 				return;
 
-			if (item.getItemMeta().getDisplayName().contains("§a")) {
-				if (item.getItemMeta().getDisplayName().contains("§n")) {
+			if (item.getItemMeta().getDisplayName().contains("ï¿½a")) {
+				if (item.getItemMeta().getDisplayName().contains("ï¿½n")) {
 					Integer page = null;
 
-					if (inv.getItem(4).getItemMeta().getDisplayName().contains("§eVocê está na pagina ")) {
+					if (inv.getItem(4).getItemMeta().getDisplayName().contains("ï¿½eVocï¿½ estï¿½ na pagina ")) {
 						page = Integer.valueOf(inv.getItem(4).getItemMeta().getDisplayName()
-								.replace("§eVocê está na pagina ", "").replace(".", ""));
+								.replace("ï¿½eVocï¿½ estï¿½ na pagina ", "").replace(".", ""));
 					} else {
-						p.sendMessage(BukkitMain.getPrefix() + "Não foi possivel verificar a sua sessão!");
+						p.sendMessage(PotePvP.getPrefix() + "Nï¿½o foi possivel verificar a sua sessï¿½o!");
 						p.closeInventory();
 						return;
 					}
@@ -68,22 +68,22 @@ public class InventoryListener implements Listener {
 					return;
 				}
 
-				String kitName = item.getItemMeta().getDisplayName().replace("§a", "");
+				String kitName = item.getItemMeta().getDisplayName().replace("ï¿½a", "");
 				p.performCommand("kit " + kitName);
 				p.closeInventory();
 				return;
 			}
-			if (item.getItemMeta().getDisplayName().contains("§c§n")) {
-				String page = item.getItemMeta().getDisplayName().replace("§c§nPagina ", "").replace("!", "");
-				player.sendMessage("Não há uma página §a" + page.substring(0, 1).toUpperCase()
-						+ page.substring(1, page.length()) + "§f.");
+			if (item.getItemMeta().getDisplayName().contains("ï¿½cï¿½n")) {
+				String page = item.getItemMeta().getDisplayName().replace("ï¿½cï¿½nPagina ", "").replace("!", "");
+				player.sendMessage("Nï¿½o hï¿½ uma pï¿½gina ï¿½a" + page.substring(0, 1).toUpperCase()
+						+ page.substring(1, page.length()) + "ï¿½f.");
 				p.closeInventory();
 				return;
 			}
 			return;
 		}
 
-		if (inv.getTitle().equalsIgnoreCase("§8Loja de kits!")) {
+		if (inv.getTitle().equalsIgnoreCase("ï¿½8Loja de kits!")) {
 			if (item == null)
 				return;
 
@@ -93,14 +93,14 @@ public class InventoryListener implements Listener {
 				return;
 
 			if (item.getItemMeta().getDisplayName().contains("out-game")) {
-				p.sendMessage("Entre em nosso site: §a§n" + Configuration.SITE.getMessage());
+				p.sendMessage("Entre em nosso site: ï¿½aï¿½n" + Configuration.SITE.getMessage());
 				p.closeInventory();
 			} else
 				ServerInventory.openShopOfKits(player, 1);
 			return;
 		}
 
-		if (inv.getTitle().equalsIgnoreCase("§8Kits Store!")) {
+		if (inv.getTitle().equalsIgnoreCase("ï¿½8Kits Store!")) {
 			if (item == null)
 				return;
 
@@ -109,15 +109,15 @@ public class InventoryListener implements Listener {
 			if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName())
 				return;
 
-			if (item.getItemMeta().getDisplayName().contains("§a")) {
-				if (item.getItemMeta().getDisplayName().contains("§n")) {
+			if (item.getItemMeta().getDisplayName().contains("ï¿½a")) {
+				if (item.getItemMeta().getDisplayName().contains("ï¿½n")) {
 					Integer page = null;
 
-					if (inv.getItem(4).getItemMeta().getDisplayName().contains("§eVocê está na pagina ")) {
+					if (inv.getItem(4).getItemMeta().getDisplayName().contains("ï¿½eVocï¿½ estï¿½ na pagina ")) {
 						page = Integer.valueOf(inv.getItem(4).getItemMeta().getDisplayName()
-								.replace("§eVocê está na pagina ", "").replace(".", ""));
+								.replace("ï¿½eVocï¿½ estï¿½ na pagina ", "").replace(".", ""));
 					} else {
-						p.sendMessage(BukkitMain.getPrefix() + "Não foi possivel verificar a sua sessão!");
+						p.sendMessage(PotePvP.getPrefix() + "Nï¿½o foi possivel verificar a sua sessï¿½o!");
 						p.closeInventory();
 						return;
 					}
@@ -127,15 +127,15 @@ public class InventoryListener implements Listener {
 					return;
 				}
 
-				String kitName = item.getItemMeta().getDisplayName().replace("§a", "");
-				Kit kit = BukkitMain.getInstance().getKitManager().getKit(kitName);
+				String kitName = item.getItemMeta().getDisplayName().replace("ï¿½a", "");
+				Kit kit = PotePvP.getInstance().getKitManager().getKit(kitName);
 				Status status = player.getStatus();
 
 				if (kit.getPrice() > status.getMoney()) {
-					player.sendMessage("Você não tem dinheiro §csuficiente§f para comprar esse kit.");
-					player.sendAction("Você não tem dinheiro!");
+					player.sendMessage("Vocï¿½ nï¿½o tem dinheiro ï¿½csuficienteï¿½f para comprar esse kit.");
+					player.sendAction("Vocï¿½ nï¿½o tem dinheiro!");
 				} else {
-					player.sendMessage("Você comprou o kit §a" + kit.getKitName() + "§f.");
+					player.sendMessage("Vocï¿½ comprou o kit ï¿½a" + kit.getKitName() + "ï¿½f.");
 					player.addPermission("kit." + kitName.toLowerCase());
 					status.removeMoney(kit.getPrice());
 				}
@@ -143,17 +143,17 @@ public class InventoryListener implements Listener {
 				p.closeInventory();
 				return;
 			}
-			if (item.getItemMeta().getDisplayName().contains("§c§n")) {
-				String page = item.getItemMeta().getDisplayName().replace("§c§nPagina ", "").replace("!", "");
-				player.sendMessage("Não há uma página §a" + page.substring(0, 1).toUpperCase()
-						+ page.substring(1, page.length()) + "§f.");
+			if (item.getItemMeta().getDisplayName().contains("ï¿½cï¿½n")) {
+				String page = item.getItemMeta().getDisplayName().replace("ï¿½cï¿½nPagina ", "").replace("!", "");
+				player.sendMessage("Nï¿½o hï¿½ uma pï¿½gina ï¿½a" + page.substring(0, 1).toUpperCase()
+						+ page.substring(1, page.length()) + "ï¿½f.");
 				p.closeInventory();
 				return;
 			}
 			return;
 		}
 
-		if (inv.getTitle().equalsIgnoreCase("§8Warp Selector")) {
+		if (inv.getTitle().equalsIgnoreCase("ï¿½8Warp Selector")) {
 			if (item == null)
 				return;
 
@@ -167,8 +167,8 @@ public class InventoryListener implements Listener {
 				return;
 			}
 
-			if (item.getItemMeta().getDisplayName().contains("§a")) {
-				String warpName = item.getItemMeta().getDisplayName().replace("§a", "");
+			if (item.getItemMeta().getDisplayName().contains("ï¿½a")) {
+				String warpName = item.getItemMeta().getDisplayName().replace("ï¿½a", "");
 
 				p.performCommand("warp " + warpName);
 				p.closeInventory();

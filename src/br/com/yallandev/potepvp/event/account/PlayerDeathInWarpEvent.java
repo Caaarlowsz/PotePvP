@@ -2,7 +2,7 @@ package br.com.yallandev.potepvp.event.account;
 
 import org.bukkit.entity.Player;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.event.PlayerCancellableEvent;
 import br.com.yallandev.potepvp.manager.WarpManager.Warp;
@@ -21,6 +21,6 @@ public class PlayerDeathInWarpEvent extends PlayerCancellableEvent {
 	}
 
 	public Account getAccount() {
-		return BukkitMain.getAccountCommon().getAccount(this.player.getUniqueId());
+		return PotePvP.getAccountCommon().getAccount(this.player.getUniqueId());
 	}
 }

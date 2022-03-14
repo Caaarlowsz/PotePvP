@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.kit.Kit;
 
 public class Timelord extends Kit {
@@ -56,7 +56,7 @@ public class Timelord extends Kit {
 									freeze.remove(uuid);
 								}
 							}
-						}.runTaskLater(BukkitMain.getPlugin(), 20 * 5);
+						}.runTaskLater(PotePvP.getPlugin(), 20 * 5);
 					}
 				}
 			}

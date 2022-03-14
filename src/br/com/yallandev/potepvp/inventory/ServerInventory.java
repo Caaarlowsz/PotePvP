@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.kit.Kit;
 import br.com.yallandev.potepvp.manager.WarpManager.Warp;
@@ -62,9 +62,9 @@ public class ServerInventory {
 		inv.setItem(8, item.build());
 
 		List<Kit> kits = new ArrayList<>();
-		kits.add(BukkitMain.getInstance().getKitManager().getKit("PvP"));
+		kits.add(PotePvP.getInstance().getKitManager().getKit("PvP"));
 
-		for (Kit kit : BukkitMain.getInstance().getKitManager().getKits()) {
+		for (Kit kit : PotePvP.getInstance().getKitManager().getKits()) {
 			if (kit.getKitName().equalsIgnoreCase("PvP"))
 				continue;
 
@@ -195,7 +195,7 @@ public class ServerInventory {
 
 		List<Kit> kits = new ArrayList<>();
 
-		for (Kit kit : BukkitMain.getInstance().getKitManager().getKits()) {
+		for (Kit kit : PotePvP.getInstance().getKitManager().getKits()) {
 			if (kit.getKitName().equalsIgnoreCase("PvP"))
 				continue;
 
@@ -248,7 +248,7 @@ public class ServerInventory {
 		int x = 0;
 
 		for (Player players : Bukkit.getOnlinePlayers()) {
-			if (BukkitMain.getInstance().getPlayerManager().getWarp(players.getUniqueId()).getWarpName()
+			if (PotePvP.getInstance().getPlayerManager().getWarp(players.getUniqueId()).getWarpName()
 					.equalsIgnoreCase(warp.getWarpName()))
 				x++;
 		}
@@ -275,7 +275,7 @@ public class ServerInventory {
 
 		int a = 11;
 
-		for (Warp warps : BukkitMain.getInstance().getWarpManager().getWarps()) {
+		for (Warp warps : PotePvP.getInstance().getWarpManager().getWarps()) {
 			if (warps.getWarpName().equalsIgnoreCase("Spawn"))
 				continue;
 
@@ -301,7 +301,7 @@ public class ServerInventory {
 
 		item.addLore("");
 		item.addLore("�fJogadores na warp: �a"
-				+ getPlayerInWarp(BukkitMain.getInstance().getWarpManager().getWarp("Arena")));
+				+ getPlayerInWarp(PotePvP.getInstance().getWarpManager().getWarp("Arena")));
 
 		inv.setItem(23, item.build());
 
@@ -309,7 +309,7 @@ public class ServerInventory {
 
 		item.addLore("");
 		item.addLore(
-				"�fJogadores na warp: �a" + getPlayerInWarp(BukkitMain.getInstance().getWarpManager().getWarp("Sumo")));
+				"�fJogadores na warp: �a" + getPlayerInWarp(PotePvP.getInstance().getWarpManager().getWarp("Sumo")));
 
 		inv.setItem(22, item.build());
 

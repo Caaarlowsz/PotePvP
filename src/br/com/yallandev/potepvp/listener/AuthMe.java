@@ -17,7 +17,7 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.check.Check;
 import br.com.yallandev.potepvp.connection.SQLManager.Status;
@@ -29,9 +29,9 @@ public class AuthMe implements Listener {
 
 	@EventHandler
 	private void onPlayerJoin(PlayerJoinEvent event) {
-		if (BukkitMain.getStorage().getPremiumMap().get(event.getPlayer().getName()) == null) {
+		if (PotePvP.getStorage().getPremiumMap().get(event.getPlayer().getName()) == null) {
 			try {
-				BukkitMain.getStorage().setPremium(event.getPlayer().getName(),
+				PotePvP.getStorage().setPremium(event.getPlayer().getName(),
 						Check.fastCheck(event.getPlayer().getName()));
 			} catch (InvalidCheckException e) {
 				e.printStackTrace();
@@ -39,18 +39,18 @@ public class AuthMe implements Listener {
 		}
 
 		PlayerCheckEvent checkEvent = new PlayerCheckEvent(event.getPlayer(),
-				BukkitMain.getStorage().getState(event.getPlayer().getName()));
-		BukkitMain.getPlugin().getServer().getPluginManager().callEvent(checkEvent);
+				PotePvP.getStorage().getState(event.getPlayer().getName()));
+		PotePvP.getPlugin().getServer().getPluginManager().callEvent(checkEvent);
 	}
 
 	@EventHandler
 	private void onPlayerQuit(PlayerQuitEvent event) {
-		if (!BukkitMain.getStorage().getPremiumMap().containsKey(event.getPlayer().getName())) {
+		if (!PotePvP.getStorage().getPremiumMap().containsKey(event.getPlayer().getName())) {
 			return;
 		}
 
-		BukkitMain.getStorage().removeVerified(event.getPlayer().getName(),
-				BukkitMain.getStorage().getState(event.getPlayer().getName()));
+		PotePvP.getStorage().removeVerified(event.getPlayer().getName(),
+				PotePvP.getStorage().getState(event.getPlayer().getName()));
 	}
 
 	private static final HashMap<Player, LoginType> LOGIN_MAP = new HashMap<>();
@@ -66,16 +66,16 @@ public class AuthMe implements Listener {
 	@EventHandler
 	private void onPlayerCheck(PlayerCheckEvent event) {
 		if (event.isCracked()) {
-			if (BukkitMain.getSqlManager().hasOnDatabase(event.getPlayer().getName())) {
+			if (PotePvP.getSqlManager().hasOnDatabase(event.getPlayer().getName())) {
 				getLoginMap().put(event.getPlayer(), LoginType.LOGIN);
 			} else {
 				getLoginMap().put(event.getPlayer(), LoginType.REGISTER);
 			}
 
-			BukkitMain.getStorage().addNeedLogin(event.getPlayer().getName());
+			PotePvP.getStorage().addNeedLogin(event.getPlayer().getName());
 		} else if (event.isPremium()) {
-			if (!BukkitMain.getSqlManager().hasOnDatabase(event.getPlayer().getName())) {
-				BukkitMain.getSqlManager().setStatus(event.getPlayer().getName(), Status.PREMIUM);
+			if (!PotePvP.getSqlManager().hasOnDatabase(event.getPlayer().getName())) {
+				PotePvP.getSqlManager().setStatus(event.getPlayer().getName(), Status.PREMIUM);
 			}
 
 			event.getPlayer().sendMessage("Logado automaticamente por ser original!");
@@ -91,8 +91,8 @@ public class AuthMe implements Listener {
 
 	@EventHandler
 	private void onPlayerQuit2(PlayerQuitEvent event) {
-		if (BukkitMain.getStorage().needLogin(event.getPlayer().getName())) {
-			BukkitMain.getStorage().removeNeedLogin(event.getPlayer().getName());
+		if (PotePvP.getStorage().needLogin(event.getPlayer().getName())) {
+			PotePvP.getStorage().removeNeedLogin(event.getPlayer().getName());
 		}
 		if (getLoginMap().containsKey(event.getPlayer())) {
 			getLoginMap().remove(event.getPlayer(), getLoginMap().get(event.getPlayer()));
@@ -102,7 +102,7 @@ public class AuthMe implements Listener {
 	@EventHandler
 	private void onEntityDamage(EntityDamageEvent event) {
 		if (event.getEntity() instanceof Player) {
-			if (BukkitMain.getStorage().needLogin(((Player) event.getEntity()).getName())) {
+			if (PotePvP.getStorage().needLogin(((Player) event.getEntity()).getName())) {
 				event.setCancelled(true);
 			}
 		}
@@ -110,7 +110,7 @@ public class AuthMe implements Listener {
 
 	@EventHandler
 	private void onPlayerMove(PlayerMoveEvent event) {
-		if (BukkitMain.getStorage().needLogin(event.getPlayer().getName())) {
+		if (PotePvP.getStorage().needLogin(event.getPlayer().getName())) {
 			event.getPlayer().teleport(event.getFrom());
 		}
 	}
@@ -118,7 +118,7 @@ public class AuthMe implements Listener {
 	@EventHandler
 	private void onFoodLevelChange(FoodLevelChangeEvent event) {
 		if (event.getEntity() instanceof Player) {
-			if (BukkitMain.getStorage().needLogin(event.getEntity().getName())) {
+			if (PotePvP.getStorage().needLogin(event.getEntity().getName())) {
 				event.setCancelled(true);
 			}
 		}
@@ -126,32 +126,32 @@ public class AuthMe implements Listener {
 
 	@EventHandler
 	private void onPlayerDrop(PlayerDropItemEvent event) {
-		if (BukkitMain.getStorage().needLogin(event.getPlayer().getName())) {
+		if (PotePvP.getStorage().needLogin(event.getPlayer().getName())) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	private void onPlayerInteract(PlayerInteractEvent event) {
-		if (BukkitMain.getStorage().needLogin(event.getPlayer().getName())) {
+		if (PotePvP.getStorage().needLogin(event.getPlayer().getName())) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	private void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
-		if (BukkitMain.getStorage().needLogin(event.getPlayer().getName())) {
+		if (PotePvP.getStorage().needLogin(event.getPlayer().getName())) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void onRealMove(RealMoveEvent event) {
-		if (!BukkitMain.getStorage().needLogin(event.getPlayer().getName()))
+		if (!PotePvP.getStorage().needLogin(event.getPlayer().getName()))
 			return;
 
 		Player p = event.getPlayer();
-		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 		if (player == null)
 			return;
@@ -162,7 +162,7 @@ public class AuthMe implements Listener {
 
 	@EventHandler
 	private void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
-		if (BukkitMain.getStorage().needLogin(event.getPlayer().getName())) {
+		if (PotePvP.getStorage().needLogin(event.getPlayer().getName())) {
 			if (event.getMessage().toLowerCase().startsWith("/register")
 					|| event.getMessage().toLowerCase().startsWith("/login")) {
 				event.setCancelled(false);

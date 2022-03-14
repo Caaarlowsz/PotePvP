@@ -9,7 +9,7 @@ import java.util.UUID;
 
 import org.bukkit.entity.Player;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.Command;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.CommandArgs;
@@ -60,7 +60,7 @@ public class TopCommand extends CommandClass {
 		List<String> tops = new ArrayList<String>();
 
 		try {
-			PreparedStatement stm = BukkitMain.getConnection().getConnection()
+			PreparedStatement stm = PotePvP.getConnection().getConnection()
 					.prepareStatement("SELECT * FROM `kitpvp_status` ORDER BY `" + type + "` DESC LIMIT 0," + max + "");
 			ResultSet rs = stm.executeQuery();
 			int i = 0;

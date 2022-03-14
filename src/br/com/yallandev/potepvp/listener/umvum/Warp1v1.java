@@ -35,8 +35,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.commands.register.WarpCommand;
 import br.com.yallandev.potepvp.event.account.PlayerDeathInWarpEvent;
 import br.com.yallandev.potepvp.scoreboard.Scoreboarding;
@@ -45,7 +45,7 @@ import br.com.yallandev.potepvp.utils.ItemManager;
 
 public class Warp1v1 implements Listener {
 
-	private BukkitMain main;
+	private PotePvP main;
 	public static List<Player> playersIn1v1 = new ArrayList<>();
 	public static HashMap<Player, String> duel = new HashMap<>();
 	private HashMap<String, HashMap<ChanllengeType, HashMap<String, Desafio>>> playerDesafios;
@@ -54,7 +54,7 @@ public class Warp1v1 implements Listener {
 	private Location secondLoction;
 
 	public Warp1v1() {
-		this.main = BukkitMain.getInstance();
+		this.main = PotePvP.getInstance();
 		playersIn1v1 = new ArrayList<>();
 		this.playerDesafios = new HashMap<>();
 		this.playersInQueue = new ArrayList<>();
@@ -920,7 +920,7 @@ public class Warp1v1 implements Listener {
 						public void run() {
 							l.teleport1v1(p);
 						}
-					}.runTaskLater(BukkitMain.getInstance(), 10);
+					}.runTaskLater(PotePvP.getInstance(), 10);
 
 					Warp1v1.playersIn1v1.remove(p);
 					Warp1v1.playersIn1v1.remove(killer);
@@ -929,8 +929,8 @@ public class Warp1v1 implements Listener {
 					Scoreboarding.setScoreboard(p);
 					Warp1v1.Fight.this.destroy();
 
-					BukkitMain.getAccountCommon().getAccount(killer.getUniqueId()).updateVanished();
-					BukkitMain.getAccountCommon().getAccount(p.getUniqueId()).updateVanished();
+					PotePvP.getAccountCommon().getAccount(killer.getUniqueId()).updateVanished();
+					PotePvP.getAccountCommon().getAccount(p.getUniqueId()).updateVanished();
 				}
 
 				@EventHandler
@@ -989,7 +989,7 @@ public class Warp1v1 implements Listener {
 					p.damage(2000D, killer);
 					Warp1v1.Fight.this.destroy();
 
-					BukkitMain.getAccountCommon().getAccount(killer.getUniqueId()).updateVanished();
+					PotePvP.getAccountCommon().getAccount(killer.getUniqueId()).updateVanished();
 				}
 
 				public boolean isInPvP(Player player) {
@@ -1005,7 +1005,7 @@ public class Warp1v1 implements Listener {
 		}
 	}
 
-	public BukkitMain getMain() {
+	public PotePvP getMain() {
 		return main;
 	}
 

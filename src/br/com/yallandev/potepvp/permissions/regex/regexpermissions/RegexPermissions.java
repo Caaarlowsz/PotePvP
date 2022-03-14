@@ -11,17 +11,17 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.permissions.Permissible;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.permissions.regex.CraftBukkitInterface;
 import br.com.yallandev.potepvp.utils.Util;
 
 public class RegexPermissions {
 
-	private final BukkitMain plugin;
+	private final PotePvP plugin;
 	private PermissionList permsList;
 	private PEXPermissionSubscriptionMap subscriptionHandler;
 
-	public RegexPermissions(BukkitMain plugin) {
+	public RegexPermissions(PotePvP plugin) {
 		this.plugin = plugin;
 		this.subscriptionHandler = PEXPermissionSubscriptionMap.inject(plugin, plugin.getServer().getPluginManager());
 		this.permsList = PermissionList.inject(plugin.getServer().getPluginManager());

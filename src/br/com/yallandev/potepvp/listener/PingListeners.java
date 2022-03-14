@@ -9,7 +9,7 @@ import com.skionz.pingapi.PingEvent;
 import com.skionz.pingapi.PingListener;
 import com.skionz.pingapi.PingReply;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.utils.string.CenterChat;
 
 public class PingListeners implements PingListener {
@@ -18,8 +18,8 @@ public class PingListeners implements PingListener {
 	public void onPing(PingEvent event) {
 		PingReply reply = event.getReply();
 		reply.setOnlinePlayers(
-				reply.getOnlinePlayers() - BukkitMain.getInstance().getVanishMode().getAdmin().size() < 0 ? 0
-						: reply.getOnlinePlayers() - BukkitMain.getInstance().getVanishMode().getAdmin().size());
+				reply.getOnlinePlayers() - PotePvP.getInstance().getVanishMode().getAdmin().size() < 0 ? 0
+						: reply.getOnlinePlayers() - PotePvP.getInstance().getVanishMode().getAdmin().size());
 		reply.setMaxPlayers(reply.getOnlinePlayers() + 1);
 		reply.setProtocolName("�7" + reply.getOnlinePlayers() + "�a/�7" + reply.getMaxPlayers());
 		reply.setMOTD(CenterChat.centered("�6�lKitPvP �7[1.7 - 1.8]", 127) + "\n" + CenterChat

@@ -11,7 +11,7 @@ import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.event.update.UpdateEvent;
 import br.com.yallandev.potepvp.event.update.UpdateEvent.UpdateType;
@@ -19,12 +19,12 @@ import br.com.yallandev.potepvp.permissions.group.Group;
 
 public class UpdateHologram implements Listener {
 
-	private BukkitMain main;
+	private PotePvP main;
 	private List<Hologram> hologram;
 	private int x;
 
 	public UpdateHologram() {
-		this.main = BukkitMain.getInstance();
+		this.main = PotePvP.getInstance();
 		this.hologram = new ArrayList<>();
 		this.x = 0;
 
@@ -134,7 +134,7 @@ public class UpdateHologram implements Listener {
 		List<String> tops = new ArrayList<String>();
 
 		try {
-			PreparedStatement stm = BukkitMain.getConnection().getConnection()
+			PreparedStatement stm = PotePvP.getConnection().getConnection()
 					.prepareStatement("SELECT * FROM `kitpvp_status` ORDER BY `" + type + "` DESC LIMIT 0," + max + "");
 			ResultSet rs = stm.executeQuery();
 			int i = 0;
@@ -144,10 +144,10 @@ public class UpdateHologram implements Listener {
 				if (uuid == null)
 					continue;
 
-				Account player = BukkitMain.getAccountCommon().getAccount(uuid);
+				Account player = PotePvP.getAccountCommon().getAccount(uuid);
 
 				if (player == null) {
-					player = BukkitMain.getAccountCommon().loadAccount(uuid, false);
+					player = PotePvP.getAccountCommon().loadAccount(uuid, false);
 
 					if (player == null) {
 						continue;

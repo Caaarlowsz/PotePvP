@@ -4,15 +4,15 @@ import java.util.List;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 
 public class PingAPI extends JavaPlugin {
 
 	public static void registerListener(PingListener listener) {
-		BukkitMain.listeners.add(listener);
+		PotePvP.listeners.add(listener);
 	}
 
 	public static List<PingListener> getListeners() {
-		return BukkitMain.listeners;
+		return PotePvP.listeners;
 	}
 }

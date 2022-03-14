@@ -12,8 +12,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.ban.constructor.Ban;
 import br.com.yallandev.potepvp.ban.constructor.Mute;
 import br.com.yallandev.potepvp.ban.history.PunishmentHistory;
@@ -347,15 +347,15 @@ public class Account {
 	}
 
 	public Status getStatus() {
-		if (BukkitMain.getInstance().getPlayerManager().getStatus(getUuid()) != null)
-			return BukkitMain.getInstance().getPlayerManager().getStatus(getUuid());
+		if (PotePvP.getInstance().getPlayerManager().getStatus(getUuid()) != null)
+			return PotePvP.getInstance().getPlayerManager().getStatus(getUuid());
 
-		return BukkitMain.getInstance().getPlayerManager().loadStatus(getUuid(), false);
+		return PotePvP.getInstance().getPlayerManager().loadStatus(getUuid(), false);
 	}
 
 	public void saveStatus() {
 		if (getStatus() != null)
-			BukkitMain.getInstance().getPlayerManager().saveStatus(getUuid(), getStatus());
+			PotePvP.getInstance().getPlayerManager().saveStatus(getUuid(), getStatus());
 	}
 
 	public void sendTimerMessage(String message) {
@@ -395,7 +395,7 @@ public class Account {
 		}
 
 		PlayerChangeTagEvent event = new PlayerChangeTagEvent(getPlayer(), getTag(), tag, forcetag);
-		BukkitMain.getPlugin().getServer().getPluginManager().callEvent(event);
+		PotePvP.getPlugin().getServer().getPluginManager().callEvent(event);
 		if (!event.isCancelled()) {
 			this.tag = tag;
 		}
@@ -408,13 +408,13 @@ public class Account {
 
 		for (Player p : Util.getOnlinePlayers()) {
 			if (!p.getName().equals(getPlayer().getName())) {
-				Account Account = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+				Account Account = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 				if (Account == null)
 					continue;
 
-				if (BukkitMain.getInstance().getVanishMode().isAdmin(p.getUniqueId())) {
-					if (BukkitMain.getInstance().getVanishMode().isAdmin(getUuid())) {
+				if (PotePvP.getInstance().getVanishMode().isAdmin(p.getUniqueId())) {
+					if (PotePvP.getInstance().getVanishMode().isAdmin(getUuid())) {
 						getPlayer().showPlayer(p);
 					} else {
 						getPlayer().hidePlayer(p);
@@ -427,13 +427,13 @@ public class Account {
 
 		for (Player players : Util.getOnlinePlayers()) {
 			if (!players.getName().equals(getPlayer().getName())) {
-				Account Account = BukkitMain.getAccountCommon().getAccount(players.getUniqueId());
+				Account Account = PotePvP.getAccountCommon().getAccount(players.getUniqueId());
 
 				if (Account == null)
 					continue;
 
-				if (BukkitMain.getInstance().getVanishMode().isAdmin(getPlayer().getUniqueId())) {
-					if (BukkitMain.getInstance().getVanishMode().isAdmin(Account.getUuid())) {
+				if (PotePvP.getInstance().getVanishMode().isAdmin(getPlayer().getUniqueId())) {
+					if (PotePvP.getInstance().getVanishMode().isAdmin(Account.getUuid())) {
 						players.showPlayer(getPlayer());
 					} else {
 						players.hidePlayer(getPlayer());
@@ -444,7 +444,7 @@ public class Account {
 			}
 		}
 
-		BukkitMain.getInstance().getPlayerHideManager().playerJoin(getPlayer());
+		PotePvP.getInstance().getPlayerHideManager().playerJoin(getPlayer());
 	}
 
 	public void makeVanish() {
@@ -453,13 +453,13 @@ public class Account {
 
 		for (Player player : Util.getOnlinePlayers()) {
 			if (!player.getName().equals(getPlayer().getName())) {
-				Account Account = BukkitMain.getAccountCommon().getAccount(player.getUniqueId());
+				Account Account = PotePvP.getAccountCommon().getAccount(player.getUniqueId());
 
 				if (Account == null)
 					continue;
 
 				if (Account.hasServerGroup(Group.YOUTUBERPLUS)) {
-					if (BukkitMain.getInstance().getVanishMode().isAdmin(Account.getUuid())) {
+					if (PotePvP.getInstance().getVanishMode().isAdmin(Account.getUuid())) {
 						player.showPlayer(getPlayer());
 					} else {
 						player.hidePlayer(getPlayer());

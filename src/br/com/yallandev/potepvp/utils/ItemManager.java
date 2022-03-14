@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.permissions.group.Group;
 
 public class ItemManager {
@@ -98,7 +98,7 @@ public class ItemManager {
 		itemm.setDisplayName(name);
 		item.setItemMeta(itemm);
 
-		if (p.hasPermission(permissao) && BukkitMain.getAccountCommon().hasGroup(p.getUniqueId(), Group.DONO)) {
+		if (p.hasPermission(permissao) && PotePvP.getAccountCommon().hasGroup(p.getUniqueId(), Group.DONO)) {
 			return item;
 		}
 		return new ItemStack(Material.AIR);

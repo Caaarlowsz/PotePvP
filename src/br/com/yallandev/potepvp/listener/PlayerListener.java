@@ -41,8 +41,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.ban.constructor.Ban;
 import br.com.yallandev.potepvp.event.account.PlayerDeathInWarpEvent;
@@ -59,9 +59,9 @@ import br.com.yallandev.potepvp.utils.string.CenterChat;
 
 public class PlayerListener implements Listener {
 
-	private BukkitMain main;
+	private PotePvP main;
 
-	public PlayerListener(BukkitMain main) {
+	public PlayerListener(PotePvP main) {
 		this.main = main;
 	}
 
@@ -121,14 +121,14 @@ public class PlayerListener implements Listener {
 			UUID uuid = players.getUniqueId();
 			String userName = players.getName();
 
-			if (BukkitMain.getAccountCommon().loadAccount(uuid) == null) {
+			if (PotePvP.getAccountCommon().loadAccount(uuid) == null) {
 				players.kickPlayer(Configuration.KICK_PREFIX.getMessage()
 						+ "\n�cN�o foi possivel carregar sua conta!\nPor favor, relogue e tente novamente!");
 			} else {
 				System.out.print("A conta do jogador " + userName + " foi carregada com sucesso!");
 			}
 
-			if (BukkitMain.getInstance().getPlayerManager().loadStatus(uuid) == null) {
+			if (PotePvP.getInstance().getPlayerManager().loadStatus(uuid) == null) {
 				players.kickPlayer(Configuration.KICK_PREFIX.getMessage()
 						+ "\n�cN�o foi possivel carregar seu status!\nPor favor, relogue e tente novamente!");
 			} else {
@@ -142,12 +142,12 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPluginDisable(PluginDisableEvent e) {
 		for (Player players : Util.getOnlinePlayers()) {
-			Account player = BukkitMain.getAccountCommon().getAccount(players.getUniqueId());
+			Account player = PotePvP.getAccountCommon().getAccount(players.getUniqueId());
 
 			if (player == null)
 				continue;
 
-			BukkitMain.getAccountCommon().saveAccount(player);
+			PotePvP.getAccountCommon().saveAccount(player);
 		}
 	}
 
@@ -160,20 +160,20 @@ public class PlayerListener implements Listener {
 		System.out
 				.println("Jogador com nick " + userName + " esta iniciando uma conexao usando o ip " + ipAddress + ".");
 
-		if (BukkitMain.getAccountCommon().loadAccount(uuid) == null) {
+		if (PotePvP.getAccountCommon().loadAccount(uuid) == null) {
 			System.out.println("Criando uma nova conta para o jogador " + userName + ".");
 
 			Account newAccount = new Account(uuid, userName, ipAddress);
 
-			BukkitMain.getAccountCommon().loadAccount(uuid, newAccount);
-			BukkitMain.getAccountCommon().saveAccount(newAccount);
+			PotePvP.getAccountCommon().loadAccount(uuid, newAccount);
+			PotePvP.getAccountCommon().saveAccount(newAccount);
 		} else {
 			System.out.print("A conta do jogador " + userName + " foi carregada com sucesso!");
 		}
 
-		BukkitMain.getInstance().getPlayerManager().loadStatus(uuid);
+		PotePvP.getInstance().getPlayerManager().loadStatus(uuid);
 
-		Account player = BukkitMain.getAccountCommon().getAccount(e.getPlayer().getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(e.getPlayer().getUniqueId());
 
 		player.setUserName(e.getPlayer().getName());
 
@@ -216,10 +216,10 @@ public class PlayerListener implements Listener {
 
 		if (e.getResult() == Result.ALLOWED) {
 			if (ban == null) {
-				Entry<String, Ban> ipBan = BukkitMain.getInstance().getBanManager().getIpBan(ipAddress);
+				Entry<String, Ban> ipBan = PotePvP.getInstance().getBanManager().getIpBan(ipAddress);
 				if (ipBan != null) {
 					if (!ipBan.getKey().equalsIgnoreCase(userName))
-						BukkitMain.getInstance().getBanManager().ban(player,
+						PotePvP.getInstance().getBanManager().ban(player,
 								new Ban(ipBan.getValue().getBannedBy(),
 										(ipBan.getValue().getReason().contains(" [ALTERNATIVE ACCOUNT]")
 												? ipBan.getValue().getReason()
@@ -235,7 +235,7 @@ public class PlayerListener implements Listener {
 
 		e.setJoinMessage(null);
 
-		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 		if (player == null)
 			return;
@@ -280,7 +280,7 @@ public class PlayerListener implements Listener {
 	public void onPlayerRespawn(PlayerRespawnEvent e) {
 		Player p = e.getPlayer();
 
-		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 		if (player == null) {
 			return;
@@ -301,7 +301,7 @@ public class PlayerListener implements Listener {
 					main.getKitManager().getPlayerCooldown().remove(player.getUuid().toString());
 					main.getPlayerManager().setProtection(player.getUuid(), true);
 				}
-			}.runTaskLater(BukkitMain.getInstance(), 20);
+			}.runTaskLater(PotePvP.getInstance(), 20);
 			return;
 		}
 
@@ -313,7 +313,7 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent e) {
-		Account player = BukkitMain.getAccountCommon().getAccount(e.getPlayer().getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(e.getPlayer().getUniqueId());
 
 		e.setQuitMessage(null);
 
@@ -324,11 +324,11 @@ public class PlayerListener implements Listener {
 			player.getPlayer().performCommand("tfake");
 		}
 
-		BukkitMain.getAccountCommon().saveAccount(player);
+		PotePvP.getAccountCommon().saveAccount(player);
 		player.saveStatus();
 
 		main.getPlayerManager().removePlayer(player.getUuid());
-		BukkitMain.getAccountCommon().unloadAccount(player.getUuid());
+		PotePvP.getAccountCommon().unloadAccount(player.getUuid());
 
 		while (main.getVanishMode().isAdmin(player.getUuid()))
 			main.getVanishMode().setPlayer(e.getPlayer());
@@ -350,14 +350,14 @@ public class PlayerListener implements Listener {
 		Player e = (Player) event.getEntity();
 		Player d = (Player) event.getDamager();
 
-		Account entity = BukkitMain.getAccountCommon().getAccount(e.getUniqueId());
-		Account damager = BukkitMain.getAccountCommon().getAccount(e.getUniqueId());
+		Account entity = PotePvP.getAccountCommon().getAccount(e.getUniqueId());
+		Account damager = PotePvP.getAccountCommon().getAccount(e.getUniqueId());
 
 		if (entity == null || damager == null)
 			return;
 
-		if (BukkitMain.getInstance().getPlayerManager().isProtected(entity.getUuid())) {
-			if (BukkitMain.getInstance().getPlayerManager().isProtected(damager.getUuid())) {
+		if (PotePvP.getInstance().getPlayerManager().isProtected(entity.getUuid())) {
+			if (PotePvP.getInstance().getPlayerManager().isProtected(damager.getUuid())) {
 				event.setCancelled(true);
 				return;
 			}
@@ -366,7 +366,7 @@ public class PlayerListener implements Listener {
 			damager.sendMessage("Esse jogador est� protegido!");
 			damager.sendAction("�cEsse jogador est� protegido!");
 			return;
-		} else if (BukkitMain.getInstance().getPlayerManager().isProtected(damager.getUuid())) {
+		} else if (PotePvP.getInstance().getPlayerManager().isProtected(damager.getUuid())) {
 			event.setCancelled(true);
 			damager.sendMessage("Voc� est� com prote��o!");
 			damager.sendAction("�cVoc� est� com prote��o!");
@@ -411,7 +411,7 @@ public class PlayerListener implements Listener {
 			return;
 		}
 
-		if (BukkitMain.getInstance().getPlayerManager().isProtected(((Player) e.getEntity()).getUniqueId()))
+		if (PotePvP.getInstance().getPlayerManager().isProtected(((Player) e.getEntity()).getUniqueId()))
 			if (e.getCause() == DamageCause.LAVA || e.getCause() == DamageCause.FIRE_TICK)
 				if (main.getPlayerManager().getWarp(((Player) e.getEntity()).getUniqueId()).getWarpName()
 						.equalsIgnoreCase("Lava"))
@@ -432,7 +432,7 @@ public class PlayerListener implements Listener {
 		if (!e.getItem().hasItemMeta() || !e.getItem().getItemMeta().hasDisplayName())
 			return;
 
-		Account player = BukkitMain.getAccountCommon().getAccount(e.getPlayer().getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(e.getPlayer().getUniqueId());
 
 		if (player == null)
 			return;
@@ -469,7 +469,7 @@ public class PlayerListener implements Listener {
 	public void onPlayerDropItem(PlayerDropItemEvent e) {
 		Player p = e.getPlayer();
 
-		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 		if (player == null)
 			return;
@@ -512,9 +512,9 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent e) {
 		if (e.getPlayer().getGameMode() == GameMode.CREATIVE
-				&& (BukkitMain.getAccountCommon().isGroup(e.getPlayer().getUniqueId(), Group.BUILDER)
-						|| BukkitMain.getAccountCommon().hasGroup(e.getPlayer().getUniqueId(), Group.ADMIN)
-						|| BukkitMain.getAccountCommon().hasPermission(e.getPlayer().getUniqueId(), "build.build")))
+				&& (PotePvP.getAccountCommon().isGroup(e.getPlayer().getUniqueId(), Group.BUILDER)
+						|| PotePvP.getAccountCommon().hasGroup(e.getPlayer().getUniqueId(), Group.ADMIN)
+						|| PotePvP.getAccountCommon().hasPermission(e.getPlayer().getUniqueId(), "build.build")))
 			e.setCancelled(false);
 		else
 			e.setCancelled(true);
@@ -523,9 +523,9 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent e) {
 		if (e.getPlayer().getGameMode() == GameMode.CREATIVE
-				&& (BukkitMain.getAccountCommon().isGroup(e.getPlayer().getUniqueId(), Group.BUILDER)
-						|| BukkitMain.getAccountCommon().hasGroup(e.getPlayer().getUniqueId(), Group.ADMIN)
-						|| BukkitMain.getAccountCommon().hasPermission(e.getPlayer().getUniqueId(), "build.build")))
+				&& (PotePvP.getAccountCommon().isGroup(e.getPlayer().getUniqueId(), Group.BUILDER)
+						|| PotePvP.getAccountCommon().hasGroup(e.getPlayer().getUniqueId(), Group.ADMIN)
+						|| PotePvP.getAccountCommon().hasPermission(e.getPlayer().getUniqueId(), "build.build")))
 			e.setCancelled(false);
 		else
 			e.setCancelled(true);
@@ -595,7 +595,7 @@ public class PlayerListener implements Listener {
 	public void onPlayerDeath(PlayerDeathEvent e) {
 		Player p = e.getEntity();
 
-		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 		e.setDeathMessage(null);
 
 		if (player == null)
@@ -614,7 +614,7 @@ public class PlayerListener implements Listener {
 		if (p.getKiller() != null) {
 			Player k = p.getKiller();
 
-			Account killer = BukkitMain.getAccountCommon().getAccount(k.getUniqueId());
+			Account killer = PotePvP.getAccountCommon().getAccount(k.getUniqueId());
 
 			if (killer == null)
 				return;
@@ -642,7 +642,7 @@ public class PlayerListener implements Listener {
 			}
 
 			if (killer.getStatus().getKillstreak() % 5 == 0) {
-				BukkitMain.broadcast("O jogador �a" + k.getName() + "�f est� com um �6�lKILLSTREAK�f de �6"
+				PotePvP.broadcast("O jogador �a" + k.getName() + "�f est� com um �6�lKILLSTREAK�f de �6"
 						+ killer.getStatus().getKillstreak() + "�f.");
 			}
 

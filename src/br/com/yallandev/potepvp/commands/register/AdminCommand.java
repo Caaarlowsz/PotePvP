@@ -6,8 +6,8 @@ import java.util.concurrent.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.Command;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.CommandArgs;
@@ -106,10 +106,10 @@ public class AdminCommand extends CommandClass {
 	public void onAdmin(CommandArgs cmdArgs) {
 		Player p = (Player) cmdArgs.getPlayer();
 
-		if (BukkitMain.getInstance().getVanishMode().isAdmin(p.getUniqueId()))
-			BukkitMain.getInstance().getVanishMode().setPlayer(p);
+		if (PotePvP.getInstance().getVanishMode().isAdmin(p.getUniqueId()))
+			PotePvP.getInstance().getVanishMode().setPlayer(p);
 		else
-			BukkitMain.getInstance().getVanishMode().setAdmin(p);
+			PotePvP.getInstance().getVanishMode().setAdmin(p);
 
 		Scoreboarding.setScoreboard(p);
 	}

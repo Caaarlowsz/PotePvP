@@ -10,8 +10,8 @@ import org.bukkit.event.Listener;
 import org.spigotmc.ProtocolInjector;
 import org.spigotmc.ProtocolInjector.PacketTabHeader;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.event.update.UpdateEvent;
 import br.com.yallandev.potepvp.event.update.UpdateEvent.UpdateType;
@@ -46,7 +46,7 @@ public class Scoreboarding {
 	}
 
 	public static void setScoreboard(Player p) {
-		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 		if (player == null)
 			return;
@@ -54,9 +54,9 @@ public class Scoreboarding {
 		if (!player.isScoreboardEnable())
 			return;
 
-		Warp warp = BukkitMain.getInstance().getPlayerManager().getWarp(p.getUniqueId());
+		Warp warp = PotePvP.getInstance().getPlayerManager().getWarp(p.getUniqueId());
 
-		if (BukkitMain.getInstance().getPlayerManager().isScreenshare(p.getUniqueId())) {
+		if (PotePvP.getInstance().getPlayerManager().isScreenshare(p.getUniqueId())) {
 			ScoreboardManager scoreboard = new ScoreboardManager("§6§lSCREENSHARE", "ss");
 
 			scoreboard.blankLine();
@@ -73,7 +73,7 @@ public class Scoreboarding {
 			return;
 		}
 
-		if (BukkitMain.getInstance().getVanishMode().isAdmin(player.getUuid())) {
+		if (PotePvP.getInstance().getVanishMode().isAdmin(player.getUuid())) {
 			ScoreboardManager scoreboard = new ScoreboardManager("§6§lPVP", "admin");
 
 			scoreboard.blankLine();
@@ -174,7 +174,7 @@ public class Scoreboarding {
 
 		if (warp.getWarpName().equalsIgnoreCase("Spawn")) {
 			scoreboard.addLine("§fKit: §a",
-					BukkitMain.getInstance().getKitManager().getNameOfAbility(player.getUuid()));
+					PotePvP.getInstance().getKitManager().getNameOfAbility(player.getUuid()));
 		} else {
 			scoreboard.addLine("§fWarp: §a", warp.getWarpName());
 		}
@@ -190,7 +190,7 @@ public class Scoreboarding {
 	}
 
 	private static void update(Player p) {
-		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 		if (player == null)
 			return;
@@ -198,7 +198,7 @@ public class Scoreboarding {
 		setScoreboard(p);
 		sendTab(p,
 				"§6Servidor: §fA1 §8| §6Kit: §f"
-						+ BukkitMain.getInstance().getKitManager().getNameOfAbility(p.getUniqueId())
+						+ PotePvP.getInstance().getKitManager().getNameOfAbility(p.getUniqueId())
 						+ "  §8| §6Ping: §f" + ((CraftPlayer) p).getHandle().ping + "ms",
 				"\n§bNick: §f" + player.getUserName() + " §8| §bXp: §f" + player.getStatus().getXp()
 						+ " §8| §bRanking: §f" + player.getRanking().name() + "\n§bMais informa§§es: §f"
@@ -230,7 +230,7 @@ public class Scoreboarding {
 				}
 			}
 
-		}, BukkitMain.getPlugin());
+		}, PotePvP.getPlugin());
 	}
 
 }

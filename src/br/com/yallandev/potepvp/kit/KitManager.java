@@ -16,8 +16,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.permissions.group.Group;
 import br.com.yallandev.potepvp.utils.ClassGetter;
@@ -25,7 +25,7 @@ import br.com.yallandev.potepvp.utils.ItemManager;
 
 public class KitManager {
 
-	private BukkitMain main;
+	private PotePvP main;
 	private List<Kit> kits;
 
 	private HashMap<UUID, Kit> playerAbility;
@@ -36,7 +36,7 @@ public class KitManager {
 	private HashMap<String, Map<String, Long>> playerCooldown;
 
 	public KitManager() {
-		this.main = BukkitMain.getInstance();
+		this.main = PotePvP.getInstance();
 		this.kits = new ArrayList<>();
 
 		this.playerAbility = new HashMap<>();
@@ -55,7 +55,7 @@ public class KitManager {
 			public void run() {
 				loadArenas();
 			}
-		}.runTaskLater(BukkitMain.getInstance(), 20);
+		}.runTaskLater(PotePvP.getInstance(), 20);
 	}
 
 	public HashMap<String, Map<String, Long>> getPlayerCooldown() {
@@ -197,12 +197,12 @@ public class KitManager {
 	}
 
 	public void applyKit(Player p) {
-		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 		if (player == null)
 			return;
 
-		BukkitMain.getInstance().getPlayerManager().setProtection(player.getUuid(), false);
+		PotePvP.getInstance().getPlayerManager().setProtection(player.getUuid(), false);
 
 		p.getInventory().clear();
 		p.getInventory().setArmorContents(new ItemStack[4]);

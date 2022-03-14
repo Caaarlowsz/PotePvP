@@ -6,8 +6,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.Command;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.CommandArgs;
@@ -41,7 +41,7 @@ public class ScreenshareCommand extends CommandClass {
 		}
 
 		UUID uuid = t.getUniqueId();
-		Account target = BukkitMain.getAccountCommon().getAccount(uuid);
+		Account target = PotePvP.getAccountCommon().getAccount(uuid);
 
 		if (target == null) {
 			send(s, "O jogador �a\"" + a[0] + "\"�f est� bugado!");

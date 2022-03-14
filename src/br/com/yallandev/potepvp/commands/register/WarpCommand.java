@@ -9,8 +9,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.Command;
 import br.com.yallandev.potepvp.commands.BukkitCommandFramework.CommandArgs;
@@ -103,7 +103,7 @@ public class WarpCommand extends CommandClass {
 		String[] a = cmdArgs.getArgs();
 		Player p = (Player) cmdArgs.getSender();
 
-		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 		if (player == null)
 			return;
@@ -206,7 +206,7 @@ public class WarpCommand extends CommandClass {
 		String[] a = cmdArgs.getArgs();
 		Player p = cmdArgs.getPlayer();
 
-		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 		if (player == null)
 			return;
@@ -253,7 +253,7 @@ public class WarpCommand extends CommandClass {
 		String[] a = cmdArgs.getArgs();
 		Player p = cmdArgs.getPlayer();
 
-		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 		if (player == null)
 			return;
@@ -300,7 +300,7 @@ public class WarpCommand extends CommandClass {
 		String[] a = cmdArgs.getArgs();
 		Player p = cmdArgs.getPlayer();
 
-		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 		if (player == null)
 			return;

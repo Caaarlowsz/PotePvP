@@ -14,7 +14,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.ban.constructor.Mute;
 import br.com.yallandev.potepvp.permissions.group.Group;
@@ -41,7 +41,7 @@ public class ChatListener implements Listener {
 	public void onChatEnabled(AsyncPlayerChatEvent event) {
 		Player p = event.getPlayer();
 
-		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 		if (player == null) {
 			event.setCancelled(true);
@@ -63,7 +63,7 @@ public class ChatListener implements Listener {
 				(player.hasServerGroup(Group.PRO) ? TimeUnit.SECONDS.toMillis(3) : TimeUnit.SECONDS.toMillis(5))
 						+ System.currentTimeMillis());
 
-		switch (BukkitMain.getInstance().getChatAPI().getChatState()) {
+		switch (PotePvP.getInstance().getChatAPI().getChatState()) {
 		case DISABLED:
 			if (!player.hasServerGroup(Group.BETA)) {
 				event.setCancelled(true);
@@ -89,7 +89,7 @@ public class ChatListener implements Listener {
 	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
 	public void onMute(AsyncPlayerChatEvent event) {
 		Player p = event.getPlayer();
-		Account player = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 
 		if (player == null) {
 			event.setCancelled(true);
@@ -114,15 +114,15 @@ public class ChatListener implements Listener {
 			return;
 		}
 
-		Account player = BukkitMain.getAccountCommon().getAccount(event.getPlayer().getUniqueId());
+		Account player = PotePvP.getAccountCommon().getAccount(event.getPlayer().getUniqueId());
 
 		if (player == null) {
 			return;
 		}
 
-		if (BukkitMain.getInstance().getPlayerManager().getStaffchat().contains(player.getUuid())) {
+		if (PotePvP.getInstance().getPlayerManager().getStaffchat().contains(player.getUuid())) {
 			for (Player players : Bukkit.getOnlinePlayers()) {
-				if (BukkitMain.getAccountCommon().hasGroup(players.getUniqueId(), Group.BUILDER)) {
+				if (PotePvP.getAccountCommon().hasGroup(players.getUniqueId(), Group.BUILDER)) {
 					players.sendMessage("�e�l[STAFFCHAT] "
 							+ Tag.valueOf(player.getServerGroup().name()).getPrefix().replace(" ", "") + " "
 							+ player.getUserName() + " �6�l� �a" + event.getMessage().replace("", ""));

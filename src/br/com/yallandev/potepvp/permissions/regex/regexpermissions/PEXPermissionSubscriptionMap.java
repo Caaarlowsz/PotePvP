@@ -15,7 +15,7 @@ import org.bukkit.plugin.PluginManager;
 
 import com.google.common.collect.Sets;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.permissions.regex.FieldReplacer;
 import br.com.yallandev.potepvp.utils.Util;
 
@@ -29,14 +29,14 @@ public class PEXPermissionSubscriptionMap extends HashMap<String, Map<Permissibl
 	private static final AtomicReference<PEXPermissionSubscriptionMap> INSTANCE = new AtomicReference<PEXPermissionSubscriptionMap>();
 	private final PluginManager manager;
 
-	private PEXPermissionSubscriptionMap(BukkitMain plugin, PluginManager manager,
-			Map<String, Map<Permissible, Boolean>> backing) {
+	private PEXPermissionSubscriptionMap(PotePvP plugin, PluginManager manager,
+										 Map<String, Map<Permissible, Boolean>> backing) {
 		super(backing);
 		this.manager = manager;
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static PEXPermissionSubscriptionMap inject(BukkitMain plugin, PluginManager manager) {
+	public static PEXPermissionSubscriptionMap inject(PotePvP plugin, PluginManager manager) {
 		PEXPermissionSubscriptionMap map = (PEXPermissionSubscriptionMap) INSTANCE.get();
 		if (map != null) {
 			return map;

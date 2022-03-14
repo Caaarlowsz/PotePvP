@@ -11,17 +11,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.event.account.RealMoveEvent;
 import br.com.yallandev.potepvp.manager.WarpManager.Warp;
 
 public class MoveListener implements Listener {
 
-	private BukkitMain m;
+	private PotePvP m;
 	private HashMap<UUID, Location> locations;
 
 	public MoveListener() {
-		this.m = BukkitMain.getInstance();
+		this.m = PotePvP.getInstance();
 		this.locations = new HashMap<UUID, Location>();
 		startUpdater();
 	}

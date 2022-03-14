@@ -1,6 +1,6 @@
 package br.com.yallandev.potepvp.ban.constructor;
 
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.utils.DateUtils;
 
 public class Ban {

@@ -10,18 +10,18 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.ban.constructor.Ban;
 import br.com.yallandev.potepvp.permissions.group.Group;
 
 public class ScreenshareListener implements Listener {
 
-	private BukkitMain main;
+	private PotePvP main;
 
 	public ScreenshareListener() {
-		this.main = BukkitMain.getInstance();
+		this.main = PotePvP.getInstance();
 	}
 
 	@EventHandler
@@ -49,13 +49,13 @@ public class ScreenshareListener implements Listener {
 	public void onPlayerQuit(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		UUID uuid = p.getUniqueId();
-		Account player = BukkitMain.getAccountCommon().getAccount(uuid);
+		Account player = PotePvP.getAccountCommon().getAccount(uuid);
 
 		if (player.getPunishmentHistory().getActualBan() != null)
 			return;
 
 		if (main.getPlayerManager().isScreenshare(p.getUniqueId())) {
-			Account moderator = BukkitMain.getAccountCommon()
+			Account moderator = PotePvP.getAccountCommon()
 					.getAccount(main.getPlayerManager().getScreenshareModerator(uuid));
 
 			Ban ban = new Ban(moderator.getUserName(), "ScreenShare leave!");
@@ -75,7 +75,7 @@ public class ScreenshareListener implements Listener {
 				if (!main.getPlayerManager().getScreenshare().get(uuids).equals(uuid))
 					continue;
 
-				Account ssPlayer = BukkitMain.getAccountCommon().getAccount(uuids);
+				Account ssPlayer = PotePvP.getAccountCommon().getAccount(uuids);
 
 				if (ssPlayer == null) {
 					Bukkit.getPlayer(uuids)

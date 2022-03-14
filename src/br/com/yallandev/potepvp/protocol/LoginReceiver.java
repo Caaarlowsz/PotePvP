@@ -6,8 +6,8 @@ import com.comphenix.tinyprotocol.NMSReflection;
 import com.comphenix.tinyprotocol.NMSReflection.FieldAccessor;
 import com.comphenix.tinyprotocol.v1_7.TinyProtocol;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.check.Check;
 import br.com.yallandev.potepvp.exception.InvalidCheckException;
 import br.com.yallandev.potepvp.utils.Util;
@@ -40,7 +40,7 @@ public class LoginReceiver extends TinyProtocol {
 			e.printStackTrace();
 			return false;
 		}
-		BukkitMain.getStorage().setPremium(this.profileField.get(packet).getName(), check);
+		PotePvP.getStorage().setPremium(this.profileField.get(packet).getName(), check);
 		if (check) {
 			return false;
 		}

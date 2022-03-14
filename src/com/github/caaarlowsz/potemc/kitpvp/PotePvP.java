@@ -1,4 +1,4 @@
-package br.com.yallandev.potepvp;
+package com.github.caaarlowsz.potemc.kitpvp;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import com.github.caaarlowsz.kitpvpapi.KitPvP;
+import com.github.caaarlowsz.kitpvpapi.KitPvPAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -68,11 +70,31 @@ import br.com.yallandev.potepvp.utils.ChatAPI;
 import br.com.yallandev.potepvp.utils.Util;
 import net.minecraft.util.com.google.gson.Gson;
 
-public class BukkitMain extends JavaPlugin {
+public class PotePvP extends JavaPlugin implements KitPvP {
+
+	@Override
+	public void onEnable() {
+		super.onEnable();
+		KitPvPAPI.setInstance(this);
+
+		// TODO: Remover quando melhorar a classe principal
+		this.enable();
+	}
+
+	@Override
+	public void onDisable() {
+		super.onDisable();
+		KitPvPAPI.setInstance(null);
+
+		// TODO: Remover quando melhorar a classe principal
+		this.disable();
+	}
+
+	// TODO: Melhorar a classe principal
 
 	private static final Storage STORAGE;
 
-	private static BukkitMain instance;
+	private static PotePvP instance;
 	private static AccountCommon accountCommon;
 	private BanManager banManager;
 	private WarpManager warpManager;
@@ -169,7 +191,7 @@ public class BukkitMain extends JavaPlugin {
 		return mysql;
 	}
 
-	public static BukkitMain getInstance() {
+	public static PotePvP getInstance() {
 		return instance;
 	}
 
@@ -179,8 +201,7 @@ public class BukkitMain extends JavaPlugin {
 		super.onLoad();
 	}
 
-	@Override
-	public void onEnable() {
+	public void enable() {
 		Bukkit.getConsoleSender().sendMessage("[" + getDescription().getName() + "] O servidor est� sendo ativada!");
 
 		try {
@@ -227,6 +248,9 @@ public class BukkitMain extends JavaPlugin {
 		}
 
 		super.onEnable();
+	}
+
+	public void disable() {
 	}
 
 	public enum Configuration {
@@ -520,7 +544,7 @@ public class BukkitMain extends JavaPlugin {
 		return Configuration.PREFIX.getMessage();
 	}
 
-	public static BukkitMain getPlugin() {
+	public static PotePvP getPlugin() {
 		return instance;
 	}
 
@@ -534,7 +558,7 @@ public class BukkitMain extends JavaPlugin {
 
 	public static void broadcast(String message, Group group) {
 		for (Player players : Bukkit.getOnlinePlayers()) {
-			if (BukkitMain.getAccountCommon().hasGroup(players.getUniqueId(), group)) {
+			if (PotePvP.getAccountCommon().hasGroup(players.getUniqueId(), group)) {
 				players.sendMessage(Configuration.PREFIX.getMessage() + message);
 			}
 		}
@@ -542,7 +566,7 @@ public class BukkitMain extends JavaPlugin {
 
 	public static void broadcastD(String message, Group group) {
 		for (Player players : Bukkit.getOnlinePlayers()) {
-			if (BukkitMain.getAccountCommon().hasGroup(players.getUniqueId(), group)) {
+			if (PotePvP.getAccountCommon().hasGroup(players.getUniqueId(), group)) {
 				players.sendMessage(message);
 			}
 		}

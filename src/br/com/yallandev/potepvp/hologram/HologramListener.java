@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import net.minecraft.util.io.netty.util.internal.ConcurrentSet;
 
 public class HologramListener implements Listener {
@@ -43,7 +43,7 @@ public class HologramListener implements Listener {
 				}
 
 			}
-		}.runTaskAsynchronously(BukkitMain.getInstance());
+		}.runTaskAsynchronously(PotePvP.getInstance());
 	}
 
 	@EventHandler
@@ -68,7 +68,7 @@ public class HologramListener implements Listener {
 					}
 				}
 			}
-		}.runTaskAsynchronously(BukkitMain.getInstance());
+		}.runTaskAsynchronously(PotePvP.getInstance());
 	}
 
 	@EventHandler
@@ -90,7 +90,7 @@ public class HologramListener implements Listener {
 					}
 				}
 			}
-		}.runTaskAsynchronously(BukkitMain.getInstance());
+		}.runTaskAsynchronously(PotePvP.getInstance());
 
 	}
 
@@ -111,7 +111,7 @@ public class HologramListener implements Listener {
 					}
 				}
 			}
-		}.runTaskAsynchronously(BukkitMain.getInstance());
+		}.runTaskAsynchronously(PotePvP.getInstance());
 	}
 
 	@EventHandler

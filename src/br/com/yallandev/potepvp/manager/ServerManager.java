@@ -2,7 +2,7 @@ package br.com.yallandev.potepvp.manager;
 
 import java.util.HashMap;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.manager.WarpManager.Warp;
 
 public class ServerManager {
@@ -13,7 +13,7 @@ public class ServerManager {
 	public ServerManager() {
 		this.damage = new HashMap<>();
 
-		for (Warp warp : BukkitMain.getInstance().getWarpManager().getWarps()) {
+		for (Warp warp : PotePvP.getInstance().getWarpManager().getWarps()) {
 			damage.put(warp, true);
 		}
 

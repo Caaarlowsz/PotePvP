@@ -9,8 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.manager.WarpManager.Warp;
 import br.com.yallandev.potepvp.permissions.group.Group;
 import br.com.yallandev.potepvp.utils.Util;
@@ -33,7 +33,7 @@ public class SimpleKit {
 
 			player.sendMessage(Configuration.PREFIX.getMessage() + "Voc� aplicou o kit �a\"" + skitName
 					+ "\"�f no jogador �a" + target.getName() + "�f.");
-			BukkitMain.broadcast("O skit �a\"" + skitName + "\"�f foi aplicado pelo �a" + player.getName()
+			PotePvP.broadcast("O skit �a\"" + skitName + "\"�f foi aplicado pelo �a" + player.getName()
 					+ "�f somente no jogador �a" + target.getName() + "�f.", Group.YOUTUBERPLUS);
 		} else {
 			player.sendMessage(Configuration.PREFIX.getMessage() + "O skit �a\"" + skitName + "\"�f n�o existe!");
@@ -47,11 +47,11 @@ public class SimpleKit {
 			int playersCount = 0;
 
 			for (Player players : Util.getOnlinePlayers()) {
-				if (!BukkitMain.getInstance().getPlayerManager().getWarp(players.getUniqueId()).getWarpName()
+				if (!PotePvP.getInstance().getPlayerManager().getWarp(players.getUniqueId()).getWarpName()
 						.equalsIgnoreCase(warp.getWarpName()))
 					continue;
 
-				if (BukkitMain.getInstance().getVanishMode().isAdmin(players.getUniqueId())) {
+				if (PotePvP.getInstance().getVanishMode().isAdmin(players.getUniqueId())) {
 					players.sendMessage(Configuration.PREFIX.getMessage() + "O skit �a\"" + skitName
 							+ "\"�f n�o foi aplicado em voc�, por que voc� est� no modo �4�lADMIN�f.");
 					continue;
@@ -64,7 +64,7 @@ public class SimpleKit {
 
 			player.sendMessage(Configuration.PREFIX.getMessage() + "Voc� aplicou o kit �a\"" + skitName + "\"�f em �a"
 					+ playersCount + " jogadores�f.");
-			BukkitMain.broadcast("O skit �a\"" + skitName + "\"�f foi aplicado pelo �a" + player.getName()
+			PotePvP.broadcast("O skit �a\"" + skitName + "\"�f foi aplicado pelo �a" + player.getName()
 					+ "�f para todos os jogadores.", Group.YOUTUBERPLUS);
 		} else {
 			player.sendMessage(Configuration.PREFIX.getMessage() + "O skit �a\"" + skitName + "\"�f n�o existe!");
@@ -78,7 +78,7 @@ public class SimpleKit {
 			int playersCount = 0;
 
 			for (Player players : Util.getOnlinePlayers()) {
-				if (BukkitMain.getInstance().getVanishMode().isAdmin(players.getUniqueId())) {
+				if (PotePvP.getInstance().getVanishMode().isAdmin(players.getUniqueId())) {
 					players.sendMessage(Configuration.PREFIX.getMessage() + "O skit �a\"" + skitName
 							+ "\"�f n�o foi aplicado em voc�, por que voc� est� no modo �4�lADMIN�f.");
 					continue;
@@ -91,7 +91,7 @@ public class SimpleKit {
 
 			player.sendMessage(Configuration.PREFIX.getMessage() + "Voc� aplicou o kit �a\"" + skitName + "\"�f em �a"
 					+ playersCount + " jogadores�f.");
-			BukkitMain.broadcast("O skit �a\"" + skitName + "\"�f foi aplicado pelo �a" + player.getName()
+			PotePvP.broadcast("O skit �a\"" + skitName + "\"�f foi aplicado pelo �a" + player.getName()
 					+ "�f para todos os jogadores.", Group.YOUTUBERPLUS);
 		} else {
 			player.sendMessage(Configuration.PREFIX.getMessage() + "O skit �a\"" + skitName + "\"�f n�o existe!");
@@ -111,7 +111,7 @@ public class SimpleKit {
 			for (Entity entities : player.getNearbyEntities(raio, 120, raio)) {
 				if (entities instanceof Player) {
 					Player players = (Player) entities;
-					if (BukkitMain.getInstance().getVanishMode().isAdmin(players.getUniqueId())) {
+					if (PotePvP.getInstance().getVanishMode().isAdmin(players.getUniqueId())) {
 						players.sendMessage(Configuration.PREFIX.getMessage() + "O skit �a\"" + skitName
 								+ "\"�f n�o foi aplicado em voc�, por que voc� est� no modo �4�lADMIN�f.");
 						continue;
@@ -125,10 +125,10 @@ public class SimpleKit {
 
 			player.sendMessage(Configuration.PREFIX.getMessage() + "Voc� aplicou o kit �a\"" + skitName + "\"�f em �a"
 					+ playersCount + " jogadores�f.");
-			BukkitMain.broadcast("O skit �a\"" + skitName + "\"�f foi aplicado pelo �a" + player.getName()
+			PotePvP.broadcast("O skit �a\"" + skitName + "\"�f foi aplicado pelo �a" + player.getName()
 					+ "�f em um raio de " + raio + " �a(" + playersCount + " jogadores)�f.", Group.YOUTUBERPLUS);
 
-			if (BukkitMain.getInstance().getVanishMode().isAdmin(player.getUniqueId())) {
+			if (PotePvP.getInstance().getVanishMode().isAdmin(player.getUniqueId())) {
 				player.sendMessage(Configuration.PREFIX.getMessage() + "O skit �a\"" + skitName
 						+ "\"�f n�o foi aplicado em voc�, por que voc� est� no modo �4�lADMIN�f.");
 				return;

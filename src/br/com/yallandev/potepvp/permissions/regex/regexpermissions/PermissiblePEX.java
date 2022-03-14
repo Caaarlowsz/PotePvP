@@ -20,7 +20,7 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.permissions.regex.FieldReplacer;
 import br.com.yallandev.potepvp.permissions.regex.PermissionCheckResult;
 
@@ -48,13 +48,13 @@ public class PermissiblePEX extends PermissibleBase {
 
 	private static final AtomicBoolean LAST_CALL_ERRORED = new AtomicBoolean(false);
 	protected final Player player;
-	protected final BukkitMain plugin;
+	protected final PotePvP plugin;
 	private Permissible previousPermissible = null;
 	protected final Map<String, PermissionCheckResult> cache = new ConcurrentHashMap<String, PermissionCheckResult>();
 	private final Object permissionsLock = new Object();
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public PermissiblePEX(Player player, BukkitMain plugin) {
+	public PermissiblePEX(Player player, PotePvP plugin) {
 		super(player);
 		this.player = player;
 		this.plugin = plugin;

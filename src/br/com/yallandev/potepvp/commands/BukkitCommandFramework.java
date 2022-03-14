@@ -33,8 +33,8 @@ import org.bukkit.plugin.SimplePluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import br.com.yallandev.potepvp.BukkitMain;
-import br.com.yallandev.potepvp.BukkitMain.Configuration;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP.Configuration;
 import br.com.yallandev.potepvp.account.Account;
 import br.com.yallandev.potepvp.permissions.group.Group;
 import br.com.yallandev.potepvp.tag.Tag;
@@ -87,7 +87,7 @@ public class BukkitCommandFramework {
 				Command command = entry.getKey().getAnnotation(Command.class);
 				if (sender instanceof Player) {
 					Player p = (Player) sender;
-					Account bp = BukkitMain.getAccountCommon().getAccount(p.getUniqueId());
+					Account bp = PotePvP.getAccountCommon().getAccount(p.getUniqueId());
 					if (!bp.hasServerGroup(command.groupToUse())) {
 						if (command.groupToUse().ordinal() <= Group.HEIGHT.ordinal()
 								&& command.groupToUse() != Group.MEMBRO) {
@@ -421,7 +421,7 @@ public class BukkitCommandFramework {
 
 		public Account getAccount() {
 			if (isPlayer())
-				return BukkitMain.getAccountCommon().getAccount(getPlayer().getUniqueId());
+				return PotePvP.getAccountCommon().getAccount(getPlayer().getUniqueId());
 
 			return null;
 		}

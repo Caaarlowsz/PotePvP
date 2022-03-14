@@ -11,7 +11,7 @@ import java.util.List;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.version.Version;
 
 public class Util {
@@ -27,17 +27,17 @@ public class Util {
 	}
 
 	public static void info(String string) {
-		BukkitMain.getPlugin().getLogger().info(string);
+		PotePvP.getPlugin().getLogger().info(string);
 	}
 
 	public static void severe(String string) {
-		BukkitMain.getPlugin().getLogger().severe(string);
+		PotePvP.getPlugin().getLogger().severe(string);
 	}
 
 	public static List<Player> getOnlinePlayers() {
 		final List<Player> list = new ArrayList<>();
 
-		for (World world : BukkitMain.getPlugin().getServer().getWorlds()) {
+		for (World world : PotePvP.getPlugin().getServer().getWorlds()) {
 			for (Player player : world.getPlayers()) {
 				list.add(player);
 			}
@@ -93,7 +93,7 @@ public class Util {
 			setValue.set(getOnline, online);
 		} catch (Exception e) {
 			Util.info("Nao foi possivel setar o online mode para true!");
-			BukkitMain.getPlugin().getServer().getPluginManager().disablePlugin(BukkitMain.getPlugin());
+			PotePvP.getPlugin().getServer().getPluginManager().disablePlugin(PotePvP.getPlugin());
 		}
 	}
 

@@ -21,7 +21,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.BlockIterator;
 import org.bukkit.util.Vector;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 import br.com.yallandev.potepvp.kit.Kit;
 import br.com.yallandev.potepvp.utils.ItemManager;
 
@@ -94,7 +94,7 @@ public class Avatar extends Kit {
 					Vector Ferro = player.getLocation().getDirection().normalize().multiply(55);
 					Snowball FerroH = (Snowball) player.launchProjectile(Snowball.class);
 					FerroH.setVelocity(Ferro);
-					FerroH.setMetadata("Vento", new FixedMetadataValue(BukkitMain.getPlugin(), Boolean.valueOf(true)));
+					FerroH.setMetadata("Vento", new FixedMetadataValue(PotePvP.getPlugin(), Boolean.valueOf(true)));
 
 					Location pegou = player.getEyeLocation();
 
@@ -115,7 +115,7 @@ public class Avatar extends Kit {
 					Vector Ferro = player.getLocation().getDirection().normalize().multiply(55);
 					Snowball FerroH = (Snowball) player.launchProjectile(Snowball.class);
 					FerroH.setVelocity(Ferro);
-					FerroH.setMetadata("Agua", new FixedMetadataValue(BukkitMain.getPlugin(), Boolean.valueOf(true)));
+					FerroH.setMetadata("Agua", new FixedMetadataValue(PotePvP.getPlugin(), Boolean.valueOf(true)));
 
 					Location pegou = player.getEyeLocation();
 
@@ -136,7 +136,7 @@ public class Avatar extends Kit {
 					Vector Ferro = player.getLocation().getDirection().normalize().multiply(55);
 					Snowball FerroH = (Snowball) player.launchProjectile(Snowball.class);
 					FerroH.setVelocity(Ferro);
-					FerroH.setMetadata("Fogo", new FixedMetadataValue(BukkitMain.getPlugin(), Boolean.valueOf(true)));
+					FerroH.setMetadata("Fogo", new FixedMetadataValue(PotePvP.getPlugin(), Boolean.valueOf(true)));
 
 					Location pegou = player.getEyeLocation();
 
@@ -157,7 +157,7 @@ public class Avatar extends Kit {
 					Vector Ferro = player.getLocation().getDirection().normalize().multiply(55);
 					Snowball FerroH = (Snowball) player.launchProjectile(Snowball.class);
 					FerroH.setVelocity(Ferro);
-					FerroH.setMetadata("Terra", new FixedMetadataValue(BukkitMain.getPlugin(), Boolean.valueOf(true)));
+					FerroH.setMetadata("Terra", new FixedMetadataValue(PotePvP.getPlugin(), Boolean.valueOf(true)));
 
 					Location pegou = player.getEyeLocation();
 

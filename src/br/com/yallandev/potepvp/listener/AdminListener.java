@@ -8,13 +8,13 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import br.com.yallandev.potepvp.BukkitMain;
+import com.github.caaarlowsz.potemc.kitpvp.PotePvP;
 
 public class AdminListener implements Listener {
 
-	private BukkitMain main;
+	private PotePvP main;
 
-	public AdminListener(BukkitMain main) {
+	public AdminListener(PotePvP main) {
 		this.main = main;
 	}
 
@@ -48,7 +48,7 @@ public class AdminListener implements Listener {
 					public void run() {
 						p.performCommand("admin");
 					}
-				}.runTaskLater(BukkitMain.getInstance(), 10);
+				}.runTaskLater(PotePvP.getInstance(), 10);
 			}
 		}
 	}
